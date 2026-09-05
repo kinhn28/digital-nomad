@@ -197,27 +197,29 @@ for (let i = 0; i < bgShots.length; i++) {
   }, [bgShots[i], boxes[i]]));
 }
 
-// 3-b) 마지막 줄에 몇 글자만 남는 고아줄 찾기
-const orphans = await page.evaluate(() => {
+// 3-b) 줄별 채움 비율 — 짧은 줄이 있으면 문장을 고쳐야 함
+const lines = await page.evaluate(() => {
   const out = [];
   document.querySelectorAll('.s.ph').forEach((card, i) => {
-    card.querySelectorAll('.read p, .lead3, .items li span, .txt h2').forEach((el) => {
+    card.querySelectorAll('.read p, .items li span, .txt h2').forEach((el) => {
       const r = document.createRange();
       r.selectNodeContents(el);
       const rects = [...r.getClientRects()].filter((x) => x.width > 1);
-      if (rects.length < 2) return;
-      const last = rects[rects.length - 1];
-      const ratio = last.width / el.getBoundingClientRect().width;
-      if (ratio < 0.18)
-        out.push({ i: i + 1, ratio: +ratio.toFixed(2), text: el.textContent.trim().slice(-24) });
+      if (rects.length < 2) return;                       // 한 줄이면 볼 것 없음
+      const box = el.getBoundingClientRect().width;
+      const fills = rects.map((x) => +(x.width / box).toFixed(2));
+      const worst = Math.min(...fills);
+      if (worst < 0.55)
+        out.push({ i: i + 1, fills, worst, text: el.textContent.trim().slice(0, 34) });
     });
   });
   return out;
 });
-if (orphans.length) {
-  console.log('\n줄바꿈 점검 — 마지막 줄에 몇 글자만 남은 곳');
-  orphans.forEach((o) => console.log(`  ${NAMES[o.i - 1]}  (${Math.round(o.ratio * 100)}%) …${o.text}`));
-  console.log('  → 문장을 줄이거나 끊어 쓰세요.\n');
+if (lines.length) {
+  console.log('\n줄 채움 점검 — 짧은 줄이 있는 문장 (문장을 고쳐 채우세요)');
+  lines.forEach((o) =>
+    console.log(`  ${NAMES[o.i - 1]}  [${o.fills.map((f) => Math.round(f * 100)).join(' · ')}%]  ${o.text}…`));
+  console.log('');
 }
 
 // 4) 리포트
