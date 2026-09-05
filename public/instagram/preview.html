@@ -1,149 +1,211 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8">
     <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#DCD3CA; font-family:'Noto Sans KR',sans-serif; -webkit-font-smoothing:antialiased; }
-  .slide { width:1080px; height:1350px; position:relative; overflow:hidden;
-           display:flex; flex-direction:column; padding:72px; }
+  body { background:#DDDDE1; font-family:Pretendard,sans-serif;
+         -webkit-font-smoothing:antialiased; font-feature-settings:"tnum"; }
+  .s { width:1080px; height:1350px; padding:80px; position:relative;
+       display:flex; flex-direction:column; overflow:hidden; }
 
-  .wm { position:absolute; left:0; right:0; text-align:center; font-size:25px; font-weight:800;
-        letter-spacing:.26em; }
-  .wm.top { top:52px; color:rgba(255,255,255,.55); }
-  .wm.bottom { bottom:44px; color:#CDBFB4; }
+  /* 상·하단 메타 — 라운드 배지 대신 헤어라인 규칙 */
+  .meta { display:flex; align-items:baseline; font-size:23px; font-weight:600;
+          letter-spacing:.02em; padding-bottom:22px; border-bottom:1px solid var(--rule); }
+  .meta .r { margin-left:auto; font-weight:600; letter-spacing:.1em; }
+  .foot { margin-top:auto; padding-top:24px; border-top:1px solid var(--rule);
+          display:flex; align-items:baseline; font-size:23px; font-weight:600; }
+  .foot .r { margin-left:auto; letter-spacing:.02em; }
 
-  /* ───────── 커버 ───────── */
-  .cover { background:
-      radial-gradient(90% 55% at 74% 26%, rgba(255,164,96,.26) 0%, transparent 62%),
-      linear-gradient(160deg, #2E211B 0%, #0F0A08 78%); }
-  .cover .photo { position:absolute; inset:0; background-size:cover; background-position:center; }
-  .cover .scrim { position:absolute; inset:0;
-    background:linear-gradient(to bottom, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 35%,
-                                rgba(0,0,0,.72) 68%, rgba(0,0,0,.92) 100%); }
-  .cover .deco { position:absolute; right:-30px; top:250px; font-size:400px; line-height:1;
-                 opacity:.22; transform:rotate(-12deg);
-                 filter:drop-shadow(0 0 90px rgba(255,170,110,.35)); }
-  .cover .deco.sm { right:auto; left:60px; top:180px; font-size:150px; opacity:.13;
-                    transform:rotate(14deg); filter:none; }
-  .cover .block { margin-top:auto; position:relative; }
-  .cover .wm { z-index:2; }
-  .chip { display:inline-flex; align-items:center; gap:14px; font-size:29px; font-weight:800;
-          color:#fff; }
-  .chip::before { content:''; width:7px; height:31px; border-radius:4px; background:#FF5C39; }
-  .cover h1 { margin-top:26px; font-size:92px; font-weight:900; line-height:1.24;
-              letter-spacing:-.04em; color:#fff; }
-  .cover .hl { color:#FFD84D; }
-  .cover .foot { margin-top:26px; font-size:27px; font-weight:700; color:rgba(255,255,255,.62); }
+  b { font-weight:800; color:var(--acc); }
 
-  /* ───────── 내부 ───────── */
-  .body { color:#1A1413;
-          background-color:#FFF7EF;
-          background-image:radial-gradient(#EDE0D4 2px, transparent 2px);
-          background-size:46px 46px; }
+  /* ── 표지 ── */
+  .eyebrow { font-size:27px; font-weight:700; color:var(--acc); margin-top:64px; }
+  h1 { margin-top:22px; font-size:96px; font-weight:800; line-height:1.24;
+       letter-spacing:-.045em; color:var(--fg); }
+  .figure { font-size:172px; font-weight:800; line-height:0; letter-spacing:-.05em;
+            color:var(--acc); display:inline-block; vertical-align:-26px; margin-left:18px; }
+  .cfoot { margin-top:auto; margin-bottom:34px; font-size:29px; font-weight:600;
+           line-height:1.55; color:var(--body); }
 
-  .head { display:flex; align-items:center; gap:16px; }
-  .badge { background:#FF5C39; color:#fff; font-size:27px; font-weight:800;
-           padding:13px 28px; border-radius:999px; }
-  .pill { margin-left:auto; background:#FFD84D; color:#1A1413; font-size:25px; font-weight:800;
-          padding:13px 26px; border-radius:999px; }
+  /* ── 혜택 내지 ── */
+  .no { margin-top:58px; font-size:30px; font-weight:800; letter-spacing:.24em; color:var(--acc); }
+  .name { margin-top:26px; font-size:88px; font-weight:800; line-height:1.16;
+          letter-spacing:-.045em; color:var(--fg); }
+  .amt { margin-top:44px; display:flex; align-items:baseline; gap:20px; flex-wrap:wrap; }
+  .amt .v { font-size:104px; font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--acc); }
+  .amt .c { font-size:30px; font-weight:600; color:var(--body); }
+  .para { margin-top:auto; margin-bottom:40px; display:flex; flex-direction:column; gap:22px; }
+  .para p { font-size:33px; font-weight:500; line-height:1.62; color:var(--body);
+            letter-spacing:-.015em; max-width:880px; }
 
-  .body h2 { margin-top:34px; font-size:66px; font-weight:900; line-height:1.28;
-             letter-spacing:-.04em; }
-  .body .hl { color:#FF5C39; }
+  /* ── 새벽(명조) ── */
+  .moon { margin-top:auto; width:104px; height:104px; border-radius:50%;
+          background:var(--acc); position:relative; }
+  .moon::after { content:''; position:absolute; left:28px; top:-8px; width:104px; height:104px;
+                 border-radius:50%; background:var(--bg); }
+  .time { margin-top:38px; font-size:26px; font-weight:700; letter-spacing:.22em; color:var(--acc); }
+  .verse { margin-top:34px; font-family:'Noto Serif KR',serif; font-size:72px; font-weight:600;
+           line-height:1.62; letter-spacing:-.035em; color:var(--fg); }
+  .vsub { margin-top:36px; margin-bottom:52px; font-size:27px; font-weight:500; line-height:1.6;
+          color:var(--body); }
+  .sign { margin-top:auto; margin-bottom:auto; font-family:'Noto Serif KR',serif;
+          font-size:76px; font-weight:600; line-height:1.6; letter-spacing:-.035em; color:var(--fg); }
 
-  .mods { margin-top:44px; margin-bottom:70px; flex:1; display:flex; flex-direction:column;
-          justify-content:center; gap:34px; }
+  /* ── 정보 Q&A ── */
+  .q { margin-top:60px; font-size:29px; font-weight:700; color:var(--acc); }
+  .big { margin-top:24px; font-size:74px; font-weight:800; line-height:1.3;
+         letter-spacing:-.045em; color:var(--fg); }
+  .warn { margin-top:34px; padding-top:26px; border-top:1px solid var(--rule);
+          font-size:27px; font-weight:600; line-height:1.6; color:var(--meta); }
 
-  .mtitle { font-size:26px; font-weight:800; color:#8A7F78; margin-bottom:20px; }
+  /* ── 커뮤니티 말풍선 ── */
+  .chat { margin:auto 0; display:flex; flex-direction:column; gap:52px; }
+  .msg { max-width:82%; }
+  .msg.r { align-self:flex-end; }
+  .mhead { font-size:24px; font-weight:600; color:var(--meta); margin-bottom:14px;
+           display:flex; align-items:center; gap:12px; }
+  .mhead .bd { color:var(--acc); font-weight:800; }
+  .bub { background:#F4F5F7; border-radius:6px 26px 26px 26px; padding:32px 34px;
+         font-size:35px; font-weight:600; line-height:1.5; letter-spacing:-.02em; color:var(--fg); }
+  .msg.r .mhead { justify-content:flex-end; }
+  .msg.r .bub { background:#EBF1FF; border-radius:26px 6px 26px 26px; }
+  .cfoot2 { margin-top:auto; margin-bottom:40px; font-size:29px; font-weight:600; color:var(--meta); }
 
-  .checks { display:flex; flex-direction:column; gap:16px; }
-  .check { display:flex; align-items:center; gap:22px; background:#fff; border:2px solid #EDE0D4;
-           border-radius:26px; padding:34px 32px; box-shadow:0 8px 18px rgba(90,60,40,.05); }
-  .check .box { flex:none; width:44px; height:44px; border-radius:14px; background:#FF5C39;
-                color:#fff; font-size:26px; font-weight:900;
-                display:flex; align-items:center; justify-content:center; }
-  .check .tx { font-size:34px; font-weight:800; letter-spacing:-.02em; }
-
-  .list { background:#fff; border:2px solid #EDE0D4; border-radius:28px; padding:8px 34px;
-          box-shadow:0 8px 18px rgba(90,60,40,.05); }
-  .row { padding:34px 0; border-bottom:2px solid #EDE0D4; }
-  .row:last-child { border-bottom:0; }
-  .row .l { font-size:25px; font-weight:700; color:#8A7F78; }
-  .row .v { font-size:40px; font-weight:800; letter-spacing:-.03em; margin-top:8px; }
-
-  .steps { display:flex; gap:18px; }
-  .step { flex:1; background:#fff; border:2px solid #EDE0D4; border-radius:26px; padding:36px 28px;
-          box-shadow:0 8px 18px rgba(90,60,40,.05); }
-  .step .n { font-size:23px; font-weight:900; color:#FF5C39; letter-spacing:.12em; }
-  .step .t { margin-top:16px; font-size:31px; font-weight:800; line-height:1.35; letter-spacing:-.02em; }
-
-  .note { background:#FFF1E4; border-radius:26px; padding:34px 36px;
-          font-size:30px; font-weight:700; line-height:1.5; color:#6B5F58; }
-  .note .hl { color:#1A1413; font-weight:900; }
-
-  /* ───────── CTA ───────── */
-  .cta { background:#FF5C39; color:#fff; justify-content:center; }
-  .cta .mark { font-size:150px; line-height:1; }
-  .cta h2 { margin-top:36px; font-size:82px; font-weight:900; line-height:1.24; letter-spacing:-.04em; }
-  .cta .sub { margin-top:26px; font-size:31px; font-weight:700; color:rgba(255,255,255,.85); }
-  .cta .card { margin-top:56px; background:#fff; color:#1A1413; border-radius:30px;
-               padding:34px 38px; display:flex; align-items:center; gap:20px; }
-  .cta .card .name { font-size:38px; font-weight:900; letter-spacing:-.03em; }
-  .cta .card .tag { font-size:25px; font-weight:700; color:#8A7F78; margin-top:6px; }
-  .cta .card .go { margin-left:auto; font-size:27px; font-weight:900; color:#FF5C39; }
-  .cta .wm { color:rgba(255,255,255,.6); }
-</style></head><body><section class="slide cover">
-  <div class="wm top">@BUMORO</div>
-  
-  <div class="deco">💸</div><div class="deco sm">💸</div>
-  <div class="scrim"></div>
-  <div class="block">
-    <div class="chip">부모경제</div>
-    <h1>애 낳고 돈 새는 곳<br>딱 <span class="hl">3군데</span>였다</h1>
-    <div class="foot">→ 오늘 밤 5분이면 정리 끝</div>
-  </div>
-</section><section class="slide body">
-  <div class="head">
-    <div class="badge">왜 안 모일까</div>
-    
-  </div>
-  <h2>버는 건 그대론데<br><span class="hl">통장만</span> 텅 비는 이유</h2>
-  <div class="mods"><div><div class="mtitle">하나라도 해당되면 계속 보세요</div>
-      <div class="checks"><div class="check"><div class="box">✓</div><div class="tx">결제 문자 보고 "이게 뭐지?" 한 적 있다</div></div><div class="check"><div class="box">✓</div><div class="tx">애 장난감인데 내가 더 신났다</div></div><div class="check"><div class="box">✓</div><div class="tx">오늘도 결국 배달앱을 켰다</div></div></div></div><div class="note">셋 다 해당돼도 괜찮아요. <span class="hl">저도 그랬거든요.</span></div></div>
-  <div class="wm bottom">@BUMORO</div>
-</section><section class="slide body">
-  <div class="head">
-    <div class="badge">구멍 ①</div>
-    <div class="pill">5분이면 끝</div>
-  </div>
-  <h2>나도 모르게 빠져나가는<br><span class="hl">구독료</span></h2>
-  <div class="mods"><div class="steps"><div class="step"><div class="n">STEP 1</div>
-        <div class="t">결제내역<br>3개월치 열기</div></div><div class="step"><div class="n">STEP 2</div>
-        <div class="t">안 쓴 것<br>표시해두기</div></div><div class="step"><div class="n">STEP 3</div>
-        <div class="t">그 자리에서<br>해지 누르기</div></div></div><div class="note">흩어진 건 <span class="hl">가족 요금제</span>로 묶으면 한 번에 정리돼요</div></div>
-  <div class="wm bottom">@BUMORO</div>
-</section><section class="slide body">
-  <div class="head">
-    <div class="badge">구멍 ②</div>
-    
-  </div>
-  <h2>사줄 땐 몰랐던<br><span class="hl">장난감</span> 회전율</h2>
-  <div class="mods"><div class="list"><div class="row"><div class="l">새 장난감 관심</div><div class="v">생각보다 짧습니다</div></div><div class="row"><div class="l">대안</div><div class="v">장난감 도서관 · 이웃 나눔</div></div><div class="row"><div class="l">우리 집 규칙</div><div class="v">하나 들이면 하나 보내기</div></div></div><div class="note">사기 전 <span class="hl">3일만</span> 장바구니에 재워두세요</div></div>
-  <div class="wm bottom">@BUMORO</div>
-</section><section class="slide body">
-  <div class="head">
-    <div class="badge">구멍 ③</div>
-    
-  </div>
-  <h2>손이 먼저 가는<br><span class="hl">배달앱</span></h2>
-  <div class="mods"><div><div class="mtitle">오늘 바로 할 수 있는 것</div>
-      <div class="checks"><div class="check"><div class="box">✓</div><div class="tx">앱을 첫 화면에서 치우기</div></div><div class="check"><div class="box">✓</div><div class="tx">밀키트 2개는 냉동실에 상비</div></div><div class="check"><div class="box">✓</div><div class="tx">"진짜 힘든 날"에만 쓰기로 정하기</div></div></div></div><div class="note">안 시키는 게 아니라 <span class="hl">덜 시키는 것</span>이 목표</div></div>
-  <div class="wm bottom">@BUMORO</div>
-</section><section class="slide cta">
-  <div class="mark">🍼</div>
-  <h2>오늘 밤 5분,<br>딱 하나만 해보기</h2>
-  <div class="sub">저장해뒀다가 주말에 같이 봐요</div>
-  <div class="card">
-    <div><div class="name">부모로</div><div class="tag">바쁜 부모를 위한 정보</div></div>
-    <div class="go">@bumoro</div>
-  </div>
-  <div class="wm bottom">SAVE · SHARE</div>
+  /* ── 엔딩 ── */
+  .end h1 { margin-top:auto; }
+  .ebody { margin-top:40px; max-width:900px; font-size:35px; font-weight:500; line-height:1.62;
+           letter-spacing:-.02em; color:var(--body); }
+  .enote { margin-top:auto; margin-bottom:40px; font-size:29px; font-weight:700; color:var(--fg); }
+</style></head><body><section class="s " style="
+    --bg:#EAF5F9; --fg:#14181F; --acc:#2E7E9A; --meta:#697180; --rule:#D3E5EC;
+    --body:#4B5563; background:#EAF5F9; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 혜택</span><span class="r">1/5</span></div>
+  <div class="eyebrow">낳았다고 자동으로 들어오지 않아</div>
+        <h1>신청 안 하면<br>못 받는 돈<span class="figure">3</span></h1>
+        <div class="cfoot">첫째 둘째 상관없이, 지금 0세 키우면 전부 해당</div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#EAF5F9; --fg:#14181F; --acc:#2E7E9A; --meta:#697180; --rule:#D3E5EC;
+    --body:#4B5563; background:#EAF5F9; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 혜택</span><span class="r">2/5</span></div>
+  <div class="no">NO.01</div>
+        <div class="name">부모급여</div>
+        <div class="amt"><span class="v">월 100만원</span>
+          <span class="c">0세 기준</span></div>
+        <div class="para"><p>1세는 월 50만원. 계좌로 현금 입금이야.</p><p>출생 후 <b>60일 안에</b> 신청해야 태어난 달부터 소급돼. 늦으면 신청한 달부터야.</p></div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#EAF5F9; --fg:#14181F; --acc:#2E7E9A; --meta:#697180; --rule:#D3E5EC;
+    --body:#4B5563; background:#EAF5F9; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 혜택</span><span class="r">3/5</span></div>
+  <div class="no">NO.02</div>
+        <div class="name">아동수당</div>
+        <div class="amt"><span class="v">월 10만원</span>
+          <span class="c">만 8세 미만</span></div>
+        <div class="para"><p>부모급여랑 <b>중복으로 받는 돈</b>이야. 소득 상관없이 전부.</p><p>이것도 60일 소급 규칙 동일. 출생신고 하는 날 같이 끝내는 게 답이야.</p></div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#EAF5F9; --fg:#14181F; --acc:#2E7E9A; --meta:#697180; --rule:#D3E5EC;
+    --body:#4B5563; background:#EAF5F9; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 혜택</span><span class="r">4/5</span></div>
+  <div class="no">NO.03</div>
+        <div class="name">우리 동네<br>출산지원금</div>
+        <div class="amt"><span class="v">동네마다 다름</span>
+          </div>
+        <div class="para"><p>여기가 <b>제일 많이 새는 구멍</b>이야. 같은 서울인데 구마다 다르고, 첫째냐 둘째냐로도 갈려.</p><p>전입 조건 있는 동네도 있어. 주민센터 한 번이면 끝나.</p></div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s end" style="
+    --bg:#EAF5F9; --fg:#14181F; --acc:#2E7E9A; --meta:#697180; --rule:#D3E5EC;
+    --body:#4B5563; background:#EAF5F9; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 혜택</span><span class="r">5/5</span></div>
+  <h1>이런 거 하나하나<br>검색할 시간 없잖아.</h1>
+        <div class="ebody">정부지원금부터 브랜드 혜택까지,<br>부모로가 다 모아뒀어. <b>무료야.</b></div>
+        <div class="enote">저장해두고, 프로필 링크에서 확인 🩵</div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#141A2E; --fg:#F2F4F8; --acc:#F4D06F; --meta:#8E9AB8; --rule:rgba(255,255,255,.16);
+    --body:#8E9AB8; background:#141A2E; color:#F2F4F8;">
+  <div class="meta" style="color:#8E9AB8"><span>부모로 · 새벽</span><span class="r">1/4</span></div>
+  <div class="moon"></div>
+        <div class="time">AM 3:00</div>
+        <div class="verse">새벽 3시,<br>깨어 있는 건<br>너만이 아니야</div>
+        <div class="vsub">지금 이 시간에도 전국의 부모들이 같이 깨어 있어</div>
+  <div class="foot" style="color:#8E9AB8"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#141A2E; --fg:#F2F4F8; --acc:#F4D06F; --meta:#8E9AB8; --rule:rgba(255,255,255,.16);
+    --body:#8E9AB8; background:#141A2E; color:#F2F4F8;">
+  <div class="meta" style="color:#8E9AB8"><span>부모로 · 새벽</span><span class="r">2/4</span></div>
+  <div class="moon"></div>
+        <div style="height:38px"></div>
+        <div class="verse">아기가 안 자는 건<br>시기 때문이고,<br>네 탓이 아니야</div>
+        <div class="vsub">퇴행기는 지나가. 너는 잘하고 있어</div>
+  <div class="foot" style="color:#8E9AB8"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#141A2E; --fg:#F2F4F8; --acc:#F4D06F; --meta:#8E9AB8; --rule:rgba(255,255,255,.16);
+    --body:#8E9AB8; background:#141A2E; color:#F2F4F8;">
+  <div class="meta" style="color:#8E9AB8"><span>부모로 · 새벽</span><span class="r">3/4</span></div>
+  <div class="moon"></div>
+        <div style="height:38px"></div>
+        <div class="verse">오늘 아무것도<br>못 했다는 사람이,<br>사람 하나를 키웠다</div>
+        <div class="vsub">그게 오늘 한 일의 전부이자 최대야</div>
+  <div class="foot" style="color:#8E9AB8"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#141A2E; --fg:#F2F4F8; --acc:#F4D06F; --meta:#8E9AB8; --rule:rgba(255,255,255,.16);
+    --body:#8E9AB8; background:#141A2E; color:#F2F4F8;">
+  <div class="meta" style="color:#8E9AB8"><span>부모로 · 새벽</span><span class="r">4/4</span></div>
+  <div class="sign">부모의 새벽을<br>알아요, 부모로<br><span style="color:#F4D06F">🩵</span></div>
+  <div class="foot" style="color:#8E9AB8"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#FCFAF6; --fg:#14181F; --acc:#E28800; --meta:#697180; --rule:#E4E7EB;
+    --body:#4B5563; background:#FCFAF6; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 정보</span><span class="r">1/4</span></div>
+  <div class="eyebrow">지금 유행기</div>
+        <h1>여름 수족구,<br>부모가 제일<br>헷갈리는 것들</h1>
+        <div class="cfoot">겪어본 부모들이 미리 알려주는 것 3가지</div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#FCFAF6; --fg:#14181F; --acc:#E28800; --meta:#697180; --rule:#E4E7EB;
+    --body:#4B5563; background:#FCFAF6; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 정보</span><span class="r">2/4</span></div>
+  <div class="q">등원은 언제부터?</div>
+        <div class="big">기준은 다니는<br>기관의 안내야</div>
+        <div class="para"><p>원마다 방침이 달라서 <b>전화 한 통</b>이 제일 빠르고 정확해.</p><p>카더라로 보내면 서로 곤란해져.</p>
+          </div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#FCFAF6; --fg:#14181F; --acc:#E28800; --meta:#697180; --rule:#E4E7EB;
+    --body:#4B5563; background:#FCFAF6; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 정보</span><span class="r">3/4</span></div>
+  <div class="q">안 먹어서 미치겠을 때</div>
+        <div class="big">먹는 것보다<br>마시는 게 중요해</div>
+        <div class="para"><p>입이 아픈 시기라 <b>차갑고 부드러운 것</b> 위주로. 밥 거부는 며칠이면 돌아와.</p>
+          <div class="warn">소변이 확 줄었다면 그날은 병원 가는 날이야. 부모들의 경험 공유이고, 진단은 소아과에서.</div></div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s end" style="
+    --bg:#FCFAF6; --fg:#14181F; --acc:#E28800; --meta:#697180; --rule:#E4E7EB;
+    --body:#4B5563; background:#FCFAF6; color:#14181F;">
+  <div class="meta" style="color:#697180"><span>부모로 · 정보</span><span class="r">4/4</span></div>
+  <h1>겪어본 부모들의 답이<br>매일 올라와</h1>
+        <div class="ebody">격리 며칠 했는지, 뭘 먹였는지 —<br>교과서엔 없는 답은 <b>부모로 이야기</b>에 있어.</div>
+        <div class="enote">저장해두고, 프로필 링크로 🩵</div>
+  <div class="foot" style="color:#697180"><span>@bumoro.kr</span></div>
+</section><section class="s " style="
+    --bg:#FFFFFF; --fg:#14181F; --acc:#2B6FFF; --meta:#8A92A1; --rule:#E4E7EB;
+    --body:#4B5563; background:#FFFFFF; color:#14181F;">
+  <div class="meta" style="color:#8A92A1"><span>부모로 · 이야기</span><span class="r">1/2</span></div>
+  <div class="chat"><div class="msg l">
+            <div class="mhead"><span>새벽 2:41 · 익명의 3개월맘</span>
+              </div>
+            <div class="bub">내려놓으면 3초 만에 깨요.<br>정상인가요? 팔이 남아나질 않아요</div></div><div class="msg r">
+            <div class="mhead"><span>새벽 2:53 · 익명의 봄이맘</span>
+              <span class="bd">채택</span></div>
+            <div class="bub">저희도 그랬어요. 4개월쯤 나아졌어요.<br>지금은 버티는 시기가 맞아요</div></div></div>
+        <div class="cfoot2">12분 만에 달린 답이었어</div>
+  <div class="foot" style="color:#8A92A1"><span>@bumoro.kr</span></div>
+</section><section class="s end" style="
+    --bg:#FFFFFF; --fg:#14181F; --acc:#2B6FFF; --meta:#8A92A1; --rule:#E4E7EB;
+    --body:#4B5563; background:#FFFFFF; color:#14181F;">
+  <div class="meta" style="color:#8A92A1"><span>부모로 · 이야기</span><span class="r">2/2</span></div>
+  <h1>새벽에 물어도<br>답이 오는 곳이 있어</h1>
+        <div class="ebody">통잠, 등센서, 수족구, 이유식거부 —<br>단어마다 <b>겪어본 선배</b>들이 모여 있어.</div>
+        <div class="enote">팔로우하고 매일 챙겨가 🩵</div>
+  <div class="foot" style="color:#8A92A1"><span>@bumoro.kr</span></div>
 </section></body></html>

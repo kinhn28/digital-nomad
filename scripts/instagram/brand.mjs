@@ -1,25 +1,28 @@
-// 부모로 브랜드 토큰
-// ※ 공식 브랜드 가이드(아티팩트) 확인 전 임시 값입니다. 확정 값 받으면 이 파일만 교체하면 됩니다.
+// 부모로 브랜드 토큰 — 인스타그램 콘텐츠 시안(HTML) 기준
 export const BRAND = {
   name: '부모로',
-  handle: '@bumoro',
-  tagline: '바쁜 부모를 위한 정보',
+  handle: '@bumoro.kr',
+  bio: '받을 수 있는 건 다 챙겨요. 부모 마음까지도 🩵',
 };
 
-export const C = {
-  ink: '#1A1413',   // 본문 텍스트 (웜 블랙)
-  paper: '#FFF7EF', // 내부 슬라이드 배경 (웜 크림)
-  coral: '#FF5C39', // 메인 강조 (밝은 배경용)
-  lemon: '#FFD84D', // 커버 강조 (어두운 배경용)
-  sub: '#8A7F78',   // 보조 텍스트
-  line: '#EDE0D4',  // 구분선/테두리
-  soft: '#FFF1E4',  // 노트 패널 배경
-  darkA: '#2E211B', // 커버 그라데이션 상단
-  darkB: '#0F0A08', // 커버 그라데이션 하단
+// 시안 CSS의 :root 값 그대로
+export const P = {
+  ink: '#14181F', g8: '#2E3642', g7: '#4B5563', g6: '#697180', g5: '#8A92A1', g4: '#B2B9C4',
+  line: '#F0F1F4', line2: '#E4E7EB', sub: '#F4F5F7',
+  blue: '#2B6FFF', blueBg: '#EBF1FF',
+  sky: '#4FA9C7', skyD: '#2E7E9A', skyL: '#8FCDE2', skyBg: '#EAF5F9',
+  navy: '#141A2E', navy2: '#1D2742', moon: '#F4D06F', navySub: '#8E9AB8',
+  cream: '#FCFAF6', amber: '#E28800', coral: '#FF5C6C',
 };
 
-// 고정 카테고리 (칩/배지에 돌려 씀)
-export const CATEGORIES = [
-  '육아꿀팁', '맘카페썰', '부모경제', '지원금',
-  '공구', '꿀템', '앱추천', '소식',
-];
+// 피드 3톤: 흰색(정보) · 하늘(혜택) · 네이비(힐링)
+export const THEMES = {
+  benefit: { bg: P.skyBg, fg: P.ink, accent: P.skyD, meta: P.g6, rule: '#D3E5EC',
+             body: P.g7, label: '부모로 · 혜택' },
+  dawn:    { bg: P.navy, fg: '#F2F4F8', accent: P.moon, meta: P.navySub,
+             rule: 'rgba(255,255,255,.16)', body: P.navySub, label: '부모로 · 새벽', serif: true },
+  info:    { bg: P.cream, fg: P.ink, accent: P.amber, meta: P.g6, rule: P.line2,
+             body: P.g7, label: '부모로 · 정보' },
+  story:   { bg: '#FFFFFF', fg: P.ink, accent: P.blue, meta: P.g5, rule: P.line2,
+             body: P.g7, label: '부모로 · 이야기' },
+};
