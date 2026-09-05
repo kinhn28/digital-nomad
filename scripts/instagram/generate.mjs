@@ -105,6 +105,7 @@ for (let i = 0; i < bgShots.length; i++) {
 let fail = 0;
 console.log('\n가독성 검사 — 흰 글자 기준 명도대비 (WCAG: 본문 4.5, 큰 글자 3.0)');
 report.forEach((regions, i) => {
+  if (!regions.length) { console.log(` ${NAMES[i]}  사진 없는 카드 — 검사 제외`); return; }
   const worst = regions.reduce((a, r) => (r.cr < a.cr ? r : a), { cr: 99 });
   const bad = regions.filter((r) => r.cr < MIN[r.kind]);
   fail += bad.length;

@@ -107,16 +107,92 @@
   .ph .center .t { margin-top:26px; font-size:29px; font-weight:600;
     color:rgba(255,255,255,.92); letter-spacing:-.02em; }
 
+  /* ═══ 사진 없이 코드로 그리는 카드들 ═══ */
+
+  /* ① 단톡방 대화 */
+  .talk { background:#EAF5F9; padding:78px 72px; }
+  .talk .room { font-size:26px; font-weight:700; color:#697180; padding-bottom:26px;
+    border-bottom:1px solid #D3E5EC; display:flex; align-items:baseline; }
+  .talk .room span { margin-left:auto; font-weight:600; color:#8A92A1; }
+  .talk .msgs { margin:auto 0; display:flex; flex-direction:column; gap:34px; }
+  .talk .m { max-width:80%; }
+  .talk .m.r { align-self:flex-end; }
+  .talk .who { font-size:24px; font-weight:600; color:#697180; margin-bottom:12px; }
+  .talk .bb { background:#fff; border:2px solid #DCEAF0; border-radius:8px 28px 28px 28px;
+    padding:30px 34px; font-size:36px; font-weight:600; line-height:1.5;
+    letter-spacing:-.025em; color:#14181F; }
+  .talk .m.r .bb { background:#8FCDE2; border-color:#8FCDE2;
+    border-radius:28px 8px 28px 28px; }
+  .talk .mark2 { margin-top:auto; padding-top:28px; font-size:24px; font-weight:600;
+    color:#8A92A1; }
+
+  /* ② 달력 */
+  .cal { background:#FCFAF6; padding:80px 72px; }
+  .cal h3 { font-size:88px; font-weight:800; letter-spacing:-.05em; color:#14181F; }
+  .cal .lead2 { margin-top:14px; font-size:30px; font-weight:600; color:#697180; }
+  .cal .grid { margin:auto 0; display:grid; grid-template-columns:repeat(7,1fr); gap:10px 6px; }
+  .cal .dow { text-align:center; font-size:25px; font-weight:700; color:#8A92A1;
+    padding-bottom:14px; }
+  .cal .d { height:112px; display:flex; align-items:center; justify-content:center; }
+  /* 셀이 정사각이 아니라 원 대신 타원이 되던 문제 → 안쪽에 고정 크기 원을 둠 */
+  .cal .d span { width:96px; height:96px; display:flex; align-items:center;
+    justify-content:center; border-radius:50%; font-size:34px; font-weight:600;
+    color:#14181F; }
+  .cal .d.on span { background:#2E7E9A; color:#fff; font-weight:800; }
+  .cal .d.sun span { color:#FF5C6C; }
+  .cal .d.on.sun span { color:#fff; }
+  .cal .keys { display:flex; flex-direction:column; gap:14px; }
+  .cal .key { display:flex; align-items:center; gap:18px; font-size:29px; font-weight:700;
+    color:#14181F; }
+  .cal .key i { width:20px; height:20px; border-radius:50%; background:#2E7E9A; flex:none; }
+  .cal .mark2 { margin-top:34px; font-size:24px; font-weight:600; color:#8A92A1; }
+
+  /* ③ 숫자 대비 */
+  .vs { background:#EAF5F9; padding:80px 72px; }
+  .vs .cap { font-size:30px; font-weight:700; color:#2E7E9A; }
+  .vs .row { margin:auto 0; display:flex; align-items:center; gap:40px; }
+  .vs .side { text-align:center; }
+  .vs .side .t2 { font-size:27px; font-weight:700; color:#8A92A1; margin-bottom:16px; }
+  .vs .side .n { font-size:132px; font-weight:800; letter-spacing:-.06em; line-height:1;
+    color:#B2B9C4; white-space:nowrap; }
+  .vs .side .n i { font-size:.4em; font-style:normal; font-weight:700; margin-left:.06em; }
+  .vs .side.now .n { font-size:196px; color:#2E7E9A; }
+  .vs .side.now .t2 { color:#2E7E9A; }
+  .vs .arw { font-size:70px; font-weight:800; color:#8FCDE2; }
+  .vs .note2 { font-size:34px; font-weight:700; line-height:1.5; color:#14181F; }
+  .vs .mark2 { margin-top:32px; font-size:24px; font-weight:600; color:#8A92A1; }
+
   /* ── 엔딩 ── */
   .end h1 { margin-top:auto; }
   .ebody { margin-top:40px; max-width:900px; font-size:35px; font-weight:500; line-height:1.62;
            letter-spacing:-.02em; color:var(--body); }
   .enote { margin-top:auto; margin-bottom:40px; font-size:29px; font-weight:700; color:var(--fg); }
-</style></head><body><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/flu-02.jpg');background-position:center 42%;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.30) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,.52) 64%, rgba(0,0,0,.86) 100%)"></div>
-  <div class="mark">@bumoro.kr</div>
-    <div class="txt"><div class="kicker">육아<i>|</i>TALK</div>
-      <h2>어머, 이거 몰랐어?<br>독감 접종 14세까지래</h2></div>
-  
-  
-</section></body></html>
+</style></head><body><section class="s talk">
+      <div class="room">우리 동네 학부모 방<span>14명</span></div>
+      <div class="msgs"><div class="m l">
+          <div class="who">준수 엄마</div>
+          <div class="bb">어머 이거 다들 봤어요?<br>독감 무료접종 21일부터래요</div></div><div class="m l">
+          <div class="who">서연 엄마</div>
+          <div class="bb">헐 벌써요? 작년엔 13세까지였는데</div></div><div class="m r">
+          
+          <div class="bb">올해는 14세까지 늘었대요 🩵</div></div><div class="m l">
+          <div class="who">지호 엄마</div>
+          <div class="bb">우리 애도 되는 거네…<br>작년엔 모르고 돈 내고 맞혔는데</div></div></div>
+      <div class="mark2">@bumoro.kr</div>
+    </section><section class="s cal">
+      <h3>9월</h3><div class="lead2">접종 시작일이 두 번으로 나뉩니다</div>
+      <div class="grid"><div class="dow">월</div><div class="dow">화</div><div class="dow">수</div><div class="dow">목</div><div class="dow">금</div><div class="dow">토</div><div class="dow">일</div><div class="d"></div><div class="d"><span>1</span></div><div class="d"><span>2</span></div><div class="d"><span>3</span></div><div class="d"><span>4</span></div><div class="d"><span>5</span></div><div class="d sun"><span>6</span></div><div class="d"><span>7</span></div><div class="d"><span>8</span></div><div class="d"><span>9</span></div><div class="d"><span>10</span></div><div class="d"><span>11</span></div><div class="d"><span>12</span></div><div class="d sun"><span>13</span></div><div class="d"><span>14</span></div><div class="d"><span>15</span></div><div class="d"><span>16</span></div><div class="d"><span>17</span></div><div class="d"><span>18</span></div><div class="d"><span>19</span></div><div class="d sun"><span>20</span></div><div class="d on"><span>21</span></div><div class="d"><span>22</span></div><div class="d"><span>23</span></div><div class="d"><span>24</span></div><div class="d"><span>25</span></div><div class="d"><span>26</span></div><div class="d sun"><span>27</span></div><div class="d on"><span>28</span></div><div class="d"><span>29</span></div><div class="d"><span>30</span></div></div>
+      <div class="keys"><div class="key"><i></i>21일 — 2회 접종 대상 어린이 · 임신부</div><div class="key"><i></i>28일 — 1회 접종 대상 어린이</div></div>
+      <div class="mark2">@bumoro.kr</div>
+    </section><section class="s vs">
+      <div class="cap">올해 달라진 것</div>
+      <div class="row">
+        <div class="side"><div class="t2">지난 절기</div>
+          <div class="n">13<i>세</i></div></div>
+        <div class="arw">&#8594;</div>
+        <div class="side now"><div class="t2">올해</div>
+          <div class="n">14<i>세</i></div></div>
+      </div>
+      <div class="note2">생후 6개월부터 만 14세까지 무료입니다.<br>2012년 1월 1일 ~ 2026년 8월 31일 출생 아동.</div>
+      <div class="mark2">@bumoro.kr</div>
+    </section></body></html>

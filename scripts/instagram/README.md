@@ -86,3 +86,17 @@ node scripts/instagram/generate.mjs --deck=T-flu-talk   # 특정 세트만
 - 본문은 아래쪽에 붙이고 가운데를 비워, 넘기는 동안 리듬이 생기게 합니다.
 
 > 수치·조건은 시안 문서의 문구를 그대로 옮긴 것입니다. 발행 전 최신 기준으로 확인하세요.
+
+## 사진 없이 그리는 카드
+
+매일 사진을 구하기 어려울 때 쓰는 카드 종류입니다. 전부 HTML/CSS로 그려서
+소재를 밖에서 구할 필요가 없고, 문구만 바꾸면 그대로 재사용됩니다.
+
+| kind | 쓰임 | 필요한 값 |
+| --- | --- | --- |
+| `talk` | 동네 학부모 단톡방 대화 | `room` `count` `msgs[{side,who,text}]` |
+| `cal` | 달력에 날짜 표시 | `month` `lead` `blanks` `days` `on[]` `keys[]` |
+| `vs` | 바뀐 숫자 대비 | `cap` `unit` `before/after(+Label)` `note` |
+
+`blanks` 는 그 달 1일 앞에 비워둘 칸 수입니다. 월요일 시작 기준이며,
+`cal 9 2026` 같은 명령으로 확인해서 넣으세요.

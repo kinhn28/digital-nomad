@@ -112,6 +112,61 @@ const CSS = `
   .ph .center .t { margin-top:26px; font-size:29px; font-weight:600;
     color:rgba(255,255,255,.92); letter-spacing:-.02em; }
 
+  /* ═══ 사진 없이 코드로 그리는 카드들 ═══ */
+
+  /* ① 단톡방 대화 */
+  .talk { background:${P.skyBg}; padding:78px 72px; }
+  .talk .room { font-size:26px; font-weight:700; color:${P.g6}; padding-bottom:26px;
+    border-bottom:1px solid #D3E5EC; display:flex; align-items:baseline; }
+  .talk .room span { margin-left:auto; font-weight:600; color:${P.g5}; }
+  .talk .msgs { margin:auto 0; display:flex; flex-direction:column; gap:34px; }
+  .talk .m { max-width:80%; }
+  .talk .m.r { align-self:flex-end; }
+  .talk .who { font-size:24px; font-weight:600; color:${P.g6}; margin-bottom:12px; }
+  .talk .bb { background:#fff; border:2px solid #DCEAF0; border-radius:8px 28px 28px 28px;
+    padding:30px 34px; font-size:36px; font-weight:600; line-height:1.5;
+    letter-spacing:-.025em; color:${P.ink}; }
+  .talk .m.r .bb { background:${P.skyL}; border-color:${P.skyL};
+    border-radius:28px 8px 28px 28px; }
+  .talk .mark2 { margin-top:auto; padding-top:28px; font-size:24px; font-weight:600;
+    color:${P.g5}; }
+
+  /* ② 달력 */
+  .cal { background:${P.cream}; padding:80px 72px; }
+  .cal h3 { font-size:88px; font-weight:800; letter-spacing:-.05em; color:${P.ink}; }
+  .cal .lead2 { margin-top:14px; font-size:30px; font-weight:600; color:${P.g6}; }
+  .cal .grid { margin:auto 0; display:grid; grid-template-columns:repeat(7,1fr); gap:10px 6px; }
+  .cal .dow { text-align:center; font-size:25px; font-weight:700; color:${P.g5};
+    padding-bottom:14px; }
+  .cal .d { height:112px; display:flex; align-items:center; justify-content:center; }
+  /* 셀이 정사각이 아니라 원 대신 타원이 되던 문제 → 안쪽에 고정 크기 원을 둠 */
+  .cal .d span { width:96px; height:96px; display:flex; align-items:center;
+    justify-content:center; border-radius:50%; font-size:34px; font-weight:600;
+    color:${P.ink}; }
+  .cal .d.on span { background:${P.skyD}; color:#fff; font-weight:800; }
+  .cal .d.sun span { color:${P.coral}; }
+  .cal .d.on.sun span { color:#fff; }
+  .cal .keys { display:flex; flex-direction:column; gap:14px; }
+  .cal .key { display:flex; align-items:center; gap:18px; font-size:29px; font-weight:700;
+    color:${P.ink}; }
+  .cal .key i { width:20px; height:20px; border-radius:50%; background:${P.skyD}; flex:none; }
+  .cal .mark2 { margin-top:34px; font-size:24px; font-weight:600; color:${P.g5}; }
+
+  /* ③ 숫자 대비 */
+  .vs { background:${P.skyBg}; padding:80px 72px; }
+  .vs .cap { font-size:30px; font-weight:700; color:${P.skyD}; }
+  .vs .row { margin:auto 0; display:flex; align-items:center; gap:40px; }
+  .vs .side { text-align:center; }
+  .vs .side .t2 { font-size:27px; font-weight:700; color:${P.g5}; margin-bottom:16px; }
+  .vs .side .n { font-size:132px; font-weight:800; letter-spacing:-.06em; line-height:1;
+    color:${P.g4}; white-space:nowrap; }
+  .vs .side .n i { font-size:.4em; font-style:normal; font-weight:700; margin-left:.06em; }
+  .vs .side.now .n { font-size:196px; color:${P.skyD}; }
+  .vs .side.now .t2 { color:${P.skyD}; }
+  .vs .arw { font-size:70px; font-weight:800; color:${P.skyL}; }
+  .vs .note2 { font-size:34px; font-weight:700; line-height:1.5; color:${P.ink}; }
+  .vs .mark2 { margin-top:32px; font-size:24px; font-weight:600; color:${P.g5}; }
+
   /* ── 엔딩 ── */
   .end h1 { margin-top:auto; }
   .ebody { margin-top:40px; max-width:900px; font-size:35px; font-weight:500; line-height:1.62;
@@ -162,6 +217,56 @@ const WM = BRAND.handle;
 
 const PHOTO_KINDS = ['photo', 'photoBody', 'photoEnd', 'photoOnly'];
 
+// ── 사진 없이 그리는 카드 ──────────────────────────────
+const DOW = ['월', '화', '수', '목', '금', '토', '일'];
+
+const drawnCard = (s) => {
+  if (s.kind === 'talk')
+    return `<section class="s talk">
+      <div class="room">${s.room}<span>${s.count}</span></div>
+      <div class="msgs">${s.msgs.map((m) => `<div class="m ${m.side}">
+          ${m.who ? `<div class="who">${m.who}</div>` : ''}
+          <div class="bb">${m.text.replace(/\n/g, '<br>')}</div></div>`).join('')}</div>
+      <div class="mark2">${BRAND.handle}</div>
+    </section>`;
+
+  if (s.kind === 'cal') {
+    const cells = [
+      ...DOW.map((d) => `<div class="dow">${d}</div>`),
+      ...Array.from({ length: s.blanks }, () => '<div class="d"></div>'),
+      ...Array.from({ length: s.days }, (_, i) => {
+        const n = i + 1;
+        const sun = (s.blanks + i) % 7 === 6;
+        return `<div class="d${s.on.includes(n) ? ' on' : ''}${sun ? ' sun' : ''}">`
+             + `<span>${n}</span></div>`;
+      }),
+    ].join('');
+    return `<section class="s cal">
+      <h3>${s.month}</h3><div class="lead2">${s.lead}</div>
+      <div class="grid">${cells}</div>
+      <div class="keys">${s.keys.map((k) => `<div class="key"><i></i>${k}</div>`).join('')}</div>
+      <div class="mark2">${BRAND.handle}</div>
+    </section>`;
+  }
+
+  if (s.kind === 'vs')
+    return `<section class="s vs">
+      <div class="cap">${s.cap}</div>
+      <div class="row">
+        <div class="side"><div class="t2">${s.beforeLabel}</div>
+          <div class="n">${s.before}<i>${s.unit}</i></div></div>
+        <div class="arw">&#8594;</div>
+        <div class="side now"><div class="t2">${s.afterLabel}</div>
+          <div class="n">${s.after}<i>${s.unit}</i></div></div>
+      </div>
+      <div class="note2">${s.note.replace(/\n/g, '<br>')}</div>
+      <div class="mark2">${BRAND.handle}</div>
+    </section>`;
+  return '';
+};
+
+const DRAWN_KINDS = ['talk', 'cal', 'vs'];
+
 const render = (s, t) => {
   switch (s.kind) {
     case 'cover':
@@ -209,7 +314,8 @@ export function buildHtml(decks = DECKS) {
     const t = THEMES[d.theme];
     d.slides.forEach((s, i) =>
       out.push(
-        PHOTO_KINDS.includes(s.kind)
+        DRAWN_KINDS.includes(s.kind) ? drawnCard(s)
+        : PHOTO_KINDS.includes(s.kind)
           ? photoCard(s)
           : shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : '')
       )
