@@ -49,8 +49,9 @@ node scripts/instagram/generate.mjs
 - `photoEnd` (엔딩): 화면 전체를 고르게 눌러 가운데 워드마크 + 태그라인만
 - `photoOnly`: 문구 없는 사진 한 장
 
-워드마크는 **Playfair Display Italic**입니다. 본문 고딕(Pretendard)과 다른 서체이며,
-위치·크기를 바꾸지 마세요.
+워드마크는 브랜드 로고 그대로 **굵은 한글 「부모로」 + 하늘색(#8FCDE2) 밑줄 바**입니다.
+바는 `em` 단위라 글자 크기를 바꾸면 같이 따라옵니다. 위치는 바꾸지 마세요.
+계정은 `bumoro.kr` 입니다.
 
 ## 사진형 카드 (E 세트)
 

@@ -3,8 +3,10 @@ export const BRAND = {
   name: '부모로',
   handle: '@bumoro.kr',
   bio: '받을 수 있는 건 다 챙겨요. 부모 마음까지도 🩵',
-  wordmark: 'bumoro',            // 좌상단 고정 워드마크
-  tagline: '부모 소식은 부모로',   // 엔딩 카드 한 줄
+  // 실제 로고: 굵은 한글 워드마크 + 하늘색 밑줄 바
+  wordmark: '부모로',
+  wordmarkBar: '#8FCDE2',
+  tagline: '꼭 필요한 것만 골라드려요',
 };
 
 // 사진 위에 얹는 표지 문법 — 잡지형

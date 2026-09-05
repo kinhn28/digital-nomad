@@ -83,8 +83,13 @@ const CSS = `
     color:rgba(255,255,255,.8); font-size:26px; font-weight:600; line-height:1.5;
     padding:22px 26px; }
   .ph .scrim { position:absolute; inset:0; }
-  .ph .mark { position:absolute; left:64px; top:56px; font-family:'Playfair Display',serif;
-    font-style:italic; font-size:52px; font-weight:600; color:#fff; letter-spacing:.005em; }
+  .ph .mark { position:absolute; left:64px; top:56px; }
+  .wm2 { position:relative; display:inline-block; font-size:48px; font-weight:900;
+    letter-spacing:.055em; color:#fff; line-height:1; padding:0 2px; }
+  /* 밑줄 바는 글자 크기에 비례 — 아래쪽에 얇게 깔려 획이 위로 지나가게 */
+  .wm2 .bar { position:absolute; left:-3px; right:-3px; bottom:.07em; height:.13em;
+    background:${BRAND.wordmarkBar}; }
+  .wm2 .t { position:relative; }
   .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
   .ph .kicker { font-size:27px; font-weight:600; color:${PHOTO.meta}; letter-spacing:.02em;
     margin-bottom:20px; }
@@ -105,10 +110,9 @@ const CSS = `
   /* 엔딩 — 워드마크만 */
   .ph .center { position:absolute; inset:0; display:flex; flex-direction:column;
     align-items:center; justify-content:center; }
-  .ph .center .w { font-family:'Playfair Display',serif; font-style:italic; font-size:74px;
-    font-weight:600; color:#fff; }
-  .ph .center .t { margin-top:16px; font-size:27px; font-weight:600; color:rgba(255,255,255,.9);
-    letter-spacing:-.01em; }
+  .ph .center .wm2 { font-size:78px; }
+  .ph .center .t { margin-top:26px; font-size:29px; font-weight:600;
+    color:rgba(255,255,255,.92); letter-spacing:-.02em; }
 
   /* ── 엔딩 ── */
   .end h1 { margin-top:auto; }
@@ -142,7 +146,7 @@ const scrimOf = (k) =>
 
 const photoCard = (s) => `<section class="s ph">
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
-  ${s.kind === 'photo' ? `<div class="mark">${BRAND.wordmark}</div>
+  ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
     <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>
       <h2>${s.head.join('<br>')}</h2></div>` : ''}
   ${s.kind === 'photoBody' ? `<div class="read">
@@ -150,8 +154,10 @@ const photoCard = (s) => `<section class="s ph">
     <div class="arrow">&#8594;</div>
     ${s.source ? `<div class="src">${s.source}</div>` : ''}` : ''}
   ${s.kind === 'photoEnd' ? `<div class="center">
-      <div class="w">${BRAND.wordmark}</div><div class="t">${BRAND.tagline}</div></div>` : ''}
+      ${WM}<div class="t">${BRAND.tagline}</div></div>` : ''}
 </section>`;
+
+const WM = `<span class="wm2"><span class="bar"></span><span class="t">${BRAND.wordmark}</span></span>`;
 
 const PHOTO_KINDS = ['photo', 'photoBody', 'photoEnd', 'photoOnly'];
 
