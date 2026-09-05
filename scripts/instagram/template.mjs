@@ -20,6 +20,9 @@ const CSS = `
   .foot .r { margin-left:auto; letter-spacing:.02em; }
 
   b { font-weight:800; color:var(--acc); }
+  /* 배경 밝기 측정 시 텍스트만 숨김 (사진·스크림은 유지) */
+  body.measure .mark, body.measure .txt, body.measure .read,
+  body.measure .arrow, body.measure .src, body.measure .center { visibility:hidden; }
 
   /* ── 표지 ── */
   .eyebrow { font-size:27px; font-weight:700; color:var(--acc); margin-top:64px; }
@@ -135,7 +138,10 @@ const TONES = [
 ];
 
 const photoBg = (s) => {
-  if (s.photo) return `<div class="img" style="background-image:url('${s.photo}')"></div>`;
+  if (s.photo)
+    return `<div class="img" style="background-image:url('${s.photo}');`
+         + `background-position:${s.pos || 'center'};`
+         + `background-size:${s.zoom ? `${s.zoom}% auto` : 'cover'}"></div>`;
   const [a, b] = TONES[(s.tone ?? 0) % TONES.length];
   return `<div class="holder" style="background:linear-gradient(155deg,${a} 0%,${b} 100%)">
     <span>사진 자리${s.need ? ` · ${s.need}` : ''}</span></div>`;
