@@ -18,7 +18,8 @@ const outDir = resolve(root, 'public/instagram');
 mkdirSync(outDir, { recursive: true });
 
 // 텍스트 종류별 최소 명도대비 (WCAG: 큰 글자 3:1, 본문 4.5:1)
-const MIN = { mark: 3, kicker: 4.5, head: 3, body: 4.5, arrow: 3, src: 4.5, sign: 3, tag: 4.5 };
+const MIN = { mark: 4.5, kicker: 4.5, head: 3, body: 4.5, arrow: 3, src: 4.5,
+              num: 4.5, sign: 3, tag: 4.5 };
 
 // 한장 / 여러장 선택:  node generate.mjs --single | --multi | --deck=ID
 const arg = process.argv.slice(2).join(' ');
@@ -52,14 +53,15 @@ await page.waitForTimeout(300);                   // 배경 이미지 디코딩 
 // 1) 텍스트 상자 좌표 수집
 const boxes = await page.evaluate(() => {
   const kindOf = (el) =>
-    el.closest('.mark') ? 'mark' : el.classList.contains('kicker') ? 'kicker'
+    el.classList.contains('mark') ? 'mark' : el.classList.contains('kicker') ? 'kicker'
+    : el.classList.contains('num') ? 'num'
     : el.tagName === 'H2' && el.closest('.txt') ? 'head'
     : el.closest('.read') ? 'body' : el.classList.contains('arrow') ? 'arrow'
     : el.classList.contains('src') ? 'src'
     : el.closest('.center') ? (el.classList.contains('t') ? 'tag' : 'sign') : 'body';
   return [...document.querySelectorAll('.s')].map((card) => {
     const cb = card.getBoundingClientRect();
-    const sel = '.mark .wm2, .kicker, .txt h2, .read p, .arrow, .src, .center .wm2, .center .t';
+    const sel = '.mark, .kicker, .txt h2, .read p, .arrow, .src, .num, .center .h, .center .t';
     return [...card.querySelectorAll(sel)].map((el) => {
       const r = el.getBoundingClientRect();
       return { kind: kindOf(el), x: Math.round(r.x - cb.x), y: Math.round(r.y - cb.y),

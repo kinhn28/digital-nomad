@@ -21,7 +21,7 @@ const CSS = `
 
   b { font-weight:800; color:var(--acc); }
   /* 배경 밝기 측정 시 텍스트만 숨김 (사진·스크림은 유지) */
-  body.measure .mark, body.measure .txt, body.measure .read,
+  body.measure .mark, body.measure .txt, body.measure .read, body.measure .num,
   body.measure .arrow, body.measure .src, body.measure .center { visibility:hidden; }
 
   /* ── 표지 ── */
@@ -102,6 +102,9 @@ const CSS = `
   .ph .read p + p { margin-top:36px; }
   .ph .arrow { position:absolute; right:58px; bottom:62px; font-size:34px; font-weight:600;
     color:rgba(255,255,255,.9); }
+  .ph .num { position:absolute; right:64px; top:58px; font-size:25px; font-weight:600;
+    letter-spacing:.06em; color:rgba(255,255,255,.72);
+    text-shadow:0 2px 12px rgba(0,0,0,.5); }
   .ph .src { position:absolute; left:64px; bottom:52px; font-size:21px; font-weight:500;
     color:rgba(255,255,255,.55); }
 
@@ -200,11 +203,12 @@ const photoBg = (s) => {
 const scrimOf = (k) =>
   k === 'photoEnd' ? PHOTO.scrimEnd : k === 'photoBody' ? PHOTO.scrimBody : PHOTO.scrimCover;
 
-const photoCard = (s) => `<section class="s ph">
+const photoCard = (s, i, n) => `<section class="s ph">
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
   ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
     <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>
       <h2>${s.head.join('<br>')}</h2></div>` : ''}
+  ${n > 1 && s.kind !== 'photo' ? `<div class="num">${i + 1} / ${n}</div>` : ''}
   ${s.kind === 'photoBody' ? `<div class="read">
       ${s.body.map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}</div>
     <div class="arrow">&#8594;</div>
@@ -316,7 +320,7 @@ export function buildHtml(decks = DECKS) {
       out.push(
         DRAWN_KINDS.includes(s.kind) ? drawnCard(s)
         : PHOTO_KINDS.includes(s.kind)
-          ? photoCard(s)
+          ? photoCard(s, i, d.slides.length)
           : shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : '')
       )
     );

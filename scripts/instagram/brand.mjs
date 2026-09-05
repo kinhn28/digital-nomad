@@ -12,13 +12,16 @@ export const BRAND = {
 // 사진 위에 얹는 표지 문법 — 잡지형
 export const PHOTO = {
   // 표지: 사진을 최대한 살리고, 헤드라인이 앉는 맨 아래만 눌러줌
-  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.14) 0%, rgba(0,0,0,0) 20%,'
-            + ' rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)',
+  // 맨 위 얇은 띠로 아이디·순번만 눌러주고, 사진 본체는 그대로 살림
+  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.72) 0%, rgba(0,0,0,.44) 8%,'
+            + ' rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%,'
+            + ' rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)',
   // 내지: 사진을 배경 질감으로 깔고 글이 앞으로 나오게 전면을 눌러줌
-  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.58) 0%, rgba(0,0,0,.60) 45%,'
-           + ' rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)',
+  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%,'
+           + ' rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)',
   // 엔딩: 전면을 고르게 눌러 워드마크만 남김
-  scrimEnd: 'linear-gradient(rgba(0,0,0,.64), rgba(0,0,0,.64))',
+  scrimEnd: 'linear-gradient(to bottom, rgba(0,0,0,.76) 0%, rgba(0,0,0,.64) 10%,'
+          + ' rgba(0,0,0,.64) 100%)',
 };
 
 // 시안 CSS의 :root 값 그대로
