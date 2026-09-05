@@ -3,9 +3,14 @@
 콘텐츠 시안 문서의 4개 세트를 그대로 렌더링합니다. **1080×1350 (4:5)**, 2배 해상도.
 
 ```bash
-npm i -D playwright        # 최초 1회
-node scripts/instagram/generate.mjs
+npm i -D playwright                          # 최초 1회
+node scripts/instagram/generate.mjs          # 전체
+node scripts/instagram/generate.mjs --multi  # 여러장 세트만
+node scripts/instagram/generate.mjs --single # 한장짜리만
+node scripts/instagram/generate.mjs --deck=T-flu-talk   # 특정 세트만
 ```
+
+여러장 세트는 렌더 후 `public/instagram/<세트ID>.zip` 으로 묶여 한 번에 받을 수 있습니다.
 
 출력: `public/instagram/*.png` + `preview.html`
 

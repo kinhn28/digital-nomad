@@ -9,7 +9,9 @@ import { chromium } from 'playwright';
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildHtml, NAMES } from './template.mjs';
+import { buildHtml, namesFor } from './template.mjs';
+import { DECKS } from './decks.mjs';
+import { execFileSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const outDir = resolve(root, 'public/instagram');
@@ -19,7 +21,16 @@ mkdirSync(outDir, { recursive: true });
 // 텍스트 종류별 최소 명도대비 (WCAG: 큰 글자 3:1, 본문 4.5:1)
 const MIN = { mark: 3, kicker: 4.5, head: 3, body: 4.5, arrow: 3, src: 4.5, sign: 3, tag: 4.5 };
 
-const html = buildHtml();
+// 한장 / 여러장 선택:  node generate.mjs --single | --multi | --deck=ID
+const arg = process.argv.slice(2).join(' ');
+const only = (arg.match(/--deck=(\S+)/) || [])[1];
+const want = arg.includes('--single') ? 'single' : arg.includes('--multi') ? 'multi' : null;
+const decks = DECKS.filter((d) => (only ? d.id === only : want ? d.type === want : true));
+if (!decks.length) { console.error('해당하는 세트가 없습니다.'); process.exit(1); }
+const NAMES = namesFor(decks);
+console.log('세트:', decks.map((d) => `${d.id}(${d.type}, ${d.slides.length}장)`).join(' · '));
+
+const html = buildHtml(decks);
 writeFileSync(resolve(outDir, 'preview.html'), html);
 
 const browser = await chromium.launch();
@@ -105,3 +116,12 @@ for (const [i, c] of cards.entries()) {
   console.log('✓', file);
 }
 await browser.close();
+
+// 여러장 세트는 한 번에 받도록 zip 으로 묶음
+for (const d of decks) {
+  if (d.slides.length < 2) continue;
+  const files = namesFor([d]).map((n) => `${n}.png`);
+  const zipPath = resolve(outDir, `${d.id}.zip`);
+  execFileSync('zip', ['-jq', zipPath, ...files.map((f) => resolve(outDir, f))]);
+  console.log('📦', zipPath);
+}

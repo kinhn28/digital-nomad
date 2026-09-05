@@ -203,9 +203,9 @@ const render = (s, t) => {
   }
 };
 
-export function buildHtml() {
+export function buildHtml(decks = DECKS) {
   const out = [];
-  for (const d of DECKS) {
+  for (const d of decks) {
     const t = THEMES[d.theme];
     d.slides.forEach((s, i) =>
       out.push(
@@ -219,6 +219,6 @@ export function buildHtml() {
     <style>${CSS}</style></head><body>${out.join('')}</body></html>`;
 }
 
-export const NAMES = DECKS.flatMap((d) =>
-  d.slides.map((_, i) => `${d.id}-${String(i + 1).padStart(2, '0')}`)
-);
+export const namesFor = (decks = DECKS) =>
+  decks.flatMap((d) => d.slides.map((_, i) =>
+    d.slides.length === 1 ? d.id : `${d.id}-${String(i + 1).padStart(2, '0')}`));
