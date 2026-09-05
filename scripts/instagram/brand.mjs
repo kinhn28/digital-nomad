@@ -13,12 +13,15 @@ export const BRAND = {
 export const PHOTO = {
   // 표지: 사진을 최대한 살리고, 헤드라인이 앉는 맨 아래만 눌러줌
   // 맨 위 얇은 띠로 아이디·순번만 눌러주고, 사진 본체는 그대로 살림
-  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%,'
-            + ' rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%,'
-            + ' rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)',
+  // 레퍼런스 기준: 사진을 최대한 살리고 헤드라인이 앉는 아래쪽만 눌러줌
+  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.80) 0%, rgba(0,0,0,.44) 7%,'
+            + ' rgba(0,0,0,0) 16%, rgba(0,0,0,0) 44%,'
+            + ' rgba(0,0,0,.58) 60%, rgba(0,0,0,.90) 78%, rgba(0,0,0,.95) 100%)',
   // 내지: 사진을 배경 질감으로 깔고 글이 앞으로 나오게 전면을 눌러줌
-  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%,'
-           + ' rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)',
+  // 내지도 사진이 위쪽에 살아 있고 아래쪽만 강하게 누름
+  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.36) 9%,'
+           + ' rgba(0,0,0,.26) 42%, rgba(0,0,0,.68) 62%, rgba(0,0,0,.92) 80%,'
+           + ' rgba(0,0,0,.96) 100%)',
   // 엔딩: 전면을 고르게 눌러 워드마크만 남김
   scrimEnd: 'linear-gradient(to bottom, rgba(0,0,0,.76) 0%, rgba(0,0,0,.64) 10%,'
           + ' rgba(0,0,0,.64) 100%)',

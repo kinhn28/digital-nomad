@@ -89,7 +89,7 @@ const CSS = `
   .ph .mark { position:absolute; left:64px; top:56px; font-size:30px; font-weight:600;
     color:#fff; letter-spacing:.01em; text-shadow:0 2px 14px rgba(0,0,0,.55); }
   /* 인스타 하단 UI가 덮는 구간을 피해 텍스트를 위로 올림 */
-  .ph .txt { position:absolute; left:64px; right:64px; bottom:26%; }
+  .ph .txt { position:absolute; left:64px; right:64px; bottom:17%; }
   .ph .kicker { font-size:27px; font-weight:700; color:rgba(255,255,255,.92);
     letter-spacing:.02em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,.5); }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
@@ -97,18 +97,25 @@ const CSS = `
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
-  .ph .read { position:absolute; left:60px; right:66px; bottom:26%; }
+  .ph .read { position:absolute; left:60px; right:66px; bottom:16%; }
   .ph .read p { font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:32px; }
   .ph .read .n2 { display:block; font-size:34px; font-weight:800; letter-spacing:.02em;
     color:#fff; opacity:.75; margin-bottom:16px; }
-  .ph .arrow { position:absolute; right:58px; bottom:21%; font-size:34px; font-weight:600;
+  .ph .lead3 { font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
+    color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.45); }
+  .ph .items { margin-top:30px; display:flex; flex-direction:column; gap:18px; }
+  .ph .items li { list-style:none; display:flex; gap:18px; font-size:37px; font-weight:500;
+    line-height:1.45; letter-spacing:-.025em; color:rgba(255,255,255,.94);
+    text-shadow:0 2px 16px rgba(0,0,0,.45); }
+  .ph .items li i { font-style:normal; font-weight:800; opacity:.85; flex:none; }
+  .ph .arrow { position:absolute; right:58px; bottom:8%; font-size:34px; font-weight:600;
     color:rgba(255,255,255,.9); }
   .ph .num { position:absolute; right:64px; top:58px; font-size:25px; font-weight:600;
     letter-spacing:.06em; color:rgba(255,255,255,.72);
     text-shadow:0 2px 12px rgba(0,0,0,.5); }
-  .ph .src { position:absolute; left:64px; bottom:21%; font-size:21px; font-weight:500;
+  .ph .src { position:absolute; left:64px; bottom:8%; font-size:21px; font-weight:500;
     color:rgba(255,255,255,.55); }
 
   /* 엔딩 — 워드마크만 */
@@ -213,7 +220,10 @@ const photoCard = (s, i, n) => `<section class="s ph">
       <h2>${s.head.join('<br>')}</h2></div>` : ''}
   ${n > 1 && s.kind !== 'photo' ? `<div class="num">${i + 1} / ${n}</div>` : ''}
   ${s.kind === 'photoBody' ? `<div class="read">
-      ${s.body.map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+      ${s.lead ? `<div class="lead3">${s.lead.replace(/\n/g, '<br>')}</div>` : ''}
+      ${s.items ? `<ul class="items">${s.items
+          .map((t) => `<li><i>✓</i><span>${t}</span></li>`).join('')}</ul>` : ''}
+      ${(s.body || []).map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}</div>
     <div class="arrow">&#8594;</div>
     ${s.source ? `<div class="src">${s.source}</div>` : ''}` : ''}
   ${s.kind === 'photoEnd' ? `<div class="center">
