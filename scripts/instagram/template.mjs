@@ -94,20 +94,20 @@ const CSS = `
   .ph .kicker { font-size:27px; font-weight:700; color:rgba(255,255,255,.92);
     letter-spacing:.02em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,.5); }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
-  .ph h2 { font-size:80px; font-weight:800; line-height:1.28; letter-spacing:-.045em;
+  .ph h2 { word-break:keep-all; font-size:80px; font-weight:800; line-height:1.28; letter-spacing:-.045em;
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
   .ph .read { position:absolute; left:60px; right:66px; bottom:16%; }
-  .ph .read p { font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
+  .ph .read p { word-break:keep-all; text-wrap:pretty; font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:32px; }
   .ph .read .n2 { display:block; font-size:34px; font-weight:800; letter-spacing:.02em;
     color:#fff; opacity:.75; margin-bottom:16px; }
-  .ph .lead3 { font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
+  .ph .lead3 { word-break:keep-all; text-wrap:pretty; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.45); }
   .ph .items { margin-top:30px; display:flex; flex-direction:column; gap:18px; }
-  .ph .items li { list-style:none; display:flex; gap:18px; font-size:37px; font-weight:500;
+  .ph .items li { list-style:none; word-break:keep-all; text-wrap:pretty; display:flex; gap:18px; font-size:37px; font-weight:500;
     line-height:1.45; letter-spacing:-.025em; color:rgba(255,255,255,.94);
     text-shadow:0 2px 16px rgba(0,0,0,.45); }
   .ph .items li i { font-style:normal; font-weight:800; opacity:.85; flex:none; }

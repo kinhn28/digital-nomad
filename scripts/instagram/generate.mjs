@@ -118,8 +118,9 @@ await page.evaluate(([curves, kinds]) => {
     const need = (j, target) => solve(c[j].p90, target);
 
     let css;
-    if (kind === 'photoEnd') {
-      const a = Math.max(...c.map((x) => solve(x.p90, .09)));
+    if (kind !== 'photo') {
+      // 표지 외에는 사진 전체를 고르게 눌러 글이 앞으로 나오게 한다
+      const a = Math.max(...c.map((x) => solve(x.p90, kind === 'photoEnd' ? .09 : .10)));
       css = `linear-gradient(rgba(0,0,0,${a.toFixed(3)}), rgba(0,0,0,${a.toFixed(3)}))`;
     } else {
       // 아이디·순번은 위 4~7% 구간에 놓임
@@ -194,6 +195,29 @@ for (let i = 0; i < bgShots.length; i++) {
       return { ...r, cr: +(1.05 / (bright + 0.05)).toFixed(2) };
     });
   }, [bgShots[i], boxes[i]]));
+}
+
+// 3-b) 마지막 줄에 몇 글자만 남는 고아줄 찾기
+const orphans = await page.evaluate(() => {
+  const out = [];
+  document.querySelectorAll('.s.ph').forEach((card, i) => {
+    card.querySelectorAll('.read p, .lead3, .items li span, .txt h2').forEach((el) => {
+      const r = document.createRange();
+      r.selectNodeContents(el);
+      const rects = [...r.getClientRects()].filter((x) => x.width > 1);
+      if (rects.length < 2) return;
+      const last = rects[rects.length - 1];
+      const ratio = last.width / el.getBoundingClientRect().width;
+      if (ratio < 0.18)
+        out.push({ i: i + 1, ratio: +ratio.toFixed(2), text: el.textContent.trim().slice(-24) });
+    });
+  });
+  return out;
+});
+if (orphans.length) {
+  console.log('\n줄바꿈 점검 — 마지막 줄에 몇 글자만 남은 곳');
+  orphans.forEach((o) => console.log(`  ${NAMES[o.i - 1]}  (${Math.round(o.ratio * 100)}%) …${o.text}`));
+  console.log('  → 문장을 줄이거나 끊어 쓰세요.\n');
 }
 
 // 4) 리포트
