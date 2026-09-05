@@ -34,7 +34,7 @@ export const DECKS = [
   {
     id: 'T-flu-talk', type: 'multi', label: '독감 접종 · 수다체',
     slides: [
-      { kind: 'photo', photo: B, pos: 'center 42%', place: '육아', cat: 'TALK',
+      { kind: 'photo', photo: B, pos: 'center 42%', place: '독감 예방접종', cat: '건강정보',
         head: ['어머, 준수 엄마', '아직도 신청 안 했어?'] },
       { kind: 'photoBody', photo: A, pos: 'center 88%',
         body: ['카톡방 지금 난리 났잖아.\n9월 21일부터 독감 무료접종 시작이라고.',
@@ -80,7 +80,7 @@ export const DECKS = [
   {
     id: 'S-flu-talk', type: 'single', label: '독감 접종 · 수다체 한 장',
     slides: [
-      { kind: 'photo', photo: B, pos: 'center 42%', place: '육아', cat: 'TALK',
+      { kind: 'photo', photo: B, pos: 'center 42%', place: '독감 예방접종', cat: '건강정보',
         head: ['어머, 이거 몰랐어?', '독감 접종 14세까지래'] },
     ],
   },
