@@ -37,6 +37,19 @@ node scripts/instagram/generate.mjs
 
 네이비 세트를 대각선으로 배치하면 그리드에 쉼표가 생깁니다.
 
+## 사진형 카드 (E 세트)
+
+`kind: 'photo'` 는 사진을 전면에 깔고 좌하단에 `지역 | 분류` + 2줄 헤드라인만 얹습니다.
+`kind: 'photoOnly'` 는 문구 없이 사진만 씁니다.
+
+```js
+{ kind: 'photo', photo: '/abs/path.jpg', place: '새벽', cat: 'STORY',
+  head: ['재우고 나서야', '하루가 시작돼'] }
+```
+
+`photo` 를 비워두면 자리표시자가 렌더되니, 사진을 넣기 전 구도 확인용으로 쓰세요.
+필요한 사진 규격과 촬영 목록은 `photo-brief.md` 에 있습니다.
+
 ## 슬라이드 종류
 
 `cover`(표지) · `item`(혜택 낱장) · `dawn` / `dawnEnd`(새벽) · `qa`(정보 문답) ·

@@ -57,6 +57,18 @@ export const DECKS = [
     ],
   },
   {
+    // E · 사진형 — 사진이 지면의 90%를 차지하는 잡지 문법.
+    //    각 슬라이드에 photo:'/절대경로.jpg' 를 넣으면 그 사진이 배경이 됩니다.
+    id: 'E-photo', theme: 'story',
+    slides: [
+      { kind: 'photo', place: '새벽', cat: 'STORY',
+        head: ['재우고 나서야', '하루가 시작돼'] },
+      { kind: 'photoOnly' },
+      { kind: 'photo', place: '서울', cat: 'NEWS',
+        head: ['출생신고 하는 날', '같이 끝내는 것 3개'] },
+    ],
+  },
+  {
     id: 'D-story', theme: 'story',
     slides: [
       { kind: 'chat', foot: '12분 만에 달린 답이었어',

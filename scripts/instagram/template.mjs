@@ -1,4 +1,4 @@
-import { BRAND, P, THEMES } from './brand.mjs';
+import { BRAND, P, PHOTO, THEMES } from './brand.mjs';
 import { DECKS } from './decks.mjs';
 
 const W = 1080, H = 1350, PAD = 80;
@@ -74,6 +74,24 @@ const CSS = `
   .msg.r .bub { background:${P.blueBg}; border-radius:26px 6px 26px 26px; }
   .cfoot2 { margin-top:auto; margin-bottom:40px; font-size:29px; font-weight:600; color:var(--meta); }
 
+  /* ── 사진형(잡지 문법) ── */
+  .ph { padding:0; background:#9A958E; }
+  .ph .img { position:absolute; inset:0; background-size:cover; background-position:center; }
+  .ph .holder { position:absolute; inset:0;
+    background:linear-gradient(150deg,#B9B3AA 0%,#8E8880 55%,#5E5952 100%); }
+  .ph .holder span { position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
+    border:2px dashed rgba(255,255,255,.5); color:rgba(255,255,255,.78);
+    font-size:26px; font-weight:600; letter-spacing:.06em; padding:20px 30px; white-space:nowrap; }
+  .ph .scrim { position:absolute; inset:0; background:${PHOTO.scrim}; }
+  .ph .mark { position:absolute; left:64px; top:56px; font-family:'Noto Serif KR',serif;
+    font-style:italic; font-size:44px; font-weight:600; color:#fff; letter-spacing:.01em; }
+  .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
+  .ph .kicker { font-size:27px; font-weight:600; color:${PHOTO.meta}; letter-spacing:.02em;
+    margin-bottom:20px; }
+  .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
+  .ph h2 { font-size:80px; font-weight:800; line-height:1.28; letter-spacing:-.045em;
+    color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
+
   /* ── 엔딩 ── */
   .end h1 { margin-top:auto; }
   .ebody { margin-top:40px; max-width:900px; font-size:35px; font-weight:500; line-height:1.62;
@@ -87,6 +105,18 @@ const shell = (t, i, n, inner, cls = '') => `<section class="s ${cls}" style="
   <div class="meta" style="color:${t.meta}"><span>${t.label}</span><span class="r">${i}/${n}</span></div>
   ${inner}
   <div class="foot" style="color:${t.meta}"><span>${BRAND.handle}</span></div>
+</section>`;
+
+const photoBg = (src) =>
+  src ? `<div class="img" style="background-image:url('${src}')"></div>`
+      : `<div class="holder"><span>사진 자리 · 1080 × 1350</span></div>`;
+
+const photoCard = (s) => `<section class="s ph">
+  ${photoBg(s.photo)}<div class="scrim"></div>
+  <div class="mark">${BRAND.wordmark}</div>
+  ${s.kind === 'photoOnly' ? '' : `<div class="txt">
+    <div class="kicker">${s.place}<i>|</i>${s.cat}</div>
+    <h2>${s.head.join('<br>')}</h2></div>`}
 </section>`;
 
 const render = (s, t) => {
@@ -135,7 +165,11 @@ export function buildHtml() {
   for (const d of DECKS) {
     const t = THEMES[d.theme];
     d.slides.forEach((s, i) =>
-      out.push(shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : ''))
+      out.push(
+        s.kind === 'photo' || s.kind === 'photoOnly'
+          ? photoCard(s)
+          : shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : '')
+      )
     );
   }
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
