@@ -77,20 +77,38 @@ const CSS = `
   /* ── 사진형(잡지 문법) ── */
   .ph { padding:0; background:#9A958E; }
   .ph .img { position:absolute; inset:0; background-size:cover; background-position:center; }
-  .ph .holder { position:absolute; inset:0;
-    background:linear-gradient(150deg,#B9B3AA 0%,#8E8880 55%,#5E5952 100%); }
-  .ph .holder span { position:absolute; left:50%; top:44%; transform:translate(-50%,-50%);
-    border:2px dashed rgba(255,255,255,.5); color:rgba(255,255,255,.78);
-    font-size:26px; font-weight:600; letter-spacing:.06em; padding:20px 30px; white-space:nowrap; }
-  .ph .scrim { position:absolute; inset:0; background:${PHOTO.scrim}; }
-  .ph .mark { position:absolute; left:64px; top:56px; font-family:'Noto Serif KR',serif;
-    font-style:italic; font-size:44px; font-weight:600; color:#fff; letter-spacing:.01em; }
+  .ph .holder { position:absolute; inset:0; }
+  .ph .holder span { position:absolute; left:50%; top:38%; transform:translate(-50%,-50%);
+    width:76%; text-align:center; border:2px dashed rgba(255,255,255,.45);
+    color:rgba(255,255,255,.8); font-size:26px; font-weight:600; line-height:1.5;
+    padding:22px 26px; }
+  .ph .scrim { position:absolute; inset:0; }
+  .ph .mark { position:absolute; left:64px; top:56px; font-family:'Playfair Display',serif;
+    font-style:italic; font-size:52px; font-weight:600; color:#fff; letter-spacing:.005em; }
   .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
   .ph .kicker { font-size:27px; font-weight:600; color:${PHOTO.meta}; letter-spacing:.02em;
     margin-bottom:20px; }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
   .ph h2 { font-size:80px; font-weight:800; line-height:1.28; letter-spacing:-.045em;
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
+
+  /* 내지 — 사진 위 본문 */
+  .ph .read { position:absolute; left:64px; right:78px; bottom:96px; }
+  .ph .read p { font-size:34px; font-weight:500; line-height:1.68; letter-spacing:-.022em;
+    color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
+  .ph .read p + p { margin-top:36px; }
+  .ph .arrow { position:absolute; right:58px; bottom:62px; font-size:34px; font-weight:600;
+    color:rgba(255,255,255,.9); }
+  .ph .src { position:absolute; left:64px; bottom:52px; font-size:21px; font-weight:500;
+    color:rgba(255,255,255,.55); }
+
+  /* 엔딩 — 워드마크만 */
+  .ph .center { position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; }
+  .ph .center .w { font-family:'Playfair Display',serif; font-style:italic; font-size:74px;
+    font-weight:600; color:#fff; }
+  .ph .center .t { margin-top:16px; font-size:27px; font-weight:600; color:rgba(255,255,255,.9);
+    letter-spacing:-.01em; }
 
   /* ── 엔딩 ── */
   .end h1 { margin-top:auto; }
@@ -107,17 +125,35 @@ const shell = (t, i, n, inner, cls = '') => `<section class="s ${cls}" style="
   <div class="foot" style="color:${t.meta}"><span>${BRAND.handle}</span></div>
 </section>`;
 
-const photoBg = (src) =>
-  src ? `<div class="img" style="background-image:url('${src}')"></div>`
-      : `<div class="holder"><span>사진 자리 · 1080 × 1350</span></div>`;
+const TONES = [
+  ['#A8A29A', '#4A453F'], ['#9CA6A8', '#3C4446'], ['#AFA6A0', '#4B423C'],
+  ['#A3AAA0', '#414741'], ['#B0A69C', '#4E453C'], ['#9EA3AC', '#3E4249'],
+];
+
+const photoBg = (s) => {
+  if (s.photo) return `<div class="img" style="background-image:url('${s.photo}')"></div>`;
+  const [a, b] = TONES[(s.tone ?? 0) % TONES.length];
+  return `<div class="holder" style="background:linear-gradient(155deg,${a} 0%,${b} 100%)">
+    <span>사진 자리${s.need ? ` · ${s.need}` : ''}</span></div>`;
+};
+
+const scrimOf = (k) =>
+  k === 'photoEnd' ? PHOTO.scrimEnd : k === 'photoBody' ? PHOTO.scrimBody : PHOTO.scrimCover;
 
 const photoCard = (s) => `<section class="s ph">
-  ${photoBg(s.photo)}<div class="scrim"></div>
-  <div class="mark">${BRAND.wordmark}</div>
-  ${s.kind === 'photoOnly' ? '' : `<div class="txt">
-    <div class="kicker">${s.place}<i>|</i>${s.cat}</div>
-    <h2>${s.head.join('<br>')}</h2></div>`}
+  ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
+  ${s.kind === 'photo' ? `<div class="mark">${BRAND.wordmark}</div>
+    <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>
+      <h2>${s.head.join('<br>')}</h2></div>` : ''}
+  ${s.kind === 'photoBody' ? `<div class="read">
+      ${s.body.map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}</div>
+    <div class="arrow">&#8594;</div>
+    ${s.source ? `<div class="src">${s.source}</div>` : ''}` : ''}
+  ${s.kind === 'photoEnd' ? `<div class="center">
+      <div class="w">${BRAND.wordmark}</div><div class="t">${BRAND.tagline}</div></div>` : ''}
 </section>`;
+
+const PHOTO_KINDS = ['photo', 'photoBody', 'photoEnd', 'photoOnly'];
 
 const render = (s, t) => {
   switch (s.kind) {
@@ -166,7 +202,7 @@ export function buildHtml() {
     const t = THEMES[d.theme];
     d.slides.forEach((s, i) =>
       out.push(
-        s.kind === 'photo' || s.kind === 'photoOnly'
+        PHOTO_KINDS.includes(s.kind)
           ? photoCard(s)
           : shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : '')
       )

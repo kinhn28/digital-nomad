@@ -3,15 +3,20 @@ export const BRAND = {
   name: '부모로',
   handle: '@bumoro.kr',
   bio: '받을 수 있는 건 다 챙겨요. 부모 마음까지도 🩵',
-  wordmark: 'bumoro',   // 카드 좌상단 고정 워드마크 (세리프 이탤릭)
+  wordmark: 'bumoro',            // 좌상단 고정 워드마크
+  tagline: '부모 소식은 부모로',   // 엔딩 카드 한 줄
 };
 
 // 사진 위에 얹는 표지 문법 — 잡지형
 export const PHOTO = {
-  fg: '#FFFFFF',
-  meta: 'rgba(255,255,255,.82)',
-  scrim: 'linear-gradient(to bottom, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 30%,'
-       + ' rgba(0,0,0,.55) 66%, rgba(0,0,0,.86) 100%)',
+  // 표지: 아래 1/3만 눌러 사진을 살림
+  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.30) 0%, rgba(0,0,0,0) 28%,'
+            + ' rgba(0,0,0,.52) 64%, rgba(0,0,0,.86) 100%)',
+  // 내지: 본문이 얹히므로 절반 이상을 눌러 가독성 확보
+  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 24%,'
+           + ' rgba(0,0,0,.62) 56%, rgba(0,0,0,.90) 100%)',
+  // 엔딩: 전면을 고르게 눌러 워드마크만 남김
+  scrimEnd: 'linear-gradient(rgba(0,0,0,.46), rgba(0,0,0,.46))',
 };
 
 // 시안 CSS의 :root 값 그대로
