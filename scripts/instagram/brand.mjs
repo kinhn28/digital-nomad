@@ -11,12 +11,12 @@ export const BRAND = {
 
 // 사진 위에 얹는 표지 문법 — 잡지형
 export const PHOTO = {
-  // 표지: 아래 1/3만 눌러 사진을 살림
-  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.30) 0%, rgba(0,0,0,0) 28%,'
-            + ' rgba(0,0,0,.52) 64%, rgba(0,0,0,.86) 100%)',
-  // 내지: 본문이 얹히므로 절반 이상을 눌러 가독성 확보
-  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 24%,'
-           + ' rgba(0,0,0,.62) 56%, rgba(0,0,0,.90) 100%)',
+  // 표지: 사진을 최대한 살리고, 헤드라인이 앉는 맨 아래만 눌러줌
+  scrimCover: 'linear-gradient(to bottom, rgba(0,0,0,.14) 0%, rgba(0,0,0,0) 20%,'
+            + ' rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)',
+  // 내지: 사진을 배경 질감으로 깔고 글이 앞으로 나오게 전면을 눌러줌
+  scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.58) 0%, rgba(0,0,0,.60) 45%,'
+           + ' rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)',
   // 엔딩: 전면을 고르게 눌러 워드마크만 남김
   scrimEnd: 'linear-gradient(rgba(0,0,0,.64), rgba(0,0,0,.64))',
 };

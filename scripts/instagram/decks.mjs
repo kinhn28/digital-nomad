@@ -54,7 +54,7 @@ export const DECKS = [
 
   // ── 사진 없이 코드로 그리는 세트 ──────────────────────
   {
-    id: 'V-noimg', type: 'multi', label: '독감 접종 · 사진 없이',
+    id: 'V-noimg', type: 'draft', label: '독감 접종 · 사진 없이',
     slides: [
       { kind: 'talk', room: '우리 동네 학부모 방', count: '14명',
         msgs: [

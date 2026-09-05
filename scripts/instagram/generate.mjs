@@ -24,7 +24,8 @@ const MIN = { mark: 3, kicker: 4.5, head: 3, body: 4.5, arrow: 3, src: 4.5, sign
 const arg = process.argv.slice(2).join(' ');
 const only = (arg.match(/--deck=(\S+)/) || [])[1];
 const want = arg.includes('--single') ? 'single' : arg.includes('--multi') ? 'multi' : null;
-const decks = DECKS.filter((d) => (only ? d.id === only : want ? d.type === want : true));
+const decks = DECKS.filter((d) =>
+  only ? d.id === only : want ? d.type === want : d.type !== 'draft');
 if (!decks.length) { console.error('해당하는 세트가 없습니다.'); process.exit(1); }
 const NAMES = namesFor(decks);
 console.log('세트:', decks.map((d) => `${d.id}(${d.type}, ${d.slides.length}장)`).join(' · '));
