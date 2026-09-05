@@ -90,29 +90,58 @@ for (const b64 of rawShots) {
 }
 await probe0.close();
 
-await page.evaluate(([curves, TARGET, invSrc]) => {
+await page.evaluate(([curves, kinds]) => {
   document.body.classList.remove('noscrim');
   const inv = (L) => (L <= 0.0031308 ? L * 12.92 : 1.055 * Math.pow(L, 1 / 2.4) - 0.055);
+  // 필요한 어둡기만 구하고, 그라데이션 자체는 단조·부드럽게 만든다.
+  // 구간마다 알파가 오르내리면 그 경계가 띠(선)로 보인다.
+  const solve = (srcL, targetL) =>
+    Math.max(0, Math.min(.92, 1 - inv(targetL) / Math.max(inv(srcL), 1e-4)));
+
+  // 램프 모양(아래는 smoothstep, 위 띠는 제곱 감쇠)을 먼저 정하고,
+  // 글자가 놓인 위치에서 필요한 어둡기가 나오도록 진폭을 역산한다.
+  const fTop = (k) => {
+    if (k <= 9) return 1;            // 글상자가 놓인 구간은 그대로 유지
+    if (k >= 24) return 0;
+    return (1 - (k - 9) / 15) ** 2;  // 그 뒤로 부드럽게 소멸
+  };
+  const fBot = (k) => {
+    if (k <= 38) return 0;
+    if (k >= 76) return 1;
+    const t = (k - 38) / 38;
+    return t * t * (3 - 2 * t);
+  };
+
   document.querySelectorAll('.s.ph').forEach((card, i) => {
     const kind = card.dataset.kind;
-    const tgt = TARGET[kind] || TARGET.photoBody;
-    const src = curves[i];
-    const stops = tgt.map((t, j) => {
-      // 맨 위 10%에는 아이디·순번이 놓임. 레퍼런스는 그 자리가 원래 어두운
-      // 사진이라 성립했지만, 밝은 사진에서는 최소한의 어둡기를 보장해야 함
-      // 텍스트가 놓이는 구간(위 10% · 아래 문구 자리)은 행 평균이 아니라
-      // 밝은 쪽 최악값을 기준으로 눌러야 글자가 묻히지 않음
-      // 엔딩 카드는 워드마크가 한가운데 있으므로 전 구간을 최악값 기준으로
-      const inText = j <= 2 || j >= 12 || kind === 'photoEnd';
-      const base = inText ? src[j].p90 : src[j].mean;
-      const tt = inText ? Math.min(t, .12) : t;
-      const a = Math.max(0, Math.min(.95, 1 - inv(tt) / Math.max(inv(base), 1e-4)));
-      return `rgba(0,0,0,${a.toFixed(3)}) ${j * 5}%`;
-    });
-    card.querySelector('.scrim').style.background =
-      `linear-gradient(to bottom, ${stops.join(',')})`;
+    const c = curves[i];
+    const need = (j, target) => solve(c[j].p90, target);
+
+    let css;
+    if (kind === 'photoEnd') {
+      const a = Math.max(...c.map((x) => solve(x.p90, .09)));
+      css = `linear-gradient(rgba(0,0,0,${a.toFixed(3)}), rgba(0,0,0,${a.toFixed(3)}))`;
+    } else {
+      // 아이디·순번은 위 4~7% 구간에 놓임
+      let aTop = 0;
+      for (const j of [0, 1]) aTop = Math.max(aTop, need(j, .085) / fTop(j * 5));
+      // 문구는 커버 55~85%, 내지 60~85%
+      let aBot = 0;
+      const from = kind === 'photo' ? 11 : 12;
+      for (let j = from; j <= 17; j++)
+        aBot = Math.max(aBot, need(j, .085) / Math.max(fBot(j * 5), .12));
+      aTop = Math.min(aTop, .92); aBot = Math.min(aBot, .92);
+
+      const stops = [];
+      for (let k = 0; k <= 100; k += 2) {
+        const a = Math.min(.95, aTop * fTop(k) + aBot * fBot(k));
+        stops.push(`rgba(0,0,0,${a.toFixed(3)}) ${k}%`);
+      }
+      css = `linear-gradient(to bottom, ${stops.join(',')})`;
+    }
+    card.querySelector('.scrim').style.background = css;
   });
-}, [srcCurves, TARGET, null]);
+}, [srcCurves, null]);
 
 // 1) 텍스트 상자 좌표 수집
 const boxes = await page.evaluate(() => {
