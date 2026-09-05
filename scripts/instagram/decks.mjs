@@ -10,7 +10,7 @@ const C = 'assets/photos/chuseok-pharmacy.jpg';  // 약국 간판
 export const DECKS = [
   // ── 정보체 ──────────────────────────────────────────
   {
-    id: 'F-flu', type: 'multi', label: '독감 접종 · 정보체',
+    id: 'F-flu', type: 'done', label: '독감 접종 · 정보체',
     slides: [
       { kind: 'photo', photo: B, pos: 'center 42%', place: '육아', cat: 'NEWS',
         head: ['독감 무료접종', '14세까지 넓어집니다'] },
@@ -33,7 +33,7 @@ export const DECKS = [
   // ── 수다체 (동네 학부모 대화 톤) ──────────────────────
   // 등장하는 "○○ 엄마"는 실존 인물이 아니라 톤을 만들기 위한 장치입니다.
   {
-    id: 'T-flu-talk', type: 'multi', label: '독감 접종 · 수다체',
+    id: 'T-flu-talk', type: 'done', label: '독감 접종 · 수다체',
     slides: [
       { kind: 'photo', photo: B, pos: 'center 42%', place: '독감 예방접종', cat: '건강정보',
         head: ['어머, 준수 엄마', '아직도 신청 안 했어?'] },
@@ -55,7 +55,7 @@ export const DECKS = [
 
   // ── 추석 연휴 문 여는 병원·약국 ────────────────────────
   {
-    id: 'C-chuseok', type: 'multi', label: '추석 연휴 병원 · 수다체',
+    id: 'C-chuseok', type: 'done', label: '추석 연휴 병원 · 수다체',
     slides: [
       { kind: 'photo', photo: C, pos: 'center',
         place: '추석 연휴 병원', cat: '건강정보',
@@ -107,10 +107,111 @@ export const DECKS = [
 
   // ── 한 장짜리 ────────────────────────────────────────
   {
-    id: 'S-flu-talk', type: 'single', label: '독감 접종 · 수다체 한 장',
+    id: 'S-flu-talk', type: 'done', label: '독감 접종 · 수다체 한 장',
     slides: [
       { kind: 'photo', photo: B, pos: 'center 42%', place: '독감 예방접종', cat: '건강정보',
         head: ['어머, 이거 몰랐어?', '독감 접종 14세까지래'] },
     ],
   },
 ];
+
+// ── 2026-09-05 · 5개 세트 ─────────────────────────────────
+// 한 세트 안에서 사진 크기·위치는 photoDefaults 로 고정하고, 음영만 카드 종류별로 달라집니다.
+// 표지 오프닝은 hooks.md 의 패턴을 하나씩 다르게 씁니다.
+DECKS.push(
+  {
+    // 오프닝 패턴: 억울함
+    id: 'D1-daycare', type: 'multi', label: '어린이집 비용',
+    photoDefaults: { photo: 'assets/photos/daycare.png', pos: 'center' },
+    slides: [
+      { kind: 'photo', place: '어린이집 비용', cat: '보육',
+        head: ['우리만 낸 거였어?', '특별활동비 없어진대'] },
+      { kind: 'photoBody',
+        body: ['어린이집 특별활동비랑 현장학습비를 정부가 대신 내주는 쪽으로 바뀐다는 얘기가 나왔어.',
+               '4~5세 무상교육도 더 넓힌다고 하더라.'] },
+      { kind: 'photoBody',
+        body: ['0세반은 선생님 한 명이 보던 아이 수도 줄인다고 해.',
+               '보는 눈이 늘어난다는 건 부모 입장에선 제일 반가운 얘기지.'] },
+      { kind: 'photoBody',
+        body: ['근데 언제부터 적용되는지는 아직 확실하지 않아.',
+               '우리 원은 어떻게 되는지 등원할 때 한 번 물어보는 게 제일 빨라.'] },
+      { kind: 'photoEnd' },
+    ],
+  },
+  {
+    // 오프닝 패턴: 경고
+    id: 'D2-sickday', type: 'multi', label: '아플 때 등원 기준',
+    photoDefaults: { photo: 'assets/photos/sick-child.jpg', pos: 'center' },
+    slides: [
+      { kind: 'photo', place: '등원 기준', cat: '건강정보',
+        head: ['이거 모르면 헛걸음해', '언제 보내고 언제 쉬어?'] },
+      { kind: 'photoBody',
+        body: ['개학하고 나면 한 명 걸릴 때 반이 다 도는 거, 다들 겪어봤잖아.',
+               '제일 헷갈리는 게 언제 다시 보내느냐야.'] },
+      { kind: 'photoBody',
+        body: ['등원 기준은 병마다 다르고, 결국 다니는 기관 방침이 기준이 되더라.',
+               '카더라로 보내면 서로 곤란해지니까 전화 한 통이 제일 빠르고 정확해.'] },
+      { kind: 'photoBody',
+        body: ['열이 내려도 하루는 더 지켜보라는 곳이 많아.',
+               '애매하면 소아과에서 확인받고 움직이는 게 맞고,\n많이 안 좋아 보이면 고민하지 말고 바로 병원이야.'] },
+      { kind: 'photoEnd' },
+    ],
+  },
+  {
+    // 오프닝 패턴: 팁 흘리기
+    id: 'D3-drive', type: 'multi', label: '장거리 이동',
+    photoDefaults: { photo: 'assets/photos/traffic.jpg', pos: 'center' },
+    slides: [
+      { kind: 'photo', place: '추석 장거리 이동', cat: '실전정보',
+        head: ['이건 알아두면 편해', '차에서 세 시간 버티기'] },
+      { kind: 'photoBody',
+        body: ['올해 추석은 9월 24일 목요일부터 26일 토요일까지야.',
+               '일요일까지 나흘이라 길에서 보내는 시간도 그만큼 길어지겠지.'] },
+      { kind: 'photoBody',
+        body: ['출발 전에 화장실 한 번, 출발하고는 두 시간마다 한 번씩 쉬어.',
+               '아이는 어른보다 훨씬 빨리 지치더라고.'] },
+      { kind: 'photoBody',
+        body: ['간식이랑 물티슈는 뒷좌석 손 닿는 자리에 두는 게 편해.',
+               '멀미약은 나이마다 되는 게 달라서 약국에서 물어보고 챙기는 게 안전해.'] },
+      { kind: 'photoEnd' },
+    ],
+  },
+  {
+    // 오프닝 패턴: 공감 한숨
+    id: 'D4-money', type: 'multi', label: '추석 용돈',
+    photoDefaults: { photo: 'assets/photos/money.webp', pos: 'center' },
+    slides: [
+      { kind: 'photo', place: '추석 용돈', cat: '부모경제',
+        head: ['올해도 이 고민이네', '조카 용돈 얼마 줘야 돼'] },
+      { kind: 'photoBody',
+        body: ['명절만 되면 꼭 이 얘기가 나와.',
+               '많이 주자니 부담이고, 적게 주자니 눈치 보이고.'] },
+      { kind: 'photoBody',
+        body: ['집집마다 기준이 달라서 정답이 없더라.',
+               '나이로 정하는 집, 학년으로 정하는 집,\n아예 안 주기로 합의한 집도 있고.'] },
+      { kind: 'photoBody',
+        body: ['금액이랑 줄 사람만 미리 정해두면 현장에서 눈치싸움 할 일이 없어져.',
+               '다들 올해는 얼마로 잡았어? 댓글에 좀 알려줘.'] },
+      { kind: 'photoEnd' },
+    ],
+  },
+  {
+    // 오프닝 패턴: 시간 압박
+    id: 'D5-tax', type: 'multi', label: '근로장려금 마감',
+    photoDefaults: { photo: 'assets/photos/family.jpg', pos: 'center' },
+    slides: [
+      { kind: 'photo', place: '근로장려금', cat: '지원금',
+        head: ['이번 주 지나면 끝이야', '9월 15일이 마지막'] },
+      { kind: 'photoBody',
+        body: ['근로장려금 반기 신청 마감이 9월 15일이래.',
+               '오늘 기준으로 열흘 남았어.'] },
+      { kind: 'photoBody',
+        body: ['맞벌이든 외벌이든 조건이 맞으면 대상이야.',
+               '우리가 해당되는지는 홈택스에서 바로 조회돼.'] },
+      { kind: 'photoBody',
+        body: ['안내문을 못 받았다고 대상이 아닌 건 아니라더라.',
+               '직접 한 번 조회해보는 게 확실해. 몇 분이면 끝나.'] },
+      { kind: 'photoEnd' },
+    ],
+  },
+);

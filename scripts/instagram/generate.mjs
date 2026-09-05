@@ -134,3 +134,13 @@ for (const d of decks) {
   execFileSync('zip', ['-jq', zipPath, ...files.map((f) => resolve(outDir, f))]);
   console.log('📦', zipPath);
 }
+
+// 여러 세트를 한 번에 만들었으면 전체를 한 폴더로도 묶음
+const multi = decks.filter((d) => d.slides.length > 1);
+if (multi.length > 1) {
+  const all = multi.flatMap((d) => namesFor([d]).map((n) => resolve(outDir, `${n}.png`)));
+  const allZip = resolve(outDir, 'ALL-cards.zip');
+  rmSync(allZip, { force: true });
+  execFileSync('zip', ['-jq', allZip, ...all]);
+  console.log('📦 전체', allZip, `(${all.length}장)`);
+}

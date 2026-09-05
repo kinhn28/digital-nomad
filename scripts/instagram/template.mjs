@@ -316,14 +316,15 @@ export function buildHtml(decks = DECKS) {
   const out = [];
   for (const d of decks) {
     const t = THEMES[d.theme];
-    d.slides.forEach((s, i) =>
+    d.slides.forEach((raw, i) => {
+      const s = { ...(d.photoDefaults || {}), ...raw };
       out.push(
         DRAWN_KINDS.includes(s.kind) ? drawnCard(s)
         : PHOTO_KINDS.includes(s.kind)
           ? photoCard(s, i, d.slides.length)
           : shell(t, i + 1, d.slides.length, render(s, t), s.kind === 'end' ? 'end' : '')
-      )
-    );
+      );
+    });
   }
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
     <style>${CSS}</style></head><body>${out.join('')}</body></html>`;
