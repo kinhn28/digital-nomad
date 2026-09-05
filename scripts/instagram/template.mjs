@@ -88,7 +88,8 @@ const CSS = `
   .ph .scrim { position:absolute; inset:0; }
   .ph .mark { position:absolute; left:64px; top:56px; font-size:30px; font-weight:600;
     color:#fff; letter-spacing:.01em; text-shadow:0 2px 14px rgba(0,0,0,.55); }
-  .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
+  /* 인스타 하단 UI가 덮는 구간을 피해 텍스트를 위로 올림 */
+  .ph .txt { position:absolute; left:64px; right:64px; bottom:26%; }
   .ph .kicker { font-size:27px; font-weight:700; color:rgba(255,255,255,.92);
     letter-spacing:.02em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,.5); }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
@@ -96,16 +97,18 @@ const CSS = `
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
-  .ph .read { position:absolute; left:64px; right:78px; bottom:96px; }
+  .ph .read { position:absolute; left:64px; right:78px; bottom:26%; }
   .ph .read p { font-size:34px; font-weight:500; line-height:1.68; letter-spacing:-.022em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:36px; }
-  .ph .arrow { position:absolute; right:58px; bottom:62px; font-size:34px; font-weight:600;
+  .ph .read .n2 { display:block; font-size:29px; font-weight:800; letter-spacing:.02em;
+    color:#fff; opacity:.72; margin-bottom:14px; }
+  .ph .arrow { position:absolute; right:58px; bottom:21%; font-size:34px; font-weight:600;
     color:rgba(255,255,255,.9); }
   .ph .num { position:absolute; right:64px; top:58px; font-size:25px; font-weight:600;
     letter-spacing:.06em; color:rgba(255,255,255,.72);
     text-shadow:0 2px 12px rgba(0,0,0,.5); }
-  .ph .src { position:absolute; left:64px; bottom:52px; font-size:21px; font-weight:500;
+  .ph .src { position:absolute; left:64px; bottom:21%; font-size:21px; font-weight:500;
     color:rgba(255,255,255,.55); }
 
   /* 엔딩 — 워드마크만 */

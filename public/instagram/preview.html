@@ -83,7 +83,8 @@
   .ph .scrim { position:absolute; inset:0; }
   .ph .mark { position:absolute; left:64px; top:56px; font-size:30px; font-weight:600;
     color:#fff; letter-spacing:.01em; text-shadow:0 2px 14px rgba(0,0,0,.55); }
-  .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
+  /* 인스타 하단 UI가 덮는 구간을 피해 텍스트를 위로 올림 */
+  .ph .txt { position:absolute; left:64px; right:64px; bottom:26%; }
   .ph .kicker { font-size:27px; font-weight:700; color:rgba(255,255,255,.92);
     letter-spacing:.02em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,.5); }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
@@ -91,16 +92,18 @@
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
-  .ph .read { position:absolute; left:64px; right:78px; bottom:96px; }
+  .ph .read { position:absolute; left:64px; right:78px; bottom:26%; }
   .ph .read p { font-size:34px; font-weight:500; line-height:1.68; letter-spacing:-.022em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:36px; }
-  .ph .arrow { position:absolute; right:58px; bottom:62px; font-size:34px; font-weight:600;
+  .ph .read .n2 { display:block; font-size:29px; font-weight:800; letter-spacing:.02em;
+    color:#fff; opacity:.72; margin-bottom:14px; }
+  .ph .arrow { position:absolute; right:58px; bottom:21%; font-size:34px; font-weight:600;
     color:rgba(255,255,255,.9); }
   .ph .num { position:absolute; right:64px; top:58px; font-size:25px; font-weight:600;
     letter-spacing:.06em; color:rgba(255,255,255,.72);
     text-shadow:0 2px 12px rgba(0,0,0,.5); }
-  .ph .src { position:absolute; left:64px; bottom:52px; font-size:21px; font-weight:500;
+  .ph .src { position:absolute; left:64px; bottom:21%; font-size:21px; font-weight:500;
     color:rgba(255,255,255,.55); }
 
   /* 엔딩 — 워드마크만 */
@@ -171,7 +174,7 @@
            letter-spacing:-.02em; color:var(--body); }
   .enote { margin-top:auto; margin-bottom:40px; font-size:29px; font-weight:700; color:var(--fg); }
 </style></head><body><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/daycare.png');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)"></div>
+  <div class="img" style="background-image:url('assets/photos/daycare.png');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
   <div class="mark">@bumoro.kr</div>
     <div class="txt"><div class="kicker">어린이집 비용<i>|</i>보육</div>
       <h2>우리만 낸 거였어?<br>특별활동비 없어진대</h2></div>
@@ -213,7 +216,7 @@
   <div class="center">
       <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
 </section><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/sick-child.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)"></div>
+  <div class="img" style="background-image:url('assets/photos/sick-child.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
   <div class="mark">@bumoro.kr</div>
     <div class="txt"><div class="kicker">등원 기준<i>|</i>건강정보</div>
       <h2>이거 모르면 헛걸음해<br>언제 보내고 언제 쉬어?</h2></div>
@@ -255,7 +258,7 @@
   <div class="center">
       <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
 </section><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/traffic.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)"></div>
+  <div class="img" style="background-image:url('assets/photos/traffic.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
   <div class="mark">@bumoro.kr</div>
     <div class="txt"><div class="kicker">추석 장거리 이동<i>|</i>실전정보</div>
       <h2>이건 알아두면 편해<br>차에서 세 시간 버티기</h2></div>
@@ -297,7 +300,7 @@
   <div class="center">
       <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
 </section><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/money.webp');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)"></div>
+  <div class="img" style="background-image:url('assets/photos/money.webp');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
   <div class="mark">@bumoro.kr</div>
     <div class="txt"><div class="kicker">추석 용돈<i>|</i>부모경제</div>
       <h2>올해도 이 고민이네<br>조카 용돈 얼마 줘야 돼</h2></div>
@@ -339,7 +342,7 @@
   <div class="center">
       <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
 </section><section class="s ph">
-  <div class="img" style="background-image:url('assets/photos/family.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55) 78%, rgba(0,0,0,.88) 100%)"></div>
+  <div class="img" style="background-image:url('assets/photos/family.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
   <div class="mark">@bumoro.kr</div>
     <div class="txt"><div class="kicker">근로장려금<i>|</i>지원금</div>
       <h2>이번 주 지나면 끝이야<br>9월 15일이 마지막</h2></div>
@@ -377,6 +380,57 @@
   <div class="img" style="background-image:url('assets/photos/family.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.76) 0%, rgba(0,0,0,.64) 10%, rgba(0,0,0,.64) 100%)"></div>
   
   <div class="num">5 / 5</div>
+  
+  <div class="center">
+      <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.82) 0%, rgba(0,0,0,.52) 8%, rgba(0,0,0,0) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.88) 76%, rgba(0,0,0,.92) 100%)"></div>
+  <div class="mark">@bumoro.kr</div>
+    <div class="txt"><div class="kicker">이유식 알러지 테스트<i>|</i>육아꿀팁</div>
+      <h2>다들 이렇게 하더라<br>알러지 테스트 3가지</h2></div>
+  
+  
+  
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%, rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)"></div>
+  
+  <div class="num">2 / 6</div>
+  <div class="read">
+      <p><span class="n2">첫째</span>새 재료는 하루에 딱 하나씩.</p><p>두세 개를 같이 넣으면 반응이 와도 뭐 때문인지 알 수가 없거든.<br>하윤이네도 그러다 처음부터 다시 했대.</p></div>
+    <div class="arrow">&#8594;</div>
+    
+  
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%, rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)"></div>
+  
+  <div class="num">3 / 6</div>
+  <div class="read">
+      <p><span class="n2">둘째</span>먹이는 시간은 아침이나 점심.</p><p>낮에 먹여야 이상이 있어도 병원 문 열었을 때 갈 수 있으니까.<br>저녁에 처음 먹였다가 밤에 당황했다는 얘기가 제일 많더라.</p></div>
+    <div class="arrow">&#8594;</div>
+    
+  
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%, rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)"></div>
+  
+  <div class="num">4 / 6</div>
+  <div class="read">
+      <p><span class="n2">셋째</span>한 가지 넣고 사나흘은 지켜보기.</p><p>바로 안 나오고 며칠 뒤에 올라오는 경우도 있대.<br>뭘 언제 먹였는지 메모해두면 나중에 훨씬 편해.</p></div>
+    <div class="arrow">&#8594;</div>
+    
+  
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.74) 0%, rgba(0,0,0,.60) 12%, rgba(0,0,0,.60) 45%, rgba(0,0,0,.80) 75%, rgba(0,0,0,.92) 100%)"></div>
+  
+  <div class="num">5 / 6</div>
+  <div class="read">
+      <p>발진이나 이상이 보이면 그 재료는 일단 멈추고 소아과에 확인받는 게 먼저야.</p><p>여긴 부모들끼리 나눈 경험이고, 판단은 병원에서 받는 거니까.</p></div>
+    <div class="arrow">&#8594;</div>
+    
+  
+</section><section class="s ph">
+  <div class="img" style="background-image:url('assets/photos/babyfood.jpg');background-position:center;background-size:cover"></div><div class="scrim" style="background:linear-gradient(to bottom, rgba(0,0,0,.76) 0%, rgba(0,0,0,.64) 10%, rgba(0,0,0,.64) 100%)"></div>
+  
+  <div class="num">6 / 6</div>
   
   <div class="center">
       <div class="h">@bumoro.kr</div><div class="t">꼭 필요한 것만 골라드려요</div></div>
