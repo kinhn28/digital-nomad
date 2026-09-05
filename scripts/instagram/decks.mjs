@@ -5,6 +5,7 @@
 //    발행 전 질병관리청 공지로 확인하세요.
 const A = 'assets/photos/flu-01.jpg';  // 코 푸는 아이
 const B = 'assets/photos/flu-02.jpg';  // 곰인형·주사기·마스크
+const C = 'assets/photos/chuseok-pharmacy.jpg';  // 약국 간판
 
 export const DECKS = [
   // ── 정보체 ──────────────────────────────────────────
@@ -49,6 +50,34 @@ export const DECKS = [
         body: ['진짜 어이없는 게 뭔 줄 알아?\n공짜인 줄 모르고 돈 내고 맞은 집이 한둘이 아니래.',
                '지호 엄마도 작년에 그랬다잖아. 얼른 확인해봐.'] },
       { kind: 'photoEnd', photo: A, pos: 'center 96%' },
+    ],
+  },
+
+  // ── 추석 연휴 문 여는 병원·약국 ────────────────────────
+  {
+    id: 'C-chuseok', type: 'multi', label: '추석 연휴 병원 · 수다체',
+    slides: [
+      { kind: 'photo', photo: C, pos: 'center',
+        place: '추석 연휴 병원', cat: '건강정보',
+        head: ['어머, 연휴에 애 아프면', '어디로 가야 돼?'] },
+
+      { kind: 'photoBody', photo: C, pos: '18% center',
+        body: ['올해 추석은 9월 24일 목요일부터 26일 토요일까지야.\n일요일까지 치면 나흘을 내리 쉬는 거지.',
+               '문제는 그동안 동네 병원이 다 닫는다는 거잖아.'] },
+
+      { kind: 'photoBody', photo: C, pos: '80% center',
+        body: ['근데 찾는 방법이 다 있더라고.\n응급의료포털에 들어가면 연휴에 문 여는 병원이랑 약국이 다 떠.',
+               '포털에서 "문 여는 병원"이라고만 쳐도 연결돼.'] },
+
+      { kind: 'photoBody', photo: C, pos: '42% center',
+        body: ['찾기 귀찮으면 그냥 전화해.\n129번은 보건복지부, 120번은 우리 시청이야.',
+               '앱이 편하면 "응급똑똑" 깔아둬.\n증상 넣으면 응급실 갈 일인지 아닌지 알려준대.'] },
+
+      { kind: 'photoBody', photo: C, pos: '92% center',
+        body: ['12세 이하는 "아이안심톡"으로 24시간 상담도 돼.\n애매할 때 먼저 물어보고 움직이면 헛걸음을 안 하지.',
+               '물론 애가 많이 안 좋아 보이면 고민하지 말고 119야.'] },
+
+      { kind: 'photoEnd', photo: C, pos: 'center' },
     ],
   },
 
