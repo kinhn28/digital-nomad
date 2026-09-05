@@ -15,7 +15,6 @@ import { execFileSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const outDir = resolve(root, 'public/instagram');
-rmSync(outDir, { recursive: true, force: true });
 mkdirSync(outDir, { recursive: true });
 
 // 텍스트 종류별 최소 명도대비 (WCAG: 큰 글자 3:1, 본문 4.5:1)
@@ -29,6 +28,12 @@ const decks = DECKS.filter((d) => (only ? d.id === only : want ? d.type === want
 if (!decks.length) { console.error('해당하는 세트가 없습니다.'); process.exit(1); }
 const NAMES = namesFor(decks);
 console.log('세트:', decks.map((d) => `${d.id}(${d.type}, ${d.slides.length}장)`).join(' · '));
+
+// 이번에 만들 세트의 이전 결과물만 지움 — 다른 세트는 그대로 둠
+for (const d of decks) {
+  for (const n of namesFor([d])) rmSync(resolve(outDir, `${n}.png`), { force: true });
+  rmSync(resolve(outDir, `${d.id}.zip`), { force: true });
+}
 
 const html = buildHtml(decks);
 writeFileSync(resolve(outDir, 'preview.html'), html);
