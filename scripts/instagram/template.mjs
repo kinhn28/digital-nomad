@@ -86,16 +86,11 @@ const CSS = `
     color:rgba(255,255,255,.8); font-size:26px; font-weight:600; line-height:1.5;
     padding:22px 26px; }
   .ph .scrim { position:absolute; inset:0; }
-  .ph .mark { position:absolute; left:64px; top:56px; }
-  .wm2 { position:relative; display:inline-block; font-size:48px; font-weight:900;
-    letter-spacing:.055em; color:#fff; line-height:1; padding:0 2px; }
-  /* 밑줄 바는 글자 크기에 비례 — 아래쪽에 얇게 깔려 획이 위로 지나가게 */
-  .wm2 .bar { position:absolute; left:-3px; right:-3px; bottom:.07em; height:.13em;
-    background:${BRAND.wordmarkBar}; }
-  .wm2 .t { position:relative; }
+  .ph .mark { position:absolute; left:64px; top:56px; font-size:30px; font-weight:600;
+    color:#fff; letter-spacing:.01em; text-shadow:0 2px 14px rgba(0,0,0,.55); }
   .ph .txt { position:absolute; left:64px; right:64px; bottom:74px; }
-  .ph .kicker { font-size:27px; font-weight:600; color:${PHOTO.meta}; letter-spacing:.02em;
-    margin-bottom:20px; }
+  .ph .kicker { font-size:27px; font-weight:700; color:rgba(255,255,255,.92);
+    letter-spacing:.02em; margin-bottom:20px; text-shadow:0 2px 14px rgba(0,0,0,.5); }
   .ph .kicker i { font-style:normal; opacity:.6; margin:0 12px; }
   .ph h2 { font-size:80px; font-weight:800; line-height:1.28; letter-spacing:-.045em;
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
@@ -113,7 +108,7 @@ const CSS = `
   /* 엔딩 — 워드마크만 */
   .ph .center { position:absolute; inset:0; display:flex; flex-direction:column;
     align-items:center; justify-content:center; }
-  .ph .center .wm2 { font-size:78px; }
+  .ph .center .h { font-size:46px; font-weight:700; color:#fff; letter-spacing:.01em; }
   .ph .center .t { margin-top:26px; font-size:29px; font-weight:600;
     color:rgba(255,255,255,.92); letter-spacing:-.02em; }
 
@@ -160,10 +155,10 @@ const photoCard = (s) => `<section class="s ph">
     <div class="arrow">&#8594;</div>
     ${s.source ? `<div class="src">${s.source}</div>` : ''}` : ''}
   ${s.kind === 'photoEnd' ? `<div class="center">
-      ${WM}<div class="t">${BRAND.tagline}</div></div>` : ''}
+      <div class="h">${BRAND.handle}</div><div class="t">${BRAND.tagline}</div></div>` : ''}
 </section>`;
 
-const WM = `<span class="wm2"><span class="bar"></span><span class="t">${BRAND.wordmark}</span></span>`;
+const WM = BRAND.handle;
 
 const PHOTO_KINDS = ['photo', 'photoBody', 'photoEnd', 'photoOnly'];
 

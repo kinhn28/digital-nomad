@@ -18,7 +18,7 @@ export const PHOTO = {
   scrimBody: 'linear-gradient(to bottom, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 24%,'
            + ' rgba(0,0,0,.62) 56%, rgba(0,0,0,.90) 100%)',
   // 엔딩: 전면을 고르게 눌러 워드마크만 남김
-  scrimEnd: 'linear-gradient(rgba(0,0,0,.46), rgba(0,0,0,.46))',
+  scrimEnd: 'linear-gradient(rgba(0,0,0,.64), rgba(0,0,0,.64))',
 };
 
 // 시안 CSS의 :root 값 그대로
