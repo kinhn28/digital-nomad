@@ -98,14 +98,16 @@ const CSS = `
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
-  .ph .read { position:absolute; left:60px; right:66px; bottom:16%; }
+  .ph .read { position:absolute; left:60px; right:66px; bottom:24%; }
   .ph .read p { word-break:keep-all; text-wrap:pretty; font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:32px; }
   .ph .read .n2 { display:block; font-size:34px; font-weight:800; letter-spacing:.02em;
     color:#fff; opacity:.75; margin-bottom:16px; }
-  .ph .lead3 { word-break:keep-all; text-wrap:pretty; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
+  .ph .lead3 { display:flex; gap:16px; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.45); }
+  .ph .lead3 .n { flex:none; font-variant-numeric:tabular-nums; }
+  .ph .lead3 .t { word-break:keep-all; text-wrap:pretty; }
   .ph .items { margin-top:30px; display:flex; flex-direction:column; gap:18px; }
   .ph .items li { list-style:none; word-break:keep-all; text-wrap:pretty; display:flex; gap:18px; font-size:37px; font-weight:500;
     line-height:1.45; letter-spacing:-.025em; color:rgba(255,255,255,.94);
@@ -214,6 +216,14 @@ const photoBg = (s) => {
 const scrimOf = (k) =>
   k === 'photoEnd' ? PHOTO.scrimEnd : k === 'photoBody' ? PHOTO.scrimBody : PHOTO.scrimCover;
 
+// 선행 번호(1. / 2) 등)를 별도 칼럼으로 빼서 둘째 줄이 글자에 맞춰 들여써지게 함
+const leadHtml = (lead) => {
+  const m = lead.match(/^(\d+[.)])\s+([\s\S]+)$/);
+  return m
+    ? `<div class="lead3"><span class="n">${m[1]}</span><span class="t">${m[2]}</span></div>`
+    : `<div class="lead3"><span class="t">${lead}</span></div>`;
+};
+
 const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}">
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
   ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
@@ -221,7 +231,7 @@ const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}">
       <h2>${s.head.join('<br>')}</h2></div>` : ''}
   ${n > 1 && s.kind !== 'photo' ? `<div class="num">${i + 1} / ${n}</div>` : ''}
   ${s.kind === 'photoBody' ? `<div class="read">
-      ${s.lead ? `<div class="lead3">${s.lead.replace(/\n/g, '<br>')}</div>` : ''}
+      ${s.lead ? leadHtml(s.lead) : ''}
       ${s.items ? `<ul class="items">${s.items
           .map((t) => `<li><i>✓</i><span>${t}</span></li>`).join('')}</ul>` : ''}
       ${(s.body || []).map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}</div>

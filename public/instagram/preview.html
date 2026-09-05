@@ -93,14 +93,16 @@
     color:#fff; text-shadow:0 2px 24px rgba(0,0,0,.28); }
 
   /* 내지 — 사진 위 본문 */
-  .ph .read { position:absolute; left:60px; right:66px; bottom:16%; }
+  .ph .read { position:absolute; left:60px; right:66px; bottom:24%; }
   .ph .read p { word-break:keep-all; text-wrap:pretty; font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:32px; }
   .ph .read .n2 { display:block; font-size:34px; font-weight:800; letter-spacing:.02em;
     color:#fff; opacity:.75; margin-bottom:16px; }
-  .ph .lead3 { word-break:keep-all; text-wrap:pretty; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
+  .ph .lead3 { display:flex; gap:16px; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.45); }
+  .ph .lead3 .n { flex:none; font-variant-numeric:tabular-nums; }
+  .ph .lead3 .t { word-break:keep-all; text-wrap:pretty; }
   .ph .items { margin-top:30px; display:flex; flex-direction:column; gap:18px; }
   .ph .items li { list-style:none; word-break:keep-all; text-wrap:pretty; display:flex; gap:18px; font-size:37px; font-weight:500;
     line-height:1.45; letter-spacing:-.025em; color:rgba(255,255,255,.94);
@@ -434,7 +436,7 @@
   
   <div class="num">2 / 6</div>
   <div class="read">
-      <div class="lead3">1. 새 재료는<br>하루에 딱 하나씩</div>
+      <div class="lead3"><span class="n">1.</span><span class="t">새 재료는 하루에 딱 하나씩만</span></div>
       <ul class="items"><li><i>✓</i><span>두세 개를 같이 넣으면 뭐 때문인지 몰라</span></li><li><i>✓</i><span>하윤이네도 그러다 처음부터 다시 했대</span></li></ul>
       </div>
     <div class="arrow">&#8594;</div>
@@ -445,7 +447,7 @@
   
   <div class="num">3 / 6</div>
   <div class="read">
-      <div class="lead3">2. 먹이는 시간은<br>아침이나 점심</div>
+      <div class="lead3"><span class="n">2.</span><span class="t">먹이는 시간은 아침이나 점심</span></div>
       <ul class="items"><li><i>✓</i><span>낮에 먹여야 병원 문 열었을 때 갈 수 있어</span></li><li><i>✓</i><span>저녁에 처음 먹였다 밤에 당황한 집이 제일 많더라</span></li></ul>
       </div>
     <div class="arrow">&#8594;</div>
@@ -456,7 +458,7 @@
   
   <div class="num">4 / 6</div>
   <div class="read">
-      <div class="lead3">3. 한 가지 넣고<br>사나흘은 지켜보기</div>
+      <div class="lead3"><span class="n">3.</span><span class="t">한 가지 넣고 사나흘은 지켜보기</span></div>
       <ul class="items"><li><i>✓</i><span>며칠 뒤에 올라오는 경우도 있대</span></li><li><i>✓</i><span>뭘 언제 먹였는지 메모해두면 훨씬 편해</span></li></ul>
       </div>
     <div class="arrow">&#8594;</div>
@@ -467,7 +469,7 @@
   
   <div class="num">5 / 6</div>
   <div class="read">
-      <div class="lead3">이상이 보이면<br>그 재료는 일단 멈추기</div>
+      <div class="lead3"><span class="t">이상이 보이면 그 재료는 일단 멈추기</span></div>
       <ul class="items"><li><i>✓</i><span>발진이 올라오면 소아과에 확인받는 게 먼저</span></li><li><i>✓</i><span>여긴 부모들 경험이고, 판단은 병원에서</span></li></ul>
       </div>
     <div class="arrow">&#8594;</div>

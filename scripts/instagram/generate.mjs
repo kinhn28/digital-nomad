@@ -201,7 +201,7 @@ for (let i = 0; i < bgShots.length; i++) {
 const lines = await page.evaluate(() => {
   const out = [];
   document.querySelectorAll('.s.ph').forEach((card, i) => {
-    card.querySelectorAll('.read p, .items li span, .txt h2').forEach((el) => {
+    card.querySelectorAll('.read p, .items li span, .lead3 .t, .txt h2').forEach((el) => {
       const r = document.createRange();
       r.selectNodeContents(el);
       const rects = [...r.getClientRects()].filter((x) => x.width > 1);
@@ -219,6 +219,26 @@ if (lines.length) {
   console.log('\n줄 채움 점검 — 짧은 줄이 있는 문장 (문장을 고쳐 채우세요)');
   lines.forEach((o) =>
     console.log(`  ${NAMES[o.i - 1]}  [${o.fills.map((f) => Math.round(f * 100)).join(' · ')}%]  ${o.text}…`));
+  console.log('');
+}
+
+// 3-c) 세이프존 — 리포스트/스레드 UI가 덮는 하단 20%를 텍스트가 침범하는지
+const unsafe = await page.evaluate(() => {
+  const LIMIT = 1350 * 0.78;                             // 표지 외 카드의 텍스트 하한선
+  const out = [];
+  document.querySelectorAll('.s.ph').forEach((card, i) => {
+    if (card.dataset.kind === 'photo') return;           // 표지는 레퍼런스 위치 유지
+    const top = card.getBoundingClientRect().top;
+    card.querySelectorAll('.read, .center .h, .center .t').forEach((el) => {
+      const b = el.getBoundingClientRect().bottom - top;
+      if (b > LIMIT) out.push({ i: i + 1, bottom: Math.round(b) });
+    });
+  });
+  return out;
+});
+if (unsafe.length) {
+  console.log('\n세이프존 침범 — 리포스트 시 가려집니다 (하한 1053px)');
+  unsafe.forEach((o) => console.log(`  ${NAMES[o.i - 1]}  텍스트 아래끝 ${o.bottom}px`));
   console.log('');
 }
 
