@@ -37,6 +37,14 @@ for (const d of decks) {
   rmSync(resolve(outDir, `${d.id}.zip`), { force: true });
 }
 
+// 레퍼런스 캡처에서 잰 목표 밝기 곡선 (0~100%, 5% 간격)
+const TARGET = {
+  photo:     [.30,.28,.27,.29,.33,.40,.41,.37,.30,.22,.19,.16,.17,.15,.12,.10,.11,.08,.05,.06,.06],
+  photoBody: [.42,.37,.34,.40,.42,.30,.28,.31,.29,.21,.19,.15,.12,.09,.09,.05,.03,.02,.01,.01,.01],
+  photoEnd:  [.14,.13,.12,.12,.12,.11,.11,.10,.10,.09,.09,.08,.08,.07,.07,.06,.06,.05,.05,.05,.05],
+};
+const invlin = (L) => (L <= 0.0031308 ? L * 12.92 : 1.055 * L ** (1 / 2.4) - 0.055);
+
 const html = buildHtml(decks);
 writeFileSync(resolve(outDir, 'preview.html'), html);
 
@@ -49,6 +57,62 @@ await page.waitForFunction(() =>
   [...document.images].every((i) => i.complete) &&
   [...document.querySelectorAll('.img')].length >= 0);
 await page.waitForTimeout(300);                   // 배경 이미지 디코딩 여유
+
+// 0) 사진마다 필요한 음영을 역산 — 밝은 사진은 더, 어두운 사진은 덜 누름
+await page.evaluate(() => document.body.classList.add('measure', 'noscrim'));
+const rawShots = [];
+for (const c of await page.locator('.s.ph').all())
+  rawShots.push((await c.screenshot()).toString('base64'));
+
+const probe0 = await browser.newPage();
+await probe0.setContent('<canvas id=c></canvas>');
+const srcCurves = [];
+for (const b64 of rawShots) {
+  srcCurves.push(await probe0.evaluate(async (b64) => {
+    const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode();
+    const cv = document.getElementById('c'); cv.width = img.width; cv.height = img.height;
+    const ctx = cv.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0);
+    const lin = (v) => (v /= 255) <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+    const out = [];
+    for (let k = 0; k <= 100; k += 5) {
+      const y = Math.min(Math.round(img.height * k / 100), img.height - 1);
+      const d = ctx.getImageData(0, y, img.width, 1).data;
+      const ls = [];
+      for (let i = 0; i < d.length; i += 4)
+        ls.push(.2126 * lin(d[i]) + .7152 * lin(d[i + 1]) + .0722 * lin(d[i + 2]));
+      const mean = ls.reduce((a, b) => a + b, 0) / ls.length;
+      ls.sort((a, b) => a - b);
+      out.push({ mean, p90: ls[Math.floor(ls.length * .9)] });   // 밝은 쪽 최악값
+    }
+    return out;
+  }, b64));
+}
+await probe0.close();
+
+await page.evaluate(([curves, TARGET, invSrc]) => {
+  document.body.classList.remove('noscrim');
+  const inv = (L) => (L <= 0.0031308 ? L * 12.92 : 1.055 * Math.pow(L, 1 / 2.4) - 0.055);
+  document.querySelectorAll('.s.ph').forEach((card, i) => {
+    const kind = card.dataset.kind;
+    const tgt = TARGET[kind] || TARGET.photoBody;
+    const src = curves[i];
+    const stops = tgt.map((t, j) => {
+      // 맨 위 10%에는 아이디·순번이 놓임. 레퍼런스는 그 자리가 원래 어두운
+      // 사진이라 성립했지만, 밝은 사진에서는 최소한의 어둡기를 보장해야 함
+      // 텍스트가 놓이는 구간(위 10% · 아래 문구 자리)은 행 평균이 아니라
+      // 밝은 쪽 최악값을 기준으로 눌러야 글자가 묻히지 않음
+      // 엔딩 카드는 워드마크가 한가운데 있으므로 전 구간을 최악값 기준으로
+      const inText = j <= 2 || j >= 12 || kind === 'photoEnd';
+      const base = inText ? src[j].p90 : src[j].mean;
+      const tt = inText ? Math.min(t, .12) : t;
+      const a = Math.max(0, Math.min(.95, 1 - inv(tt) / Math.max(inv(base), 1e-4)));
+      return `rgba(0,0,0,${a.toFixed(3)}) ${j * 5}%`;
+    });
+    card.querySelector('.scrim').style.background =
+      `linear-gradient(to bottom, ${stops.join(',')})`;
+  });
+}, [srcCurves, TARGET, null]);
 
 // 1) 텍스트 상자 좌표 수집
 const boxes = await page.evaluate(() => {
@@ -71,7 +135,6 @@ const boxes = await page.evaluate(() => {
 });
 
 // 2) 텍스트를 숨긴 배경만 캡처
-await page.evaluate(() => document.body.classList.add('measure'));
 const cards = await page.locator('.s').all();
 const bgShots = [];
 for (const c of cards) bgShots.push((await c.screenshot()).toString('base64'));

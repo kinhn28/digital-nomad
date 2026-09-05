@@ -23,6 +23,7 @@ const CSS = `
   /* 배경 밝기 측정 시 텍스트만 숨김 (사진·스크림은 유지) */
   body.measure .mark, body.measure .txt, body.measure .read, body.measure .num,
   body.measure .arrow, body.measure .src, body.measure .center { visibility:hidden; }
+  body.noscrim .scrim { display:none; }
 
   /* ── 표지 ── */
   .eyebrow { font-size:27px; font-weight:700; color:var(--acc); margin-top:64px; }
@@ -213,7 +214,7 @@ const photoBg = (s) => {
 const scrimOf = (k) =>
   k === 'photoEnd' ? PHOTO.scrimEnd : k === 'photoBody' ? PHOTO.scrimBody : PHOTO.scrimCover;
 
-const photoCard = (s, i, n) => `<section class="s ph">
+const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}">
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
   ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
     <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>
