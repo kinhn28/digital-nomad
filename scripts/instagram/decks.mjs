@@ -439,7 +439,7 @@ DECKS.push({
 // 방의 "기획노동" 이라는 말에서 출발. 남편을 탓하는 대신 안 보이는 일을 이름 붙인다
 DECKS.push({
   id: 'B7-share', type: 'multi', label: '티 안 나는 육아',
-  photoDefaults: { photo: 'assets/photos/share.jpg', pos: 'center' },
+  photoDefaults: { photo: 'assets/photos/share.jpg', pos: '62% center' },
   slides: [
     { kind: 'photo', place: '보이지 않는 육아', cat: '맘카페썰',
       head: ['쉬는데 왜 안 쉬어지지', '티 안 나는 육아 5가지'] },
