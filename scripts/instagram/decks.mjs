@@ -405,3 +405,32 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 발견 — 봉지의 몸무게가 기준이 아니라는 것
+// 구성: 4항목 (직전 B5 는 6항목)
+DECKS.push({
+  id: 'B6-diaper', type: 'multi', label: '기저귀 사이즈',
+  photoDefaults: { photo: 'assets/photos/diaper.webp', pos: 'center' },
+  slides: [
+    { kind: 'photo', place: '기저귀 사이즈', cat: '육아꿀팁',
+      head: ['몸무게 말고 자국을 봐', '기저귀 올릴 신호 4가지'] },
+
+    { kind: 'photoBody', lead: '1. 봉지에 적힌 몸무게는 참고만',
+      items: ['브랜드마다 실제 크기가 달라서 그대로 믿으면 안 되더라',
+              '같은 4단계여도 배랑 허벅지가 남는 집이 따로 있잖아'] },
+
+    { kind: 'photoBody', lead: '2. 허벅지에 자국 나면 그때 올려',
+      items: ['배는 조여서 맞추면 되는데 허벅지가 끼면 답이 없거든',
+              '고무줄 자국이 남거나 새기 시작하면 바로 사이즈업이야'] },
+
+    { kind: 'photoBody', lead: '3. 단계 올렸다고 쟁여두지 마',
+      items: ['한 달도 못 쓰고 또 올라가는 집이 생각보다 수두룩해',
+              '안 뜯었으면 구매내역으로 교환해주는 브랜드도 있더라고'] },
+
+    { kind: 'photoBody', lead: '4. 밤기저귀는 한 단계 크게',
+      items: ['밤새 나오는 양이 많아서 낮에 쓰던 걸로는 감당이 안 돼',
+              '통잠 자기 시작하면 밤 전용으로 따로 두는 집이 많더라'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
