@@ -369,22 +369,39 @@ DECKS.push({
   ],
 });
 
-// 오프닝 패턴: 자기 고백 — 한장 세트라 목록은 전부 캡션이 진다
+// 오프닝 패턴: 자기 고백 — 후회는 남 얘기로 하면 재수없고 내가 당해야 붙는다
+// 구성: 6항목 (직전 B4 는 5항목)
 DECKS.push({
-  id: 'B5-regret', type: 'single', label: '후회한 육아템',
+  id: 'B5-regret', type: 'multi', label: '후회한 육아템',
+  photoDefaults: { photo: 'assets/photos/regret.png', pos: 'center' },
   slides: [
-    { kind: 'photo', photo: 'assets/photos/regret.png', pos: 'center',
-      place: '후회한 육아템', cat: '육아템',
-      head: ['이거 나만 산 거 아니지?', '돈 제일 아까웠던 육아템'] },
-  ],
-});
+    { kind: 'photo', place: '후회한 육아템', cat: '육아템',
+      head: ['이거 나만 산 거 아니지?', '돈 아까웠던 육아템 6가지'] },
 
-// B5 대안본 — 특정 제품을 "후회템" 으로 지목하지 않는 문구
-DECKS.push({
-  id: 'B5b-shortlife', type: 'single', label: '짧게 쓰고 마는 육아템',
-  slides: [
-    { kind: 'photo', photo: 'assets/photos/regret.png', pos: 'center',
-      place: '육아템 수명', cat: '육아템',
-      head: ['샀는데 넉 달 만에 끝나', '오래 못 쓰는 육아템'] },
+    { kind: 'photoBody', lead: '1. 옆잠베개랑 두상베개',
+      items: ['여기서 후회템 물으면 제일 먼저 나오는 게 이거야',
+              '아기 베개는 아예 안 쓰는 게 낫다고들 하더라고'] },
+
+    { kind: 'photoBody', lead: '2. 포대기',
+      items: ['옛날 생각나서 샀는데 결국 방치 중이라는 집이 많아',
+              '쓰는 사람은 잘 쓰는데 안 쓰면 진짜 한 번도 안 쓰더라'] },
+
+    { kind: 'photoBody', lead: '3. 와우컵',
+      items: ['빨대컵 넘어가는 중간 단계로 샀다가 다들 접더라고',
+              '애가 빨기 힘들어해서 결국 다른 컵으로 갔다는 얘기지'] },
+
+    { kind: 'photoBody', lead: '4. 명품 기저귀가방',
+      items: ['루이비통 샀는데 무거워서 못 들겠다는 후기가 레전드였어',
+              '기저귀가방은 예쁜 것보다 가벼운 게 장땡이더라고'] },
+
+    { kind: 'photoBody', lead: '5. 안 매보고 산 아기띠',
+      items: ['내 몸에 맞는지가 전부인데 그걸 안 해보고 산 거잖아',
+              '매장 가서 직접 매보고 살걸 그랬다는 말이 계속 나와'] },
+
+    { kind: 'photoBody', lead: '6. 미리 왕창 사둔 것들',
+      items: ['출산 전에 다 사놨는데 정작 애가 안 쓰는 게 태반이야',
+              '아이 반응 보고 하나씩 맞춰가는 게 결국 제일 덜 후회해'] },
+
+    { kind: 'photoEnd' },
   ],
 });
