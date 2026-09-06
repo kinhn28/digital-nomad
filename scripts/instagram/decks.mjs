@@ -537,3 +537,36 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 상황 중계 — "신호 걸리면 바로 안다" 는 방의 관찰
+// 구성: 5항목
+DECKS.push({
+  id: 'C1-carseat', type: 'multi', label: '카시트 거부',
+  photoDefaults: { photo: 'assets/photos/carseat.png', pos: 'center', zoom: 210 },
+  slides: [
+    { kind: 'photo', place: '카시트 거부', cat: '실전정보',
+      head: ['신호 걸리면 바로 알아채', '카시트 울음 줄이는 5가지'] },
+
+    { kind: 'photoBody', lead: '1. 차 멈추면 우는 거 다들 그래',
+      items: ['달리면 조용하다가 신호만 걸리면 바로 알아채더라고',
+              '우리 애만 유별난 게 아니니까 일단 마음부터 놓자'] },
+
+    { kind: 'photoBody', lead: '2. 울어도 빼서 안으면 절대 안 돼',
+      items: ['못 견디고 안아버렸다가 아찔했다는 얘기가 진짜 많아',
+              '차가 흔들릴 때마다 아기 머리가 같이 흔들리는 거잖아'] },
+
+    { kind: 'photoBody', lead: '3. 머리가 흔들리면 더 힘들어해',
+      items: ['어깨벨트를 제대로 안 채우면 앞으로 폭 숙여지더라고',
+              '양옆에 손수건 말아서 끼워두면 훨씬 편해한다고 하더라'] },
+
+    { kind: 'photoBody', lead: '4. 눈앞에 볼 게 있으면 달라져',
+      items: ['장난감 하나 달아줬더니 그 뒤로 안 울더라는 집도 있어',
+              '뒷자리에 같이 앉아서 얼굴 보여주는 것만으로도 다르대'] },
+
+    { kind: 'photoBody', lead: '5. 우는 시간은 생각보다 빨리 줄어',
+      items: ['40분을 울던 애가 몇 주 만에 10분으로 줄었다더라고',
+              '30분 울었다고 세 시간도 그럴 거라는 법은 없다는 거지'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
