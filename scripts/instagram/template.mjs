@@ -235,7 +235,7 @@ const leadHtml = (lead) => {
     : `<div class="lead3"><span class="t">${lead}</span></div>`;
 };
 
-const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}">
+const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}"${s.ink ? ' data-ink="1"' : ''}>
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
   ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
     <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>

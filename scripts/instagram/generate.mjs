@@ -95,7 +95,10 @@ await probe0.close();
 // 사진이 전반적으로 밝으면 흰 글자를 포기하고 잉크색 글자 + 흰 베일로 간다.
 // 밝은 사진을 흰 글자에 맞춰 누르면 "표지는 선명하게" 규칙이 깨진다.
 const meanL = srcCurves.map((c) => c.reduce((a, x) => a + x.mean, 0) / c.length);
-const LIGHT = meanL.map((m) => m > 0.72);
+// 임계값 근처(0.6~0.72) 사진은 자동 판정이 애매하다. 덱에서 ink: true 로 지정 가능
+const forced = await page.evaluate(() =>
+  [...document.querySelectorAll('.s.ph')].map((c) => c.dataset.ink === '1'));
+const LIGHT = meanL.map((m, i) => m > 0.72 || forced[i]);
 
 await page.evaluate(([curves, light]) => {
   document.body.classList.remove('noscrim');
