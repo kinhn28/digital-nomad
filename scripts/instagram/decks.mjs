@@ -368,3 +368,23 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 자기 고백 — 한장 세트라 목록은 전부 캡션이 진다
+DECKS.push({
+  id: 'B5-regret', type: 'single', label: '후회한 육아템',
+  slides: [
+    { kind: 'photo', photo: 'assets/photos/regret.png', pos: 'center',
+      place: '후회한 육아템', cat: '육아템',
+      head: ['이거 나만 산 거 아니지?', '돈 제일 아까웠던 육아템'] },
+  ],
+});
+
+// B5 대안본 — 특정 제품을 "후회템" 으로 지목하지 않는 문구
+DECKS.push({
+  id: 'B5b-shortlife', type: 'single', label: '짧게 쓰고 마는 육아템',
+  slides: [
+    { kind: 'photo', photo: 'assets/photos/regret.png', pos: 'center',
+      place: '육아템 수명', cat: '육아템',
+      head: ['샀는데 넉 달 만에 끝나', '오래 못 쓰는 육아템'] },
+  ],
+});
