@@ -1,0 +1,107 @@
+/* ─────────────────────────────────────────────────────────────
+   부모로 디자인 토큰 — 목업/Artifact에 그대로 복사해서 쓴다.
+   Next.js 앱은 src/app/globals.css에 이미 들어가 있으니 복사 불필요.
+   ───────────────────────────────────────────────────────────── */
+
+:root{
+  /* 바탕 — 회색 종이 위 흰 카드 */
+  --bg:#F4F5F7;          /* 페이지 바탕 */
+  --card:#FFFFFF;        /* 블록·카드 */
+  --sub:#F4F5F7;         /* 카드 안의 눌린 영역(캡션박스·메타) */
+  --cream:#FCFAF6;       /* 정보형 카드 바탕 — 혜택(하늘)과 구분용 */
+
+  /* 글자 — 잉크에서 시작하는 회색 램프 */
+  --ink:#14181F;
+  --g8:#2E3642;          /* 본문 강조 <b> */
+  --g7:#4B5563;          /* 긴 본문 */
+  --g6:#697180;          /* 설명·리드 */
+  --g5:#8A92A1;          /* 캡션·메타 */
+  --g4:#B2B9C4;          /* 비활성 */
+
+  /* 선 */
+  --line:#F0F1F4;        /* 내부 구분선 */
+  --line2:#E4E7EB;       /* 카드 테두리 */
+
+  /* 하늘 — 브랜드색 */
+  --sky:#4FA9C7;         /* 면·아이콘·테두리 전용 (흰 배경 대비 2.7:1) */
+  --sky-d:#2E7E9A;       /* 하늘색 글자는 반드시 이것 (4.6:1, AA) */
+  --sky-l:#8FCDE2;       /* 어두운 바탕 위의 하늘색 */
+  --sky-bg:#EAF5F9;      /* 하늘 톤 블록 바탕 */
+
+  /* 파랑 — 브랜드색 아님. 숫자·링크·순번 배지 전용 */
+  --blue:#2B6FFF;
+  --blue-d:#1E56D6;
+  --blue-bg:#EBF1FF;
+
+  /* 네이비 — 힐링·새벽의 세계 */
+  --navy:#141A2E;
+  --navy2:#1D2742;
+  --moon:#F4D06F;        /* 새벽 카드의 달·강조 */
+
+  /* 상태색 — 의미가 있을 때만 */
+  --coral:#FF5C6C;   --coral-bg:#FFEDEF;   /* 주의·마감임박 */
+  --amber:#E28800;   --amber-bg:#FDF3E3;   /* 대기·심사중 */
+  --green:#0FA968;   --green-bg:#E8F8F1;   /* 완료·채택·활성 */
+  --violet:#7C3AED;  --violet-bg:#F2EDFD;  /* 배지·특수 */
+
+  /* 모서리 */
+  --r-blk:24px;   /* 큰 블록 */
+  --r-lg:16px;    /* 카드 */
+  --r-md:14px;    /* 작은 카드·캡션박스 */
+  --r-sm:10px;    /* 버튼·배지 */
+  --r-xs:7px;     /* 칩·태그 */
+
+  /* 그림자 — 떠 있는 것에만 */
+  --sh-card:0 6px 18px rgba(15,25,50,.1);
+  --sh-bub:0 2px 8px rgba(15,25,50,.07);
+}
+
+/* 새벽 모드 — 00~06시 자동, 수동 토글 가능.
+   흰색이 네이비로 뒤집히고 하늘색은 밝은 쪽(--sky-l)으로 이동한다. */
+:root[data-mode="dawn"]{
+  --bg:#0D1120;  --card:#1A2138;  --sub:#222B47;  --cream:#1A2138;
+  --ink:#ECF0F9; --g8:#CDD5E6; --g7:#A8B2C9; --g6:#8892AC; --g5:#6E7994; --g4:#525D79;
+  --line:#222B47; --line2:#2B3555;
+  --sky:#6FC3DC; --sky-d:#8FCDE2; --sky-l:#B5E2F0; --sky-bg:#17293A;
+  --blue:#6D9BFF; --blue-d:#5B8CF7; --blue-bg:#1D2946;
+  --coral:#FF7C89; --coral-bg:#2E1B22;
+  --amber:#F7B24A; --amber-bg:#2B2312;
+  --green:#3BD68E; --green-bg:#12291F;
+  --violet:#A57CFF; --violet-bg:#251C3E;
+}
+
+/* ── 기본 타이포 ────────────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  word-break:keep-all;          /* 한국어 필수 */
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+  letter-spacing:-.02em;
+}
+
+/* 제목: 굵고, 자간 좁고, 행간 붙임 */
+h1{font-size:27px;font-weight:800;letter-spacing:-.045em;line-height:1.32}
+h2{font-size:20px;font-weight:800;letter-spacing:-.04em;line-height:1.4}
+h3{font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.4}
+h4{font-size:15px;font-weight:800;letter-spacing:-.02em}
+
+/* 본문: 행간 넉넉히 */
+.lead{font-size:14.5px;color:var(--g6);line-height:1.8;max-width:660px}
+.lead b{color:var(--g8)}
+.body{font-size:13.5px;color:var(--g7);line-height:1.75}
+.cap{font-size:11.5px;color:var(--g5);line-height:1.6}
+
+/* 블록: 테두리 없이, 회색 바탕 위 흰 카드 */
+.blk{background:var(--card);border-radius:var(--r-blk);margin-top:14px;padding:30px 26px;overflow:hidden}
+@media(max-width:640px){.blk{padding:24px 18px}}
+
+/* 가로 스크롤 열 */
+.scrollrow{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.scrollrow::-webkit-scrollbar{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}

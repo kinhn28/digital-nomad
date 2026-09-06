@@ -49,82 +49,153 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* ── 부모로 브랜드 토큰 (원본: .claude/skills/bumoro-ui/references/tokens.css) ── */
+  --bg: #F4F5F7;
+  --paper: #FFFFFF;
+  --sub: #F4F5F7;
+  --cream: #FCFAF6;
+
+  --ink: #14181F;
+  --g8: #2E3642;
+  --g7: #4B5563;
+  --g6: #697180;
+  --g5: #8A92A1;
+  --g4: #B2B9C4;
+
+  --line: #F0F1F4;
+  --line2: #E4E7EB;
+
+  /* 하늘 — 브랜드색. 면은 --sky, 글자는 반드시 --sky-d */
+  --sky: #4FA9C7;
+  --sky-d: #2E7E9A;
+  --sky-l: #8FCDE2;
+  --sky-bg: #EAF5F9;
+
+  /* 파랑 — 브랜드색 아님. 숫자·링크·순번 배지 전용 */
+  --blue: #2B6FFF;
+  --blue-d: #1E56D6;
+  --blue-bg: #EBF1FF;
+
+  /* 네이비 — 힐링·새벽 */
+  --navy: #141A2E;
+  --navy2: #1D2742;
+  --moon: #F4D06F;
+
+  --coral: #FF5C6C;
+  --coral-bg: #FFEDEF;
+  --amber: #E28800;
+  --amber-bg: #FDF3E3;
+  --green: #0FA968;
+  --green-bg: #E8F8F1;
+  --violet: #7C3AED;
+  --violet-bg: #F2EDFD;
+
+  --r-blk: 24px;
+  --sh-card: 0 6px 18px rgba(15, 25, 50, 0.1);
+  --sh-bub: 0 2px 8px rgba(15, 25, 50, 0.07);
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+
+  /* ── shadcn 매핑 — 위 브랜드 토큰을 가리킨다 ── */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--sky-d);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--sky-bg);
+  --secondary-foreground: var(--sky-d);
+  --muted: var(--sub);
+  --muted-foreground: var(--g6);
+  --accent: var(--sky-bg);
+  --accent-foreground: var(--sky-d);
+  --destructive: var(--coral);
+  --border: var(--line2);
+  --input: var(--line2);
+  --ring: var(--sky);
+  --chart-1: var(--sky);
+  --chart-2: var(--blue);
+  --chart-3: var(--green);
+  --chart-4: var(--amber);
+  --chart-5: var(--violet);
+  --radius: 1rem;
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--sky-d);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--sky-bg);
+  --sidebar-accent-foreground: var(--sky-d);
+  --sidebar-border: var(--line2);
+  --sidebar-ring: var(--sky);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* 새벽 모드 — 00~06시 자동 전환, 수동 토글 가능.
+   흰색이 네이비로 뒤집히고 하늘색은 밝은 쪽으로 이동한다. */
+.dark,
+[data-mode="dawn"] {
+  --bg: #0D1120;
+  --paper: #1A2138;
+  --sub: #222B47;
+  --cream: #1A2138;
+
+  --ink: #ECF0F9;
+  --g8: #CDD5E6;
+  --g7: #A8B2C9;
+  --g6: #8892AC;
+  --g5: #6E7994;
+  --g4: #525D79;
+
+  --line: #222B47;
+  --line2: #2B3555;
+
+  --sky: #6FC3DC;
+  --sky-d: #8FCDE2;
+  --sky-l: #B5E2F0;
+  --sky-bg: #17293A;
+
+  --blue: #6D9BFF;
+  --blue-d: #5B8CF7;
+  --blue-bg: #1D2946;
+
+  --coral: #FF7C89;
+  --coral-bg: #2E1B22;
+  --amber: #F7B24A;
+  --amber-bg: #2B2312;
+  --green: #3BD68E;
+  --green-bg: #12291F;
+  --violet: #A57CFF;
+  --violet-bg: #251C3E;
+
+  --primary-foreground: #0D1120;
+  --sidebar-primary-foreground: #0D1120;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* 한국어 조판: 단어 중간에서 끊지 않고, 자간은 살짝 좁게 */
+    word-break: keep-all;
+    letter-spacing: -0.02em;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 제목은 굵고 자간 좁게, 본문은 행간 넉넉히 — 이 대비가 부모로의 리듬 */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.35;
+    text-wrap: balance;
   }
 }
