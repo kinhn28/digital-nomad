@@ -262,6 +262,15 @@ if (lines.length) {
   console.log('');
 }
 
+// 3-b1) 세트별 구성 — "3가지" 만 반복되지 않게 눈으로 확인
+console.log('\n구성 점검 — 직전 세트와 겹치면 다른 구성으로 바꾸세요');
+decks.forEach((d) => {
+  const n = d.slides.filter((x) => /^\d+[.)]/.test(x.lead || '')).length;
+  const cover = d.slides.find((x) => x.kind === 'photo');
+  console.log(`  ${d.id.padEnd(14)} 넘버링 ${n || '-'}항목 · ${d.slides.length}장`
+            + `  "${cover ? cover.head[cover.head.length - 1] : '-'}"`);
+});
+
 // 3-b2) 표지 문구 — "~하면 3가지" 처럼 개수가 절 뒤에 매달린 형태를 잡는다
 const dangling = [];
 decks.forEach((d) => {
