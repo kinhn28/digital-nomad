@@ -262,6 +262,21 @@ if (lines.length) {
   console.log('');
 }
 
+// 3-b2) 표지 문구 — "~하면 3가지" 처럼 개수가 절 뒤에 매달린 형태를 잡는다
+const dangling = [];
+decks.forEach((d) => {
+  const cover = d.slides.find((x) => x.kind === 'photo');
+  if (!cover) return;
+  const last = cover.head[cover.head.length - 1];
+  if (/(가지|개|곳|군데)\s*$/.test(last) && /(면|고|서|니까|는데|아서|어서)\s/.test(last))
+    dangling.push(`${d.id}  "${last}"`);
+});
+if (dangling.length) {
+  console.log('\n표지 문구 점검 — 개수가 절 뒤에 매달렸습니다 (완결된 명사구로 고치세요)');
+  dangling.forEach((t) => console.log(`  ${t}`));
+  console.log('');
+}
+
 // 3-c) 세이프존 — 리포스트/스레드 UI가 덮는 하단 20%를 텍스트가 침범하는지
 const unsafe = await page.evaluate(() => {
   const LIMIT = 1350 * 0.78;                             // 표지 외 카드의 텍스트 하한선
