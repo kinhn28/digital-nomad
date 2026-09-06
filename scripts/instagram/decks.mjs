@@ -570,3 +570,32 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 자기 고백 — 양치 때마다 우는 건 내 잘못이 아니라는 것
+// 구성: 4항목 (직전 C1 은 5항목)
+DECKS.push({
+  id: 'C2-brush', type: 'multi', label: '아기 양치',
+  photoDefaults: { photo: 'assets/photos/brush.jpg', pos: '54% center' },
+  slides: [
+    { kind: 'photo', place: '아기 양치', cat: '건강정보',
+      head: ['양치만 하면 소리를 질러', '첫 이 나면 챙길 4가지'] },
+
+    { kind: 'photoBody', lead: '1. 이 나면 실리콘 칫솔은 끊어',
+      items: ['깨물다가 솔이 뽑히면 그대로 삼킬 수도 있다고 하더라고',
+              '위아래로 나기 시작하면 그냥 유아 칫솔로 넘어가는 거야'] },
+
+    { kind: 'photoBody', lead: '2. 칫솔은 생각보다 자주 갈아야 해',
+      items: ['어차피 물고 씹어대서 한 달도 못 가고 다 벌어지거든',
+              '솔이 퍼지면 닦이지도 않으니까 미루지 말고 바꿔주자'] },
+
+    { kind: 'photoBody', lead: '3. 불소는 요즘 권고가 바뀌었대',
+      items: ['예전엔 무불소였는데 이제 쓰라는 쪽으로 갔다고 하더라고',
+              '양이랑 시작 시기는 치과에서 확인하고 정하는 게 맞아'] },
+
+    { kind: 'photoBody', lead: '4. 울고 소리 지르는 건 다들 그래',
+      items: ['잘못 해주는 게 아니라 그 시기엔 원래 다 싫어한다더라',
+              '어느 날 갑자기 협조적으로 변했다는 집도 있으니까 버텨'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
