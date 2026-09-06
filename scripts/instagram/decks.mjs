@@ -632,3 +632,32 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 상황 중계 — 접종 당일 밤 장면
+// 구성: 4항목 (직전 C3 은 5항목). 의료 소재라 수치·용량은 카드에 쓰지 않는다
+DECKS.push({
+  id: 'C4-shotfever', type: 'multi', label: '접종 후 열',
+  photoDefaults: { photo: 'assets/photos/shotfever.jpg', pos: '62% center' },
+  slides: [
+    { kind: 'photo', place: '예방접종 후 발열', cat: '건강정보',
+      head: ['주사 맞고 오니 열이 확 올라', '접종열 챙길 것 4가지'] },
+
+    { kind: 'photoBody', lead: '1. 열은 대개 그날 밤에 올라와',
+      items: ['낮에는 멀쩡하다가 저녁부터 확 오르는 경우가 많더라고',
+              '보통 하루 이틀 안에 떨어진다니까 그때까진 지켜보는 거야'] },
+
+    { kind: 'photoBody', lead: '2. 해열제 먹고 내려가면 한숨 돌려',
+      items: ['먹이는 기준이랑 용량은 접종한 병원에서 정해준 대로 가고',
+              '물수건으로 버티기보다 처방받은 해열제가 먼저라고 하더라'] },
+
+    { kind: 'photoBody', lead: '3. 수유량 뚝 떨어지는 것도 흔해',
+      items: ['접종한 날 하루 총량이 백 넘게 줄었다는 집도 있었거든',
+              '며칠 지나면 돌아온다니까 억지로 먹이지는 말자는 얘기야'] },
+
+    { kind: 'photoBody', lead: '4. 이럴 땐 바로 병원으로 가야 해',
+      items: ['해열제를 먹여도 열이 안 내리거나 이틀 넘게 가면 가는 거야',
+              '축 처지고 안 먹거나, 3개월 안 된 아기가 열나면 바로 가자'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
