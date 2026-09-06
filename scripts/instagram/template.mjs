@@ -113,6 +113,17 @@ const CSS = `
     line-height:1.45; letter-spacing:-.025em; color:rgba(255,255,255,.94);
     text-shadow:0 2px 16px rgba(0,0,0,.45); }
   .ph .items li i { font-style:normal; font-weight:800; opacity:.85; flex:none; }
+  /* 밝은 사진 — 흰 글자 대신 잉크 글자 (흰 베일 위) */
+  .ph.light .mark, .ph.light h2, .ph.light .lead3, .ph.light .center .h { color:${P.ink}; }
+  .ph.light .kicker { color:rgba(20,24,31,.86); }
+  .ph.light .read p, .ph.light .items li { color:rgba(20,24,31,.9); }
+  .ph.light .num, .ph.light .arrow, .ph.light .center .t { color:rgba(20,24,31,.72); }
+  .ph.light .src { color:rgba(20,24,31,.55); }
+  .ph.light .mark, .ph.light .kicker, .ph.light h2, .ph.light .lead3,
+  .ph.light .read p, .ph.light .items li, .ph.light .num, .ph.light .arrow,
+  .ph.light .src, .ph.light .center .h, .ph.light .center .t {
+    text-shadow:0 2px 18px rgba(255,255,255,.55); }
+
   .ph .arrow { position:absolute; right:58px; bottom:8%; font-size:34px; font-weight:600;
     color:rgba(255,255,255,.9); }
   .ph .num { position:absolute; right:64px; top:58px; font-size:25px; font-weight:600;

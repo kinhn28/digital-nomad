@@ -83,20 +83,31 @@ for (const b64 of rawShots) {
         ls.push(.2126 * lin(d[i]) + .7152 * lin(d[i + 1]) + .0722 * lin(d[i + 2]));
       const mean = ls.reduce((a, b) => a + b, 0) / ls.length;
       ls.sort((a, b) => a - b);
-      out.push({ mean, p90: ls[Math.floor(ls.length * .9)] });   // 밝은 쪽 최악값
+      out.push({ mean,
+                 p90: ls[Math.floor(ls.length * .9)],    // 흰 글자의 최악 조건
+                 p10: ls[Math.floor(ls.length * .1)] }); // 검은 글자의 최악 조건
     }
     return out;
   }, b64));
 }
 await probe0.close();
 
-await page.evaluate(([curves, kinds]) => {
+// 사진이 전반적으로 밝으면 흰 글자를 포기하고 잉크색 글자 + 흰 베일로 간다.
+// 밝은 사진을 흰 글자에 맞춰 누르면 "표지는 선명하게" 규칙이 깨진다.
+const meanL = srcCurves.map((c) => c.reduce((a, x) => a + x.mean, 0) / c.length);
+const LIGHT = meanL.map((m) => m > 0.72);
+
+await page.evaluate(([curves, light]) => {
   document.body.classList.remove('noscrim');
   const inv = (L) => (L <= 0.0031308 ? L * 12.92 : 1.055 * Math.pow(L, 1 / 2.4) - 0.055);
   // 필요한 어둡기만 구하고, 그라데이션 자체는 단조·부드럽게 만든다.
   // 구간마다 알파가 오르내리면 그 경계가 띠(선)로 보인다.
-  const solve = (srcL, targetL) =>
+  const solve = (srcL, targetL) =>              // 검은 베일: 밝기를 낮춘다
     Math.max(0, Math.min(.92, 1 - inv(targetL) / Math.max(inv(srcL), 1e-4)));
+  const solveUp = (srcL, targetL) => {          // 흰 베일: 밝기를 올린다
+    const a = inv(srcL), t = inv(targetL);
+    return Math.max(0, Math.min(.82, (t - a) / Math.max(1 - a, 1e-4)));
+  };
 
   // 램프 모양(아래는 smoothstep, 위 띠는 제곱 감쇠)을 먼저 정하고,
   // 글자가 놓인 위치에서 필요한 어둡기가 나오도록 진폭을 역산한다.
@@ -115,10 +126,33 @@ await page.evaluate(([curves, kinds]) => {
   document.querySelectorAll('.s.ph').forEach((card, i) => {
     const kind = card.dataset.kind;
     const c = curves[i];
-    const need = (j, target) => solve(c[j].p90, target);
+    if (light[i]) card.classList.add('light');
+    const veil = light[i] ? 255 : 0;
+    const need = light[i]
+      ? (j, target) => solveUp(c[j].p10, target)
+      : (j, target) => solve(c[j].p90, target);
 
     let css;
-    if (kind !== 'photo') {
+    if (light[i]) {
+      // 흰 베일 — 표지는 사진이 살도록 얇게, 내지는 전면 톤업
+      const tgt = kind === 'photo' ? .46 : kind === 'photoEnd' ? .70 : .66;
+      if (kind === 'photo') {
+        let aTop = 0, aBot = 0;
+        for (const j of [0, 1]) aTop = Math.max(aTop, need(j, tgt) / fTop(j * 5));
+        for (let j = 11; j <= 17; j++)
+          aBot = Math.max(aBot, need(j, tgt) / Math.max(fBot(j * 5), .12));
+        aTop = Math.min(aTop, .82); aBot = Math.min(aBot, .82);
+        const stops = [];
+        for (let k = 0; k <= 100; k += 2) {
+          const a = Math.min(.9, aTop * fTop(k) + aBot * fBot(k));
+          stops.push(`rgba(255,255,255,${a.toFixed(3)}) ${k}%`);
+        }
+        css = `linear-gradient(to bottom, ${stops.join(',')})`;
+      } else {
+        const a = Math.max(...c.map((x) => solveUp(x.p10, tgt)));
+        css = `linear-gradient(rgba(255,255,255,${a.toFixed(3)}), rgba(255,255,255,${a.toFixed(3)}))`;
+      }
+    } else if (kind !== 'photo') {
       // 표지 외에는 사진 전체를 고르게 눌러 글이 앞으로 나오게 한다
       const a = Math.max(...c.map((x) => solve(x.p90, kind === 'photoEnd' ? .09 : .10)));
       css = `linear-gradient(rgba(0,0,0,${a.toFixed(3)}), rgba(0,0,0,${a.toFixed(3)}))`;
@@ -142,7 +176,8 @@ await page.evaluate(([curves, kinds]) => {
     }
     card.querySelector('.scrim').style.background = css;
   });
-}, [srcCurves, null]);
+}, [srcCurves, LIGHT]);
+console.log('글자색:', LIGHT.map((l, i) => `${NAMES[i]}=${l ? '잉크' : '흰색'}(${meanL[i].toFixed(2)})`).join(' '));
 
 // 1) 텍스트 상자 좌표 수집
 const boxes = await page.evaluate(() => {
@@ -165,6 +200,8 @@ const boxes = await page.evaluate(() => {
 });
 
 // 2) 텍스트를 숨긴 배경만 캡처
+const isLight = await page.evaluate(() =>
+  [...document.querySelectorAll('.s')].map((c) => c.classList.contains('light')));
 const cards = await page.locator('.s').all();
 const bgShots = [];
 for (const c of cards) bgShots.push((await c.screenshot()).toString('base64'));
@@ -175,7 +212,7 @@ const probe = await browser.newPage();
 await probe.setContent('<canvas id=c></canvas>');
 const report = [];
 for (let i = 0; i < bgShots.length; i++) {
-  report.push(await probe.evaluate(async ([b64, regions]) => {
+  report.push(await probe.evaluate(async ([b64, regions, isLight]) => {
     const img = new Image();
     img.src = 'data:image/png;base64,' + b64;
     await img.decode();
@@ -191,10 +228,13 @@ for (let i = 0; i < bgShots.length; i++) {
       for (let p = 0; p < d.length; p += 4)
         ls.push(0.2126 * lin(d[p]) + 0.7152 * lin(d[p + 1]) + 0.0722 * lin(d[p + 2]));
       ls.sort((a, b) => a - b);
-      const bright = ls[Math.floor(ls.length * 0.9)];   // 밝은 쪽 10% 지점 = 최악 조건
-      return { ...r, cr: +(1.05 / (bright + 0.05)).toFixed(2) };
+      // 흰 글자는 배경이 밝을 때, 잉크 글자는 배경이 어두울 때가 최악
+      const cr = isLight
+        ? (ls[Math.floor(ls.length * 0.1)] + 0.05) / (0.00956 + 0.05)
+        : 1.05 / (ls[Math.floor(ls.length * 0.9)] + 0.05);
+      return { ...r, cr: +cr.toFixed(2) };
     });
-  }, [bgShots[i], boxes[i]]));
+  }, [bgShots[i], boxes[i], isLight[i]]));
 }
 
 // 3-b) 줄별 채움 비율 — 짧은 줄이 있으면 문장을 고쳐야 함

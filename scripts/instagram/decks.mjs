@@ -250,3 +250,31 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 반전 — 잘 재우려고 산 게 위험해진다는 뒤집기
+DECKS.push({
+  id: 'B1-rollover', type: 'multi', label: '뒤집기 시작하면 수면템',
+  photoDefaults: { photo: 'assets/photos/rollover.jpg', pos: 'center' },
+  slides: [
+    { kind: 'photo', place: '뒤집기 시작 시기', cat: '아기안전',
+      head: ['혁명템이 위험템 됐네', '뒤집기 시작하면 3가지'] },
+
+    { kind: 'photoBody', lead: '1. 스와들업은 뒤집기 전에 미리 졸업',
+      items: ['팔이 묶인 채로 엎어지면 스스로 빠져나오질 못해',
+              '한 번에 빼면 아예 못 자니까 한쪽 팔씩 천천히 풀어주기'] },
+
+    { kind: 'photoBody', lead: '2. 자는 자리엔 아무것도 두지 않기',
+      items: ['바디필로우도 범퍼도 뒤집기 앞에서는 소용없더라고',
+              '푹신한 이불이랑 베개가 제일 위험하다고들 하더라'] },
+
+    { kind: 'photoBody', lead: '3. 되집기 될 때까지는 지켜보기',
+      items: ['뒤집고 돌아오질 못하면 그대로 얼굴이 묻혀버리니까',
+              '되집기까지 한 달 넘게 걸리는 집도 생각보다 많더라'] },
+
+    { kind: 'photoBody', lead: '덮는 게 걱정되면 수면조끼로',
+      items: ['이불 대신 입혀두면 얼굴이 덮일 일이 아예 없어',
+              '팔다리는 자유로우니까 밤새 굴러다녀도 괜찮고'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
