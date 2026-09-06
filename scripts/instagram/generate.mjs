@@ -268,7 +268,15 @@ decks.forEach((d) => {
   const cover = d.slides.find((x) => x.kind === 'photo');
   if (!cover) return;
   const last = cover.head[cover.head.length - 1];
-  if (/(가지|개|곳|군데)\s*$/.test(last) && /(면|고|서|니까|는데|아서|어서)\s/.test(last))
+  // 개수 바로 앞 단어가 절 연결어미로 끝나면 수식이 끊긴다.
+  //   "시작하면 3가지" (X) — 앞말이 어미로 끝나 3가지를 못 꾸민다
+  //   "확인할 3가지" (O) — 관형형이라 정상, "순서 3가지" (O) — 명사라 정상
+  const NOUN = /^(수면|화면|측면|장면|표면|라면|반면|지면|단면|도면|국면|이면|방면|양면|정면|겉면|안면)$/;
+  const CONN = /(면|니까|는데|은데|아서|어서|해서|다가|하고|이고)$/;
+  const w = last.trim().split(/\s+/);
+  const cnt = w.length - 1;
+  if (/^\d+(가지|개|곳|군데)$/.test(w[cnt]) && cnt > 0
+      && CONN.test(w[cnt - 1]) && !NOUN.test(w[cnt - 1]))
     dangling.push(`${d.id}  "${last}"`);
 });
 if (dangling.length) {

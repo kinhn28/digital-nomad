@@ -278,3 +278,31 @@ DECKS.push({
     { kind: 'photoEnd' },
   ],
 });
+
+// 오프닝 패턴: 코웃음 — 인스타의 "70일 통잠" 자랑에 대한 반응
+DECKS.push({
+  id: 'B2-nightfeed', type: 'multi', label: '새벽수유 끊는 순서',
+  photoDefaults: { photo: 'assets/photos/nightfeed.jpg', pos: 'center' },
+  slides: [
+    { kind: 'photo', place: '새벽수유 끊기', cat: '아기수면',
+      head: ['70일에 통잠은 무슨', '새벽수유 끊는 순서 3가지'] },
+
+    { kind: 'photoBody', lead: '1. 낮에 먹는 양부터 채우기',
+      items: ['낮에 덜 먹으면 밤에 딱 그만큼 깨서 찾더라',
+              '100일쯤 통잠을 못 자면 낮 총량부터 확인해봐'] },
+
+    { kind: 'photoBody', lead: '2. 깨자마자 바로 안지 않기',
+      items: ['낑낑대다 손 빨면서 혼자 다시 잠드는 날도 있어',
+              '몇 분만 기다려보고 그래도 울면 그때 가는 거야'] },
+
+    { kind: 'photoBody', lead: '3. 한 번에 끊지 말고 꿈수부터',
+      items: ['자는 상태로 먹이는 꿈수로 한 단계만 줄여보는 거지',
+              '낮에 먹는 양이 차면 어느 날 저절로 없어지더라고'] },
+
+    { kind: 'photoBody', lead: '다시 깨도 실패한 게 아니야',
+      items: ['수면퇴행이 오면 끊었던 새벽수유도 돌아온대',
+              '47일에 통잠 온 집도, 150일에 온 집도 다 있어'] },
+
+    { kind: 'photoEnd' },
+  ],
+});
