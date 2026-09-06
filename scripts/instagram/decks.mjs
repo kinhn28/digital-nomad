@@ -475,7 +475,7 @@ DECKS.push({
   photoDefaults: { photo: 'assets/photos/rash.jpg', pos: 'center' },
   slides: [
     { kind: 'photo', place: '태열과 보습', cat: '건강정보',
-      head: ['25도로 올렸더니 바로 올라와', '태열 잡는 순서 6가지'] },
+      head: ['온도 올렸더니 태열이 올라와', '태열 잡는 순서 6가지'] },
 
     { kind: 'photoBody', lead: '1. 바르기 전에 온도부터 낮춰',
       items: ['25도에서 23도로 내렸더니 그냥 사라졌다는 집도 있어',
@@ -512,7 +512,7 @@ DECKS.push({
   photoDefaults: { photo: 'assets/photos/nipple.jpg', pos: 'center' },
   slides: [
     { kind: 'photo', place: '젖꼭지 유속', cat: '육아꿀팁',
-      head: ['30분 걸리면 바꿔야 되는 줄', '젖꼭지 유속 신호 5가지'] },
+      head: ['30분씩 걸리면 바꿔야 돼?', '젖꼭지 유속 신호 5가지'] },
 
     { kind: 'photoBody', lead: '1. 20분에서 30분이면 정상이야',
       items: ['그 정도 걸린다고 꼭지부터 바꿀 필요는 없다고 하더라고',
@@ -545,7 +545,7 @@ DECKS.push({
   photoDefaults: { photo: 'assets/photos/carseat.png', pos: 'center', zoom: 210 },
   slides: [
     { kind: 'photo', place: '카시트 거부', cat: '실전정보',
-      head: ['신호 걸리면 바로 알아채', '카시트 울음 줄이는 5가지'] },
+      head: ['차가 멈추면 애가 바로 알아', '카시트 울음 줄이는 5가지'] },
 
     { kind: 'photoBody', lead: '1. 차 멈추면 우는 거 다들 그래',
       items: ['달리면 조용하다가 신호만 걸리면 바로 알아채더라고',
@@ -575,10 +575,10 @@ DECKS.push({
 // 구성: 4항목 (직전 C1 은 5항목)
 DECKS.push({
   id: 'C2-brush', type: 'multi', label: '아기 양치',
-  photoDefaults: { photo: 'assets/photos/brush.jpg', pos: '54% center' },
+  photoDefaults: { photo: 'assets/photos/brush.jpg', pos: '59% center' },
   slides: [
     { kind: 'photo', place: '아기 양치', cat: '건강정보',
-      head: ['양치만 하면 소리를 질러', '첫 이 나면 챙길 4가지'] },
+      head: ['우리 애만 칫솔 대면 울어?', '첫 이 나면 챙길 4가지'] },
 
     { kind: 'photoBody', lead: '1. 이 나면 실리콘 칫솔은 끊어',
       items: ['깨물다가 솔이 뽑히면 그대로 삼킬 수도 있다고 하더라고',
