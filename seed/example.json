@@ -1,0 +1,62 @@
+{
+  "profiles": [
+    { "handle": "hayul", "nickname": "하율맘", "role": "두 아이 · 마포구", "instagram": "hayul_mom" },
+    { "handle": "sleepcoach", "nickname": "수면코치맘", "role": "세 아이 · 재우기 선배" },
+    { "handle": "sunbae", "nickname": "선배맘", "role": "두 아이 · 어린이집 3년차" },
+    { "handle": "m5", "nickname": "5개월맘", "role": "첫아이" },
+    { "handle": "m8", "nickname": "8개월맘", "role": "첫아이" },
+    { "handle": "newborn", "nickname": "신생아맘", "role": "첫아이 · 산후조리원 퇴소" },
+    { "handle": "twokids", "nickname": "두아이맘", "role": "두 아이 · 동작구" }
+  ],
+
+  "words": [
+    { "slug": "sleep", "title": "통잠", "category": "용어",
+      "intro": "수면 퇴행부터 통잠 성공기까지", "leader": "sleepcoach" },
+    { "slug": "diaper", "title": "기저귀", "category": "육아템",
+      "intro": "사이즈, 옆샘, 브랜드 비교 전부", "leader": "twokids" },
+    { "slug": "backsensor", "title": "등센서", "category": "용어",
+      "intro": "내려놓으면 깨는 아기와 사는 법", "leader": "hayul" },
+    { "slug": "hfmd", "title": "수족구", "category": "증상",
+      "intro": "지금 유행기예요", "leader": "sunbae" },
+    { "slug": "daycare", "title": "등원거부", "category": "일상",
+      "intro": "적응 기간을 같이 버티는 방", "leader": "sunbae" }
+  ],
+
+  "leaderCards": [
+    { "word": "backsensor", "author": "hayul",
+      "hello": "여기는 위로가 절반인 방이에요. 해결책도 나누지만, 오늘 힘들었다는 얘기만 해도 돼요.",
+      "body": "저도 3개월 내내 팔이 남아나질 않았어요. 그때 썼던 것들이랑 버틴 방법 정리해뒀어요.",
+      "linkLabel": "인스타에 정리해둔 글",
+      "linkUrl": "https://instagram.com/hayul_mom",
+      "promoted": false }
+  ],
+
+  "messages": [
+    { "word": "sleep", "author": "m5", "body": "통잠 자다가 갑자기 새벽마다 깨요. 이 시기 원래 그래요?", "minutesAgo": 22 },
+    { "word": "sleep", "author": "sleepcoach", "body": "수면 퇴행이에요. 낮 활동량 늘리고 취침 루틴만 그대로 유지해보세요", "minutesAgo": 18 },
+    { "word": "sleep", "author": "hayul", "body": "저희는 3주쯤 지나니 저절로 돌아왔어요. 새 습관만 안 만들면 돼요", "minutesAgo": 14 },
+    { "word": "sleep", "author": "m5", "body": "3주요? 그 말 들으니까 좀 살 것 같아요", "minutesAgo": 11 },
+
+    { "word": "diaper", "author": "newborn", "body": "4kg인데 2단계 써도 되나요? 1단계가 꽉 껴 보여서요", "minutesAgo": 24 },
+    { "word": "diaper", "author": "twokids", "body": "무게보다 허벅지랑 엉덩이를 보세요. 통통이는 표기보다 일찍 올려도 돼요", "minutesAgo": 9 },
+
+    { "word": "backsensor", "author": "hayul", "body": "오늘 40분 안고 있다가 내려놨는데 3초컷이었어요", "minutesAgo": 47 },
+    { "word": "daycare", "author": "sunbae", "body": "첫 주는 원래 다 울어요. 2주차부터 확 달라져요", "minutesAgo": 96 }
+  ],
+
+  "threads": [
+    { "word": "sleep", "author": "m8", "title": "수면교육 3일차인데 계속 울어요. 그만둬야 할까요?",
+      "hoursAgo": 9,
+      "replies": [
+        { "author": "hayul", "body": "첫날이 제일 힘들고 3일차부터 확실히 줄었어요. 다만 아이가 아프면 중단하세요.", "accepted": true }
+      ] },
+    { "word": "hfmd", "author": "twokids", "title": "수족구인데 입에 수포가 안 났어요. 이런 경우도 있나요?",
+      "hoursAgo": 3,
+      "replies": [
+        { "author": "sunbae", "body": "목 안쪽에 구내염 형태로 오기도 해요. 손발에 안 났다고 안심하긴 일러요.", "accepted": true },
+        { "author": "hayul", "body": "죽이든 과자든 먹겠다는 걸 주세요. 아예 안 먹으면 탈수가 와요.", "accepted": false }
+      ] },
+    { "word": "sleep", "author": "m5", "title": "수면 루틴 몇 시부터 시작하세요? 저녁 스케줄이 궁금해요",
+      "hoursAgo": 0.2, "replies": [] }
+  ]
+}
