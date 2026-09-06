@@ -575,10 +575,10 @@ DECKS.push({
 // 구성: 4항목 (직전 C1 은 5항목)
 DECKS.push({
   id: 'C2-brush', type: 'multi', label: '아기 양치',
-  photoDefaults: { photo: 'assets/photos/brush.jpg', pos: '59% center' },
+  photoDefaults: { photo: 'assets/photos/brush.png', pos: '61% center' },
   slides: [
     { kind: 'photo', place: '아기 양치', cat: '건강정보',
-      head: ['우리 애만 칫솔 대면 울어?', '첫 이 나면 챙길 4가지'] },
+      head: ['우리 애만 칫솔 들면 도망가?', '첫 이 나면 챙길 4가지'] },
 
     { kind: 'photoBody', lead: '1. 이 나면 실리콘 칫솔은 끊어',
       items: ['깨물다가 솔이 뽑히면 그대로 삼킬 수도 있다고 하더라고',
@@ -592,7 +592,7 @@ DECKS.push({
       items: ['예전엔 무불소였는데 이제 쓰라는 쪽으로 갔다고 하더라고',
               '양이랑 시작 시기는 치과에서 확인하고 정하는 게 맞아'] },
 
-    { kind: 'photoBody', lead: '4. 울고 소리 지르는 건 다들 그래',
+    { kind: 'photoBody', lead: '4. 울거나 도망가는 건 다들 그래',
       items: ['잘못 해주는 게 아니라 그 시기엔 원래 다 싫어한다더라',
               '어느 날 갑자기 협조적으로 변했다는 집도 있으니까 버텨'] },
 
