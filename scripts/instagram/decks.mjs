@@ -373,7 +373,7 @@ DECKS.push({
 // 구성: 6항목 (직전 B4 는 5항목)
 DECKS.push({
   id: 'B5-regret', type: 'multi', label: '후회한 육아템',
-  photoDefaults: { photo: 'assets/photos/regret.png', pos: 'center' },
+  photoDefaults: { photo: 'assets/photos/regret.jpg', pos: 'center' },
   slides: [
     { kind: 'photo', place: '후회한 육아템', cat: '육아템',
       head: ['이거 나만 산 거 아니지?', '돈 아까웠던 육아템 6가지'] },
