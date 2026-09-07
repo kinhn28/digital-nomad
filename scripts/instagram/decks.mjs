@@ -574,7 +574,7 @@ DECKS.push({
 // 오프닝 패턴: 자기 고백 — 양치 때마다 우는 건 내 잘못이 아니라는 것
 // 구성: 4항목 (직전 C1 은 5항목)
 DECKS.push({
-  id: 'C2-brush', type: 'multi', label: '아기 양치',
+  id: 'C2-brush', type: 'multi', label: '아기 양치', gen: true,
   photoDefaults: { photo: 'assets/photos/brush.png', pos: '61% center' },
   slides: [
     { kind: 'photo', place: '아기 양치', cat: '건강정보',

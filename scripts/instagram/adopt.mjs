@@ -17,13 +17,15 @@ const id = (args.find((a) => a.startsWith('--deck=')) || '').split('=')[1];
 // --grid=2x2 : 한 장에 여러 칸이 들어 있는 이미지를 칸별로 쪼갠다
 const g = (args.find((a) => a.startsWith('--grid=')) || '').split('=')[1];
 const [COLS, ROWS] = g ? g.split('x').map(Number) : [1, 1];
+// --from=2 : 2장부터 채운다 (표지만 따로 받은 경우)
+const FROM = +((args.find((a) => a.startsWith('--from=')) || '').split('=')[1] || 1);
 const files = args.filter((a) => !a.startsWith('--'));
 const deck = DECKS.find((d) => d.id === id);
 if (!deck) { console.error('세트를 찾을 수 없습니다:', id); process.exit(1); }
 if (!files.length) { console.error('이미지 파일을 넘겨주세요'); process.exit(1); }
 
 const need = deck.slides.filter((s) => s.kind !== 'photoEnd').length;
-const got = files.length * COLS * ROWS;
+const got = files.length * COLS * ROWS + (FROM - 1);
 if (got !== need)
   console.warn(`⚠ 이 세트는 ${need}장이 필요한데 ${got}장이 나옵니다`);
 
@@ -33,7 +35,7 @@ mkdirSync(outDir, { recursive: true });
 // 4:5 가 아닌 이미지는 가운데를 기준으로 잘라 맞춘다
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
-let n = 0;
+let n = FROM - 1;
 for (const f of files) {
   const src = resolve(f);
   if (!existsSync(src)) { console.error(`✗ 없는 파일: ${f}`); continue; }
