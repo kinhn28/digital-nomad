@@ -20,6 +20,7 @@ const arg = process.argv.slice(2).join(' ');
 const id = (arg.match(/--deck=(\S+)/) || [])[1];
 const only = +(arg.match(/--slide=(\d+)/) || [])[1] || 0;
 const dry = arg.includes('--dry');
+const sheet = arg.includes('--sheet');   // 붙여넣기용 프롬프트 문서 생성
 const model = (arg.match(/--model=(\S+)/) || [])[1] || 'gemini-3-pro-image';
 const deck = DECKS.find((d) => d.id === id);
 if (!deck) { console.error('세트를 찾을 수 없습니다:', id); process.exit(1); }
@@ -54,6 +55,23 @@ const scenePrompt = (slide, i) => {
 const slides = deck.slides.filter((s) => s.kind !== 'photoEnd');
 const outDir = resolve(root, 'assets/photos/gen');
 mkdirSync(outDir, { recursive: true });
+
+// --sheet : 다른 도구(제미나이 앱 등)에 붙여넣을 프롬프트 문서를 만든다.
+// API 결제가 없어도 이 문서로 이미지를 받아 assets/photos/ 에 넣으면 그대로 이어진다.
+if (sheet) {
+  const md = [`# ${deck.label} — 이미지 프롬프트`, '',
+    `세트 \`${deck.id}\` · ${slides.length}장. 아래 프롬프트를 이미지 생성 도구에 그대로 붙여넣고,`,
+    `받은 이미지를 \`assets/photos/\` 에 저장한 뒤 덱의 photo 경로를 바꿔 주세요.`,
+    '', '비율은 **4:5 세로**로 받으세요. 글자가 들어간 이미지는 다시 받으세요.', ''];
+  slides.forEach((sl, i) => {
+    md.push(`## ${i + 1}장 — ${sl.kind === 'photo' ? '표지' : (sl.lead || '내지')}`, '',
+            '```', scenePrompt(sl, i), '```', '');
+  });
+  const out = resolve(root, `public/instagram/${deck.id}-prompts.md`);
+  writeFileSync(out, md.join('\n'));
+  console.log('📝', out.replace(root + '/', ''));
+  process.exit(0);
+}
 
 for (let i = 0; i < slides.length; i++) {
   if (only && only !== i + 1) continue;
