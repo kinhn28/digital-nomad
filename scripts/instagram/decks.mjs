@@ -578,23 +578,28 @@ DECKS.push({
   photoDefaults: { photo: 'assets/photos/brush.png', pos: '61% center' },
   slides: [
     { kind: 'photo', place: '아기 양치', cat: '건강정보',
-      head: ['우리 애만 칫솔 들면 도망가?', '첫 이 나면 챙길 4가지'] },
+      head: ['우리 애만 칫솔 들면 도망가?', '첫 이 나면 챙길 4가지'],
+      scene: 'A Korean mother in her thirties lunging forward with a toothbrush in hand and a comically fierce determined face, while a laughing toddler in a yellow shirt sprints away from her across a living room, hair flying, caught mid-stride. Playful chase energy, motion blur on the child.' },
 
     { kind: 'photoBody', lead: '1. 이 나면 실리콘 칫솔은 끊어',
       items: ['깨물다가 솔이 뽑히면 그대로 삼킬 수도 있다고 하더라고',
-              '위아래로 나기 시작하면 그냥 유아 칫솔로 넘어가는 거야'] },
+              '위아래로 나기 시작하면 그냥 유아 칫솔로 넘어가는 거야'],
+      scene: 'Extreme close-up of a chewed-up silicone finger toothbrush held between two fingers, the rubber bristles visibly torn and splayed. Clean product-shot lighting, the damage clearly readable.' },
 
     { kind: 'photoBody', lead: '2. 칫솔은 생각보다 자주 갈아야 해',
       items: ['어차피 물고 씹어대서 한 달도 못 가고 다 벌어지거든',
-              '솔이 퍼지면 닦이지도 않으니까 미루지 말고 바꿔주자'] },
+              '솔이 퍼지면 닦이지도 않으니까 미루지 말고 바꿔주자'],
+      scene: 'Two small toddler toothbrushes lying side by side, one brand new with neat upright bristles and one worn out with bristles splayed flat in every direction. Stark side-by-side comparison, crisp studio light.' },
 
     { kind: 'photoBody', lead: '3. 불소는 요즘 권고가 바뀌었대',
       items: ['예전엔 무불소였는데 이제 쓰라는 쪽으로 갔다고 하더라고',
-              '양이랑 시작 시기는 치과에서 확인하고 정하는 게 맞아'] },
+              '양이랑 시작 시기는 치과에서 확인하고 정하는 게 맞아'],
+      scene: 'A tiny grain-sized smear of toothpaste on the head of a small toddler toothbrush, photographed very close so the minute amount is obvious. A parent hand holds the brush steady.' },
 
     { kind: 'photoBody', lead: '4. 울거나 도망가는 건 다들 그래',
       items: ['잘못 해주는 게 아니라 그 시기엔 원래 다 싫어한다더라',
-              '어느 날 갑자기 협조적으로 변했다는 집도 있으니까 버텨'] },
+              '어느 날 갑자기 협조적으로 변했다는 집도 있으니까 버텨'],
+      scene: 'A Korean toddler lying back across a parent lap, mouth wide open and eyes squeezed shut in dramatic protest while being brushed. The parent stays patient and calm. Warm domestic bathroom light.' },
 
     { kind: 'photoEnd' },
   ],
