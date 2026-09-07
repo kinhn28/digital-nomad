@@ -22,7 +22,8 @@ const CSS = `
   b { font-weight:800; color:var(--acc); }
   /* 배경 밝기 측정 시 텍스트만 숨김 (사진·스크림은 유지) */
   body.measure .mark, body.measure .txt, body.measure .read, body.measure .num,
-  body.measure .arrow, body.measure .src, body.measure .center { visibility:hidden; }
+  body.measure .arrow, body.measure .src, body.measure .center,
+  body.measure .big { visibility:hidden; }
   body.noscrim .scrim { display:none; }
 
   /* ── 표지 ── */
@@ -102,6 +103,16 @@ const CSS = `
   .ph .read p { word-break:keep-all; text-wrap:pretty; font-size:42px; font-weight:500; line-height:1.58; letter-spacing:-.028em;
     color:#fff; text-shadow:0 2px 18px rgba(0,0,0,.4); }
   .ph .read p + p { margin-top:32px; }
+  /* 포스터형 — 숫자를 주인공으로 (일본 광고 레퍼런스) */
+  .ph .big { display:block; font-size:168px; font-weight:800; line-height:.92;
+    letter-spacing:-.06em; margin-bottom:24px; color:#fff;
+    text-shadow:0 2px 22px rgba(0,0,0,.35); }
+  .ph .big em { font-style:normal; font-size:88px; letter-spacing:-.03em; }
+  .ph.poster h2 { font-size:96px; line-height:1.14; letter-spacing:-.055em; }
+  .ph.poster .lead3 { font-size:56px; }
+  .ph.poster .txt .big { font-size:210px; line-height:.88; margin-bottom:34px; }
+  .ph.poster .txt .big em { font-size:104px; }
+  .ph.poster .txt { bottom:19%; }
   .ph .read .n2 { display:block; font-size:34px; font-weight:800; letter-spacing:.02em;
     color:#fff; opacity:.75; margin-bottom:16px; }
   .ph .lead3 { display:flex; gap:16px; font-size:50px; font-weight:800; line-height:1.34; letter-spacing:-.035em;
@@ -114,7 +125,9 @@ const CSS = `
     text-shadow:0 2px 16px rgba(0,0,0,.45); }
   .ph .items li i { font-style:normal; font-weight:800; opacity:.85; flex:none; }
   /* 밝은 사진 — 흰 글자 대신 잉크 글자 (흰 베일 위) */
-  .ph.light .mark, .ph.light h2, .ph.light .lead3, .ph.light .center .h { color:${P.ink}; }
+  .ph.light .mark, .ph.light h2, .ph.light .lead3, .ph.light .center .h,
+  .ph.light .big { color:${P.ink}; }
+  .ph.light .big { text-shadow:0 2px 22px rgba(255,255,255,.5); }
   .ph.light .kicker { color:rgba(20,24,31,.86); }
   .ph.light .read p, .ph.light .items li { color:rgba(20,24,31,.9); }
   .ph.light .num, .ph.light .arrow, .ph.light .center .t { color:rgba(20,24,31,.72); }
@@ -215,6 +228,8 @@ const TONES = [
 ];
 
 const photoBg = (s) => {
+  if (s.bg)
+    return `<div class="img" style="background:${s.bg}"></div>`;
   if (s.photo)
     return `<div class="img" style="background-image:url('${s.photo}');`
          + `background-position:${s.pos || 'center'};`
@@ -235,13 +250,15 @@ const leadHtml = (lead) => {
     : `<div class="lead3"><span class="t">${lead}</span></div>`;
 };
 
-const photoCard = (s, i, n) => `<section class="s ph" data-kind="${s.kind}"${s.ink ? ' data-ink="1"' : ''}>
+const photoCard = (s, i, n) => `<section class="s ph${s.bg ? ' poster' : ''}" data-kind="${s.kind}"${s.ink ? ' data-ink="1"' : ''}${s.bg ? ' data-flat="1"' : ''}>
   ${photoBg(s)}<div class="scrim" style="background:${scrimOf(s.kind)}"></div>
   ${s.kind === 'photo' ? `<div class="mark">${WM}</div>
-    <div class="txt"><div class="kicker">${s.place}<i>|</i>${s.cat}</div>
+    <div class="txt">${s.big ? `<span class="big">${s.big.replace(/\{([^}]+)\}/g, '<em>$1</em>')}</span>` : ''}
+      <div class="kicker">${s.place}<i>|</i>${s.cat}</div>
       <h2>${s.head.join('<br>')}</h2></div>` : ''}
   ${n > 1 && s.kind !== 'photo' ? `<div class="num">${i + 1} / ${n}</div>` : ''}
   ${s.kind === 'photoBody' ? `<div class="read">
+      ${s.big ? `<span class="big">${s.big.replace(/\{([^}]+)\}/g, '<em>$1</em>')}</span>` : ''}
       ${s.lead ? leadHtml(s.lead) : ''}
       ${s.items ? `<ul class="items">${s.items
           .map((t) => `<li><i>✓</i><span>${t}</span></li>`).join('')}</ul>` : ''}

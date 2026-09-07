@@ -130,6 +130,10 @@ await page.evaluate(([curves, light]) => {
     const kind = card.dataset.kind;
     const c = curves[i];
     if (light[i]) card.classList.add('light');
+    if (card.dataset.flat === '1') {          // 단색 포스터형 — 색을 덮지 않는다
+      card.querySelector('.scrim').style.background = 'transparent';
+      return;
+    }
     const veil = light[i] ? 255 : 0;
     const need = light[i]
       ? (j, target) => solveUp(c[j].p10, target)
@@ -187,13 +191,14 @@ const boxes = await page.evaluate(() => {
   const kindOf = (el) =>
     el.classList.contains('mark') ? 'mark' : el.classList.contains('kicker') ? 'kicker'
     : el.classList.contains('num') ? 'num'
+    : el.classList.contains('big') ? 'head'
     : el.tagName === 'H2' && el.closest('.txt') ? 'head'
     : el.closest('.read') ? 'body' : el.classList.contains('arrow') ? 'arrow'
     : el.classList.contains('src') ? 'src'
     : el.closest('.center') ? (el.classList.contains('t') ? 'tag' : 'sign') : 'body';
   return [...document.querySelectorAll('.s')].map((card) => {
     const cb = card.getBoundingClientRect();
-    const sel = '.mark, .kicker, .txt h2, .read p, .arrow, .src, .num, .center .h, .center .t';
+    const sel = '.mark, .kicker, .txt h2, .read p, .big, .arrow, .src, .num, .center .h, .center .t';
     return [...card.querySelectorAll(sel)].map((el) => {
       const r = el.getBoundingClientRect();
       return { kind: kindOf(el), x: Math.round(r.x - cb.x), y: Math.round(r.y - cb.y),
