@@ -44,6 +44,25 @@ const STYLE = [
   'Absolutely no text, no letters, no numbers, no logos, no watermark, no signature.',
 ].join(' ');
 
+// B급 감성 표지 — 쇼와 시대 일본 잡지 광고 / 심야 홈쇼핑 톤.
+// 세련된 광고가 아니라 촌스럽고 과장돼서 스크롤을 멈추게 하는 쪽.
+// 슬라이드에 style: 'bkyu' 를 넣으면 이 스타일로 나간다. 표지에만 쓴다.
+const B_STYLE = [
+  'Showa-era Japanese B-movie poster and late-night TV shopping advert aesthetic.',
+  'Deliberately cheap, loud and campy - not sleek, not tasteful, not minimal.',
+  'One subject dead centre, filling the frame, staring straight down the lens',
+  'with a wildly exaggerated deadpan or desperate expression.',
+  'Hard direct on-camera flash, slight overexposure on the face, harsh drop shadow',
+  'thrown onto the wall behind. Punchy oversaturated colours, mild colour fringing,',
+  'faint film grain and a whisper of print halftone, like a 1980s magazine ad scan.',
+  'Saturated flat single-colour studio backdrop, no props beyond the ones described.',
+  'Photographic and real, live-action, not illustration, not 3D render, not anime.',
+  'Korean people, Korean home setting.',
+  'Vertical 4:5 composition. Subject in the upper two thirds.',
+  'The lower third must stay visually calm and uncluttered for text overlay.',
+  'Absolutely no text, no letters, no numbers, no logos, no watermark, no signature.',
+].join(' ');
+
 // 배경색은 세트마다 다르게 — 피드가 한 색으로 안 몰리도록
 const TONES = ['warm yellow', 'coral pink', 'sky blue', 'mint green',
                'deep navy', 'cream beige', 'vivid orange', 'soft lilac'];
@@ -54,8 +73,8 @@ const scenePrompt = (slide, i) => {
   const line = slide.scene || (slide.kind === 'photo'
     ? slide.head.join(' ')
     : (slide.lead || (slide.items || []).join(' ')));
-  const tone = TONES[(deck.id.length + i) % TONES.length];
-  return `${STYLE}\nBackground colour: ${tone}.\n`
+  const tone = slide.tone || TONES[(deck.id.length + i) % TONES.length];
+  return `${slide.style === 'bkyu' ? B_STYLE : STYLE}\nBackground colour: ${tone}.\n`
        + `Scene: ${line}`;
 };
 
@@ -66,11 +85,12 @@ mkdirSync(outDir, { recursive: true });
 // --batch : 세트 전체를 한 번에 뽑는 프롬프트 하나. 같은 대화에서 이어 만들면
 // 인물·조명·질감이 일관되게 나와 카드 사이가 붕 뜨지 않는다.
 if (batch) {
-  const tones = slides.map((_, i) => TONES[(deck.id.length + i) % TONES.length]);
+  const tones = slides.map((sl, i) => sl.tone || TONES[(deck.id.length + i) % TONES.length]);
   const per = slides.map((sl, i) => {
     const line = sl.scene
       || (sl.kind === 'photo' ? sl.head.join(' ') : (sl.lead || ''));
-    return `${i + 1}장 · 배경색 ${tones[i]}` + NL + `   ${line}`;
+    const tag = sl.style === 'bkyu' ? ' · B급 감성 규칙 적용' : '';
+    return `${i + 1}장 · 배경색 ${tones[i]}${tag}` + NL + `   ${line}`;
   }).join(NL + NL);
   console.log([
     `${deck.label} — 이미지 ${slides.length}장을 순서대로 만들어 주세요.`,
@@ -78,6 +98,9 @@ if (batch) {
     '',
     '[공통 규칙 — 모든 장에 적용]',
     STYLE,
+    ...(slides.some((sl) => sl.style === 'bkyu')
+      ? ['', '[B급 감성 규칙 — 해당 표시가 붙은 장에만 적용, 위 규칙보다 우선]', B_STYLE]
+      : []),
     '',
     '[장별]',
     per,

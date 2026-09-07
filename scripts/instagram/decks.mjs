@@ -754,3 +754,55 @@ DECKS.push({
            + 'Colourful play mats and a tambourine scattered around.' },
   ],
 });
+
+// 오프닝 패턴: 소문 — 카톡방에서 실제로 나온 "쪽쪽이 6개 돌려막기" 를 그대로 씀
+// 표지는 일본 B급 광고 감성(style: 'bkyu'), 내지는 기본 광고 포스터 톤
+DECKS.push({
+  id: 'C7-paci', type: 'multi', label: '쪽쪽이', gen: true,
+  slides: [
+    { kind: 'photo', place: '공갈젖꼭지', cat: '육아꿀팁',
+      head: ['지호네는 쪽쪽이가 여섯 개래', '쪽쪽이 덜 고생하는 요령 4가지'],
+      style: 'bkyu', tone: 'vivid orange',
+      scene: 'A Korean mother in her early thirties standing dead centre, facing '
+           + 'the camera with a wide-eyed look of comic desperation, both hands '
+           + 'raised and fanned out, clutching a whole handful of colourful baby '
+           + 'pacifiers between her fingers like playing cards. More pacifiers '
+           + 'frozen in mid-air raining down around her head. Deadpan expression, '
+           + 'slightly messy hair, plain home clothes.' },
+
+    { kind: 'photoBody', lead: '1. 빨다가 뱉으면 거기서 그만이야',
+      items: ['억지로 다시 밀어 넣으면 애가 더 크게 울더라고',
+              '재우기 전 의식을 다 끝내고 물려야 그대로 잠들어'],
+      scene: 'Extreme close-up of a Korean baby lying on a bed who has just spat '
+           + 'out a pacifier, the pacifier tumbling away in mid-air beside the '
+           + 'cheek, baby scrunching its face in refusal. A mother\'s hand hovers '
+           + 'nearby, hesitating, not pushing it back in.' },
+
+    { kind: 'photoBody', lead: '2. 침대에 두세 개는 뿌려놔야 해',
+      items: ['새벽에 하나 찾겠다고 더듬다가 잠이 다 깨잖아',
+              '손 닿는 데 굴러다녀야 애가 알아서 다시 물더라'],
+      scene: 'Overhead shot of a baby crib mattress at night with four or five '
+           + 'pacifiers scattered across the sheet in different colours, one '
+           + 'right beside a sleeping Korean baby\'s hand. Soft dim night light, '
+           + 'the scattered pacifiers clearly the subject.' },
+
+    { kind: 'photoBody', lead: '3. 낮잠 연장은 한 번만 시도해',
+      items: ['물려서 바로 이어 자면 다행인데 아니면 안 되더라고',
+              '두세 번 붙잡고 있다가 결국 완전히 깨워버리잖아'],
+      scene: 'A Korean mother crouched low beside a crib in a dim daytime room, '
+           + 'frozen mid-tiptoe with one arm still stretched over the rail, '
+           + 'holding her breath with an exaggerated please-stay-asleep face. '
+           + 'The baby inside has one eye popped wide open, looking straight at '
+           + 'her. Comic timing, sharp contrast.' },
+
+    { kind: 'photoBody', lead: '4. 떼는 시기는 치과에서 물어보고 정해',
+      items: ['돌 전후로 떼라는 얘기가 많은데 애마다 다 다르대',
+              '손 빨기로 넘어가면서 저절로 안 찾는 애도 있더라'],
+      scene: 'A Korean toddler sitting upright, holding a pacifier out at arm\'s '
+           + 'length away from its own mouth and staring at it with an intensely '
+           + 'serious, contemplative expression, as if making a life decision. '
+           + 'Clean simple background, single subject.' },
+
+    { kind: 'photoEnd' },
+  ],
+});
