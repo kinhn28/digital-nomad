@@ -370,6 +370,10 @@ export function buildHtml(decks = DECKS) {
     const t = THEMES[d.theme];
     d.slides.forEach((raw, i) => {
       const s = { ...(d.photoDefaults || {}), ...raw };
+      // 생성 이미지 세트: 카드마다 다른 사진을 쓴다.
+      // assets/photos/gen/<덱ID>-01.png … 규칙으로 자동 연결한다.
+      if (d.gen && !raw.photo && !s.bg && s.kind !== 'photoEnd')
+        s.photo = `assets/photos/gen/${d.id}-${String(i + 1).padStart(2, '0')}.png`;
       out.push(
         DRAWN_KINDS.includes(s.kind) ? drawnCard(s)
         : PHOTO_KINDS.includes(s.kind)

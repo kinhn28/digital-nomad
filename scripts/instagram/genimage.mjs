@@ -22,6 +22,8 @@ const id = (arg.match(/--deck=(\S+)/) || [])[1];
 const only = +(arg.match(/--slide=(\d+)/) || [])[1] || 0;
 const dry = arg.includes('--dry');
 const sheet = arg.includes('--sheet');   // 붙여넣기용 프롬프트 문서 생성
+const batch = arg.includes('--batch');
+const NL = String.fromCharCode(10);   // 세트 전체를 한 번에 요청하는 프롬프트 하나
 const vertex = arg.includes('--vertex');   // Vertex AI(Imagen) 경로. 무료 크레딧 사용
 const model = (arg.match(/--model=(\S+)/) || [])[1]
   || (vertex ? 'imagen-4.0-fast-generate-001' : 'gemini-3-pro-image');
@@ -60,6 +62,30 @@ const scenePrompt = (slide, i) => {
 const slides = deck.slides.filter((s) => s.kind !== 'photoEnd');
 const outDir = resolve(root, 'assets/photos/gen');
 mkdirSync(outDir, { recursive: true });
+
+// --batch : 세트 전체를 한 번에 뽑는 프롬프트 하나. 같은 대화에서 이어 만들면
+// 인물·조명·질감이 일관되게 나와 카드 사이가 붕 뜨지 않는다.
+if (batch) {
+  const tones = slides.map((_, i) => TONES[(deck.id.length + i) % TONES.length]);
+  const per = slides.map((sl, i) => {
+    const line = sl.scene
+      || (sl.kind === 'photo' ? sl.head.join(' ') : (sl.lead || ''));
+    return `${i + 1}장 · 배경색 ${tones[i]}` + NL + `   ${line}`;
+  }).join(NL + NL);
+  console.log([
+    `${deck.label} — 이미지 ${slides.length}장을 순서대로 만들어 주세요.`,
+    '한 장씩 차례로 만들고, 모두 같은 촬영 세팅과 같은 배우로 통일해 주세요.',
+    '',
+    '[공통 규칙 — 모든 장에 적용]',
+    STYLE,
+    '',
+    '[장별]',
+    per,
+    '',
+    '각 장은 4:5 세로로 만들어 주세요. 글자가 들어가면 그 장은 다시 만들어 주세요.',
+  ].join(NL));
+  process.exit(0);
+}
 
 // --sheet : 다른 도구(제미나이 앱 등)에 붙여넣을 프롬프트 문서를 만든다.
 // API 결제가 없어도 이 문서로 이미지를 받아 assets/photos/ 에 넣으면 그대로 이어진다.

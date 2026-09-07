@@ -743,7 +743,7 @@ DECKS.push({
 // 오프닝 패턴: 공감 한숨 — 한장 세트. 정보보다 마음이 목적
 // scene 은 이미지 생성용 영어 장면 묘사 (한국어 카피를 그대로 넘기면 글자를 그린다)
 DECKS.push({
-  id: 'C6-culture', type: 'single', label: '문화센터',
+  id: 'C6-culture', type: 'single', label: '문화센터', gen: true,
   slides: [
     { kind: 'photo', place: '문화센터', cat: '맘카페썰',
       head: ['문센 다녀오면 내가 더 지쳐', '그 마음 다들 똑같더라'],
