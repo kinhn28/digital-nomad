@@ -734,3 +734,18 @@ DECKS.push({
     { kind: 'photoEnd', bg: '#FFD400', ink: true },
   ],
 });
+
+// 오프닝 패턴: 공감 한숨 — 한장 세트. 정보보다 마음이 목적
+// scene 은 이미지 생성용 영어 장면 묘사 (한국어 카피를 그대로 넘기면 글자를 그린다)
+DECKS.push({
+  id: 'C6-culture', type: 'single', label: '문화센터',
+  slides: [
+    { kind: 'photo', place: '문화센터', cat: '맘카페썰',
+      head: ['문센 다녀오면 내가 더 지쳐', '그 마음 다들 똑같더라'],
+      scene: 'A Korean mother in her early thirties sitting slumped and utterly '
+           + 'drained on a padded playroom floor after a baby class, comically '
+           + 'exhausted, hair slightly messy. Beside her a cheerful toddler is '
+           + 'still bouncing with endless energy, mid-motion, laughing. '
+           + 'Colourful play mats and a tambourine scattered around.' },
+  ],
+});

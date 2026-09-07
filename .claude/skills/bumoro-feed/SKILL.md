@@ -26,6 +26,9 @@ description: 부모로(@bumoro.kr) 인스타그램 피드 카드와 캡션을 �
 3. 사진이 없으면 `node scripts/instagram/genimage.mjs --deck=<ID>` 로 생성한다
    (`--dry` 로 프롬프트만 먼저 확인). 스타일은 일본 광고 포스터 —
    단일 주인공 · 채도 높은 단색 배경 · 과장된 표정 · 하단 3분의 1은 비움.
+   슬라이드에 `scene` (영어 장면 묘사)을 넣으면 그걸 쓴다. 한국어 카피를
+   그대로 넘기면 이미지 모델이 글자를 그려 넣으므로 **항상 `scene` 을 쓴다**.
+   API 없이 갈 때는 `--sheet` 로 붙여넣기용 프롬프트 문서를 뽑는다.
    **키는 `.env.local` 의 `GEMINI_API_KEY`. 채팅·커밋에 절대 넣지 않는다.**
    생성 이미지에는 구글 SynthID(비가시 워터마크)가 항상 들어가며 제거할 수 없다.
 4. `node scripts/instagram/generate.mjs --deck=<ID>` 실행.

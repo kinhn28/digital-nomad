@@ -47,12 +47,14 @@ const TONES = ['warm yellow', 'coral pink', 'sky blue', 'mint green',
                'deep navy', 'cream beige', 'vivid orange', 'soft lilac'];
 
 const scenePrompt = (slide, i) => {
-  const line = slide.kind === 'photo'
+  // scene 이 있으면 그걸 쓴다. 한국어 카피를 그대로 넘기면 이미지 모델이
+  // 글자를 그려 넣거나 엉뚱하게 해석한다 — 영어 장면 묘사가 훨씬 안전하다.
+  const line = slide.scene || (slide.kind === 'photo'
     ? slide.head.join(' ')
-    : (slide.lead || (slide.items || []).join(' '));
+    : (slide.lead || (slide.items || []).join(' ')));
   const tone = TONES[(deck.id.length + i) % TONES.length];
   return `${STYLE}\nBackground colour: ${tone}.\n`
-       + `Scene to depict (do not write these words in the image, express them visually): ${line}`;
+       + `Scene: ${line}`;
 };
 
 const slides = deck.slides.filter((s) => s.kind !== 'photoEnd');
