@@ -8,6 +8,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DECKS } from './decks.mjs';
+import { loadServiceAccount, accessToken, imagen } from './vertex.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 if (existsSync(resolve(root, '.env.local')))
@@ -21,7 +22,9 @@ const id = (arg.match(/--deck=(\S+)/) || [])[1];
 const only = +(arg.match(/--slide=(\d+)/) || [])[1] || 0;
 const dry = arg.includes('--dry');
 const sheet = arg.includes('--sheet');   // 붙여넣기용 프롬프트 문서 생성
-const model = (arg.match(/--model=(\S+)/) || [])[1] || 'gemini-3-pro-image';
+const vertex = arg.includes('--vertex');   // Vertex AI(Imagen) 경로. 무료 크레딧 사용
+const model = (arg.match(/--model=(\S+)/) || [])[1]
+  || (vertex ? 'imagen-4.0-fast-generate-001' : 'gemini-3-pro-image');
 const deck = DECKS.find((d) => d.id === id);
 if (!deck) { console.error('세트를 찾을 수 없습니다:', id); process.exit(1); }
 
@@ -73,11 +76,26 @@ if (sheet) {
   process.exit(0);
 }
 
+let sa, token;
+if (vertex && !dry) {
+  sa = loadServiceAccount();
+  token = await accessToken(sa);
+  console.log(`Vertex · 프로젝트 ${sa.project_id} · 모델 ${model}`);
+}
+
 for (let i = 0; i < slides.length; i++) {
   if (only && only !== i + 1) continue;
   const prompt = scenePrompt(slides[i], i);
   const name = `${deck.id}-${String(i + 1).padStart(2, '0')}.png`;
   if (dry) { console.log(`\n── ${name} ──\n${prompt}`); continue; }
+
+  if (vertex) {
+    try {
+      writeFileSync(resolve(outDir, name), await imagen({ sa, token, prompt, model }));
+      console.log(`✓ assets/photos/gen/${name}`);
+    } catch (e) { console.error(`✗ ${name}  ${e.message}`); }
+    continue;
+  }
 
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
