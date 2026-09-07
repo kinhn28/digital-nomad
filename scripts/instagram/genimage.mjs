@@ -1,0 +1,75 @@
+// 카드 배경 이미지 생성 (Gemini / Nano Banana)
+//   node scripts/instagram/genimage.mjs --deck=C6-culture           실제 생성
+//   node scripts/instagram/genimage.mjs --deck=C6-culture --dry     프롬프트만 출력
+//   node scripts/instagram/genimage.mjs --deck=C6-culture --slide=1 특정 장만
+//
+// 키는 .env.local 의 GEMINI_API_KEY (깃 제외됨). 채팅이나 커밋에 넣지 말 것.
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { DECKS } from './decks.mjs';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+if (existsSync(resolve(root, '.env.local')))
+  for (const l of readFileSync(resolve(root, '.env.local'), 'utf8').split('\n')) {
+    const m = l.match(/^([A-Z_]+)=(.*)$/);
+    if (m) process.env[m[1]] ??= m[2];
+  }
+
+const arg = process.argv.slice(2).join(' ');
+const id = (arg.match(/--deck=(\S+)/) || [])[1];
+const only = +(arg.match(/--slide=(\d+)/) || [])[1] || 0;
+const dry = arg.includes('--dry');
+const model = (arg.match(/--model=(\S+)/) || [])[1] || 'gemini-3-pro-image';
+const deck = DECKS.find((d) => d.id === id);
+if (!deck) { console.error('세트를 찾을 수 없습니다:', id); process.exit(1); }
+
+// ── 부모로 이미지 스타일 ────────────────────────────────────────
+// 참고: 일본 광고 포스터 — 단일 주인공, 채도 높은 단색 배경, 과장된 표정,
+// 큰 여백. 카드 하단 24%에 글자가 얹히므로 그 자리는 비워 둔다.
+const STYLE = [
+  'Japanese advertising poster aesthetic, bold and eye-catching.',
+  'One clear subject, exaggerated expressive emotion, dynamic sense of motion.',
+  'Saturated flat single-colour background, crisp studio lighting, high contrast.',
+  'Photographic and real, not illustration, not 3D render.',
+  'Korean people, Korean home or Korean clinic setting.',
+  'Vertical 4:5 composition. Subject placed in the upper two thirds.',
+  'The lower third must stay visually calm and uncluttered for text overlay.',
+  'Absolutely no text, no letters, no numbers, no logos, no watermark, no signature.',
+].join(' ');
+
+// 배경색은 세트마다 다르게 — 피드가 한 색으로 안 몰리도록
+const TONES = ['warm yellow', 'coral pink', 'sky blue', 'mint green',
+               'deep navy', 'cream beige', 'vivid orange', 'soft lilac'];
+
+const scenePrompt = (slide, i) => {
+  const line = slide.kind === 'photo'
+    ? slide.head.join(' ')
+    : (slide.lead || (slide.items || []).join(' '));
+  const tone = TONES[(deck.id.length + i) % TONES.length];
+  return `${STYLE}\nBackground colour: ${tone}.\n`
+       + `Scene to depict (do not write these words in the image, express them visually): ${line}`;
+};
+
+const slides = deck.slides.filter((s) => s.kind !== 'photoEnd');
+const outDir = resolve(root, 'assets/photos/gen');
+mkdirSync(outDir, { recursive: true });
+
+for (let i = 0; i < slides.length; i++) {
+  if (only && only !== i + 1) continue;
+  const prompt = scenePrompt(slides[i], i);
+  const name = `${deck.id}-${String(i + 1).padStart(2, '0')}.png`;
+  if (dry) { console.log(`\n── ${name} ──\n${prompt}`); continue; }
+
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+    + `?key=${process.env.GEMINI_API_KEY}`,
+    { method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
+  const j = await res.json();
+  if (j.error) { console.error(`✗ ${name}  ${j.error.code} ${j.error.status}`); continue; }
+  const img = (j.candidates?.[0]?.content?.parts || []).find((p) => p.inlineData);
+  if (!img) { console.error(`✗ ${name}  이미지가 오지 않음`); continue; }
+  writeFileSync(resolve(outDir, name), Buffer.from(img.inlineData.data, 'base64'));
+  console.log(`✓ assets/photos/gen/${name}`);
+}

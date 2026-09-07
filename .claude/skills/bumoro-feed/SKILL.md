@@ -23,10 +23,15 @@ description: 부모로(@bumoro.kr) 인스타그램 피드 카드와 캡션을 �
 1. `scripts/instagram/decks.mjs` 에 덱을 추가한다 (아래 데이터 구조).
 2. 사진을 `assets/photos/` 에 둔다. **사진은 사용자가 준다 — 직접 찾지 않는다**
    (컨테이너 이그레스 정책상 이미지 호스트가 전부 막혀 있음).
-3. `node scripts/instagram/generate.mjs --deck=<ID>` 실행.
-4. 검증 3종이 전부 조용해야 한다 (아래 "검증 게이트").
-5. `scripts/instagram/captions.md` 에 캡션을 적는다.
-6. 커밋 → 푸시 → `public/instagram/<ID>.zip` 을 `SendUserFile` 로 전달하고
+3. 사진이 없으면 `node scripts/instagram/genimage.mjs --deck=<ID>` 로 생성한다
+   (`--dry` 로 프롬프트만 먼저 확인). 스타일은 일본 광고 포스터 —
+   단일 주인공 · 채도 높은 단색 배경 · 과장된 표정 · 하단 3분의 1은 비움.
+   **키는 `.env.local` 의 `GEMINI_API_KEY`. 채팅·커밋에 절대 넣지 않는다.**
+   생성 이미지에는 구글 SynthID(비가시 워터마크)가 항상 들어가며 제거할 수 없다.
+4. `node scripts/instagram/generate.mjs --deck=<ID>` 실행.
+5. 검증이 전부 조용해야 한다 (아래 "검증 게이트").
+6. `scripts/instagram/captions.md` 에 캡션을 적는다.
+7. 커밋 → 푸시 → `public/instagram/<ID>.zip` 을 `SendUserFile` 로 전달하고
    캡션은 채팅에 그대로 적어 준다.
 
 ## 덱 데이터 구조
